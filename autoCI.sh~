@@ -1,0 +1,7 @@
+#!/bin/bash
+# used to expedite RCS check in
+# dearl@soe 19 May 2009
+comment=${1}
+
+xs
+exit 0

@@ -1,0 +1,250 @@
+hsa:5335	hsa:815	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5335	hsa:816	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5335	hsa:817	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5335	hsa:818	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:815	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:816	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:817	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:818	PPrel	compound	cpd:C01245	path:hsa04012	ErbB signaling pathway
+
+
+hsa:5335	hsa:5578	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:5335	hsa:5579	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:5335	hsa:5582	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:5578	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:5579	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:5336	hsa:5582	PPrel	compound	cpd:C00165	path:hsa04012	ErbB signaling pathway
+hsa:23533	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:23533	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:23533	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5290	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5290	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5290	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5291	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5291	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5291	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5293	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5293	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5293	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5294	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5294	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5294	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5295	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5295	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5295	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5296	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5296	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:5296	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:8503	hsa:10000	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:8503	hsa:207	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:8503	hsa:208	PPrel	compound	cpd:C05981	path:hsa04012	ErbB signaling pathway
+hsa:1950	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1950	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:7039	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:7039	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:374	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:374	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:685	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:685	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:685	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:685	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1839	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1839	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1839	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1839	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2069	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2069	hsa:1956	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2069	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2069	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3084	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3084	hsa:2065	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3084	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3084	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:9542	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:9542	hsa:2065	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:9542	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:9542	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:10718	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:10718	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:145957	undefined	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:145957	hsa:2066	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5335	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:5336	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:23624	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:867	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:868	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6776	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6777	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:1398	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:1399	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6714	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:4690	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+undefined	hsa:8440	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:5335	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:5336	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:6776	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:6777	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:1398	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:1399	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:6714	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1956	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:23533	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5290	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5291	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5293	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5294	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5295	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:5296	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2065	hsa:8503	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:23533	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5290	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5291	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5293	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5294	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5295	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5296	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:8503	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:25759	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:399694	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:53358	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:6464	PPrel			path:hsa04012	ErbB signaling pathway
+undefined	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:23533	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5290	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5291	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5293	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5294	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5295	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:5296	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+undefined	hsa:8503	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6714	hsa:5747	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:1398	hsa:25	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1398	hsa:27	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1399	hsa:25	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:1399	hsa:27	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:10298	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:5058	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:5062	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:5063	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:56924	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4690	hsa:57144	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:10298	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:5058	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:5062	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:5063	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:56924	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:8440	hsa:57144	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:10298	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:10298	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5058	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5058	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5062	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5062	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5063	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5063	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:56924	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:56924	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:57144	hsa:5609	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:57144	hsa:6416	PPrel	indirect	..>	path:hsa04012	ErbB signaling pathway
+hsa:5609	hsa:5599	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5609	hsa:5601	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5609	hsa:5602	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:6416	hsa:5599	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:6416	hsa:5601	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:6416	hsa:5602	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5599	hsa:3725	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5601	hsa:3725	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5602	hsa:3725	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5599	hsa:2002	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5601	hsa:2002	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5602	hsa:2002	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:25759	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:399694	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:53358	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6464	hsa:2885	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2885	hsa:6654	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2885	hsa:6655	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6654	hsa:3265	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6654	hsa:3845	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6654	hsa:4893	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6655	hsa:3265	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6655	hsa:3845	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:6655	hsa:4893	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3265	hsa:369	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3265	hsa:5894	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3265	hsa:673	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3845	hsa:369	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3845	hsa:5894	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:3845	hsa:673	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4893	hsa:369	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4893	hsa:5894	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:4893	hsa:673	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:369	hsa:5604	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:369	hsa:5605	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5894	hsa:5604	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5894	hsa:5605	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:673	hsa:5604	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:673	hsa:5605	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5604	hsa:5594	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5604	hsa:5595	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5605	hsa:5594	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5605	hsa:5595	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5594	hsa:4609	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5595	hsa:4609	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5594	hsa:2002	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:5595	hsa:2002	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2066	hsa:6776	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2066	hsa:6777	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2885	hsa:2549	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:23533	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5290	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5291	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5293	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5294	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5295	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:5296	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:2549	hsa:8503	PPrel	activation	-->	path:hsa04012	ErbB signaling pathway
+hsa:10000	hsa:2475	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:207	hsa:2475	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:208	hsa:2475	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2475	hsa:6198	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2475	hsa:6199	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:2475	hsa:1978	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:10000	hsa:572	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:207	hsa:572	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:208	hsa:572	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:10000	hsa:2932	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:207	hsa:2932	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:208	hsa:2932	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:10000	hsa:1027	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:207	hsa:1027	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:208	hsa:1027	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:10000	hsa:1026	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:207	hsa:1026	PPrel			path:hsa04012	ErbB signaling pathway
+hsa:208	hsa:1026	PPrel			path:hsa04012	ErbB signaling pathway

@@ -1,0 +1,21 @@
+
+
+struct upstreamGene {
+  int id;                /* key */
+  char description[100];
+  UT_hash_handle hh;     /* this struct is hashable */
+};
+typedef struct upstreamGene upstreamGene;
+
+
+
+/* Protoypes */
+void gatherOptions(int argc, char **argv, char **dir);
+void usage(void);
+void printDir(char **dir);
+void cat(char *file);
+int  endsIn_txt(char *filename);
+void readTab(char *filename);
+int  addGene(int geneID, char *descrip);
+upstreamGene* findGene(int geneID);
+void printPathway(void);

@@ -1,0 +1,21 @@
+hsa:7317	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7318	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7332	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:9246	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7314	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7314	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7314	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:7314	hsa:7314	PPrel	binding/association	---	path:hsa05012	Parkinson's disease
+hsa:27429	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:291	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:292	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:293	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:5481	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:729317	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:7416	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:7417	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:7419	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:83447	hsa:54205	PPrel			path:hsa05012	Parkinson's disease
+hsa:54205	hsa:842	PPrel	activation	-->	path:hsa05012	Parkinson's disease
+hsa:317	hsa:842	PPrel	activation	-->	path:hsa05012	Parkinson's disease
+hsa:842	hsa:836	PPrel	activation	-->	path:hsa05012	Parkinson's disease

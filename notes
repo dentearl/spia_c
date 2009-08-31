@@ -1,0 +1,12 @@
+####################
+# 29 April 2009
+just got the file read mostly checked out.
+to do:
+* put the hash function in (uthash).
+* build a beta matrix
+* read in some diff express data
+* read in the reference set
+* do spia
+* add bootstrap
+* allow batch runs of pathways
+

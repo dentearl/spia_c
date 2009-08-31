@@ -1,0 +1,209 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>  /* gcc test for regular file types when opening things */
+#include <getopt.h>    /* get command line options */
+#include <dirent.h>    /* opening files */
+#include <uthash.h>    /* hashes! */
+
+#define MAXPATHLENGTH 256
+
+struct upstreamGene {
+  int id;                /* key */
+  char description[100];
+  UT_hash_handle hh;     /* this struct is hashable */
+};
+typedef struct upstreamGene upstreamGene;
+
+/* Protoypes */
+void gatherOptions(int argc, char **argv, char **dir);
+void usage(void);
+void printDir(char **dir);
+void cat(char *file);
+int  endsIn_txt(char *filename);
+void readTab(char *filename);
+int  addGene(int geneID, char *descrip);
+upstreamGene* findGene(int geneID);
+void printPathway(void);
+
+struct upstreamGene *pathway = NULL; /* our pathway hash  */
+
+int main(int argc, char *argv[]){
+  int wasError = 0;
+  char *dirName = NULL; 
+  gatherOptions(argc, argv, &dirName);
+  fprintf(stderr,"opening `%s'\n",dirName);
+  printDir(&dirName);
+  return(0);
+}
+
+void gatherOptions(int argc, char **argv, char **dir){
+  int c;
+  while (1)
+	{
+	  static struct option long_options[] =
+		{
+		  /* These options don't set a flag.
+			 We distinguish them by their indices. */
+		  {"dir",  required_argument, 0, 'd'},
+		  {0}
+		};
+	  /* getopt_long stores the option index here. */
+	  int option_index = 0;
+	  c = getopt_long(argc, argv, "mv:",
+					   long_options, &option_index);
+	  /* Detect the end of the options. */
+	  if (c == -1){
+		break;
+	  }
+	  switch (c)
+		{
+		case 0:
+		  break;
+		case 'd':
+		  *dir = optarg;
+		  break;
+		case '?':
+		  /* getopt_long already printed an error message. */
+		  break;
+		default:
+		  abort ();
+		}
+	}
+  if(*dir == NULL)
+	usage();
+}
+
+void usage(void){
+  fprintf(stderr, "Usage: --dir <>\n");
+  exit(0);
+}
+
+void printDir(char **dir){
+  DIR *dip;
+  struct dirent *dit;
+  int i = 0;
+  int leng = 0;
+  char fullPath[MAXPATHLENGTH];
+  char tmpPath[MAXPATHLENGTH];
+  struct stat buff;
+  strcpy(fullPath, *dir);
+  /*  printf("%s\n",fullPath); */
+  
+  if((dip = opendir(*dir))==NULL){
+	fprintf(stderr,"oh noes on dir open!\n");
+	exit(1);
+  }
+  while((dit = readdir(dip)) != NULL){
+	i++;
+	strcpy(tmpPath,fullPath);
+	/*	printf("%s\n", dit->d_name); */
+	strcat(tmpPath, dit->d_name);
+	leng = strlen(dit->d_name);
+	/*	printf("  %d\n", leng); */
+	stat(tmpPath, &buff);
+	if(S_ISREG(buff.st_mode)){
+	  /* Is it a regular file? */
+	  if(endsIn_tab(tmpPath)){
+		/* cat(tmpPath); */
+		 readTab(tmpPath);
+	  }
+	}
+  }
+  if(closedir(dip) != 0){
+	fprintf(stderr, "oh noes on dir close!\n");
+	exit(1);
+  }
+}
+
+void cat(char *file){
+  FILE *ifp;
+  int c;
+  ifp = fopen(file, "r");
+  printf("ATTEMPTING TO READ `%s'\n", file);
+  if(ifp != NULL){
+	while((c = getc(ifp)) != EOF)
+	  putc(c,stdout);
+  }
+}
+
+int endsIn_tab(char *filename){
+  /* endsIn should return a 0 if the name does not end
+	 in `.tab', and a 1 if it does */
+  char nameCopy[MAXPATHLENGTH];
+  strcpy(nameCopy, filename);
+  char *tmp;
+  int status=0;
+  /* We'll use strtok to cut up the filename and see if .tab is on the end  */
+  for(tmp=strtok(nameCopy,"."); tmp != NULL; tmp = strtok(NULL, ".")){
+	/*	printf("tok:\t%s\n",tmp); */
+	if(strcmp(tmp, "tab")==0)
+	  status=1;
+  }
+  return status;
+}
+
+void readTab(char *filename){
+  /* readTab should be able to take a pathname to a tab file
+     and a pointer to a hash of pathway entries, and read out
+	 the good bits, and stuff it in a hash.*/
+  FILE *ifp;
+  char *line;
+  int nbytes = 100;
+  int bytes_read = 1;
+  int c;
+  int upstream, downstream;
+  char *pathname;
+  char *thing0;
+  char *thing1;
+  char *thing2;
+  char *descrip;
+  upstreamGene *g;
+  line = (char *) malloc (nbytes + 1);
+  pathname = (char *) malloc (nbytes + 1);
+  thing0 = (char *) malloc (nbytes + 1);
+  thing1 = (char *) malloc (nbytes + 1);
+  thing2 = (char *) malloc (nbytes + 1);
+  descrip = (char *) malloc (nbytes + 1);
+
+  ifp = fopen(filename, "r");
+  printf("ATTEMPTING TO READ `%s'\n", filename);
+  
+  while(bytes_read > 0){
+	bytes_read = getline(&line, &nbytes, ifp);
+	sscanf(line, "hsa:%d hsa:%d %s %s %s path:%s %s", &upstream, &downstream, thing0, thing1, thing2, pathname, descrip);
+	/*	sscanf(line, "cpd:%s", &pathname); */
+	/* put find findGene call here  */
+	g = findGene(upstream);
+	if(g==NULL){
+	  addGene(upstream, descrip);
+	  /* printf("up: %d down: %d thing: %s path: %s description: %s\n", upstream, downstream, thing0, pathname, descrip); */
+	}	
+  }
+  unsigned int num_genes;
+  num_genes = HASH_COUNT(pathway);
+  printf("We have %d upstream genes in our hash.\n", num_genes);
+  printPathway();
+}
+
+int  addGene(int geneID, char *descrip){
+  upstreamGene *g;
+  g = malloc(sizeof(upstreamGene));
+  g->id = geneID;
+  strcpy(g->description, descrip);
+  HASH_ADD_INT(pathway, id, g);
+}
+
+upstreamGene* findGene(int geneID){
+  upstreamGene *g;
+  HASH_FIND_INT(pathway, &geneID, g);
+  return g;
+}
+
+void printPathway(void){
+  upstreamGene *g;
+  for (g=pathway; g!=NULL; g=g->hh.next){
+	printf("geneID: %d description: %s\n", g->id, g->description);
+  }
+}

@@ -1,0 +1,6 @@
+hsa:A hsa:B PPrel	activation	-->	path:whee	ECM-receptor interaction
+hsa:A hsa:E PPrel	activation	-->	path:whee	ECM-receptor interaction
+hsa:A hsa:F PPrel	activation	-->	path:whee	ECM-receptor interaction
+hsa:B hsa:D PPrel	activation	-->	path:whee	ECM-receptor interaction
+hsa:B hsa:C PPrel	activation	-->	path:whee	ECM-receptor interaction
+hsa:F hsa:C PPrel	inhibition	-->	path:whee	ECM-receptor interaction

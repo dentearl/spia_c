@@ -1,0 +1,36 @@
+void gatherOptions(int argc, char **argv, char **dir){
+  int c;
+  while (1)
+	{
+	  static struct option long_options[] =
+		{
+		  /* These options don't set a flag.
+			 We distinguish them by their indices. */
+		  {"dir",  required_argument, 0, 'd'},
+		  {0}
+		};
+	  /* getopt_long stores the option index here. */
+	  int option_index = 0;
+	  c = getopt_long(argc, argv, "mv:",
+					   long_options, &option_index);
+	  /* Detect the end of the options. */
+	  if (c == -1){
+		break;
+	  }
+	  switch (c)
+		{
+		case 0:
+		  break;
+		case 'd':
+		  *dir = optarg;
+		  break;
+		case '?':
+		  /* getopt_long already printed an error message. */
+		  break;
+		default:
+		  abort ();
+		}
+	}
+  if(*dir == NULL)
+	usage();
+}

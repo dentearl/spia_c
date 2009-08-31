@@ -1,0 +1,43 @@
+#include "spia.h"
+void buildBeta(void){
+  extern upstreamGene *pathway;
+  extern geneItem     *geneOrder;
+  unsigned int n;
+  n = HASH_COUNT(geneOrder);
+  double *p;
+  double **beta;
+  int i,j;
+  p = malloc(n * n * sizeof(double));
+  beta = malloc(n * sizeof(double *));
+  assert(p != NULL);
+  assert(beta != NULL);
+  for (i = 0; i < n; ++i)
+	beta[i] = p + i * n;
+  for (i = 0; i < n; ++i)
+	for (j = 0; j < n; ++j)
+	  beta[i][j] = 0;
+  printMatrix(beta, n);
+  
+
+}
+
+void printMatrix(double **a, int n){
+  /* for debug purposes only */
+  int i, j;
+  for(i = 0; i < n; ++i)
+	for(j = 0; j< n; ++j)
+	  printf("%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
+}
+
+void transposeMatrix(double **a, int n){
+  /* leaves the diagonals alone.  */
+  int i, j;
+  double tmp;
+  for (i = 0; i < n; ++i){
+	for (j = i + 1; j < n; ++j){
+	  tmp = a[i][j];
+	  a[i][j] = a[j][i];
+	  a[j][i] = tmp;
+	}
+  }
+}
