@@ -1,9 +1,0 @@
-########################################
-# spia makefile
-#  dent earl, dearl soe ucsc edu
-#  1 may 2009
-########################################
-
-spia: spia.c
-	gcc spia.c -o spia -I ../uthash-1.5/src/
-
