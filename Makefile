@@ -6,7 +6,7 @@
 make:
 	cat Makefile
 
-spia: spia.c spia.h fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o
+all: spia.c spia.h fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o
 	gcc -g spia.c -o spia fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o -I uthash-1.5/src/ -F77 -I77 -llapack -lblas
 
 fileHandling.o: fileHandling.c
@@ -20,16 +20,16 @@ linearAlg.o: linearAlg.c
 probFunctions.o: probFunctions.c
 	gcc -c -g probFunctions.c  -I uthash-1.5/src/
 
+
+##################################################
+# test functions
 test:
 	./spia --dir testPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab
 testd:
 	./spia --dir testPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab --debug --verbose
 charlie:
 	./spia --dir charlieParse/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab
-production:
-	./spia --dir charlieParse/ --de testData/DE_Colorectal.tab --array testData/ALL_Colorectal.tab
-debug:
-	gdb spia # --dir testPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab
 
+##################################################
 clean:
 	\rm -rf *.o

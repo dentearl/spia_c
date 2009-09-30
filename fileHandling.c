@@ -107,7 +107,7 @@ int endsIn_tab(char *filename){
 }
 
 void usage(void){
-  fprintf(stderr, "Usage: --dir <> --de <> --array <> --sPathFile <> --nBoots\n");
+  fprintf(stderr, "Usage: --dir <pathway directory> --de <Diff Exp File> --array <Entire Test Set File>  --nBoots <int> --quietNetAcc [optional]\n");
   exit(0);
 }
 
