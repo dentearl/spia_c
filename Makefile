@@ -3,6 +3,8 @@
 #  dent earl, dearl soe ucsc edu
 #  1 may 2009
 ########################################
+make:
+	cat Makefile
 
 spia: spia.c spia.h fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o
 	gcc -g spia.c -o spia fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o -I uthash-1.5/src/ -F77 -I77 -llapack -lblas
