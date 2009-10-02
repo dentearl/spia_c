@@ -107,7 +107,7 @@ int main(int argc, char *argv[]){
     } // end file reading while loop
     if(closedir(dip) != 0){
       fprintf(stderr, "Error while closing directory `%s'!\n",dirName);
-      exit(-1);
+      exit(1);
     }
   }else if(singlePathFormatName){
     printf("So, you want a single path file, huh?\nLet me get back to you on that.\n");

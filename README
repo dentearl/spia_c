@@ -1,0 +1,78 @@
+'SPIA IN C' README
+Dent Earl, dearl a soe ucsc edu
+October 2009
+
+OVERVIEW
+  SPIA is an acronym for Signalling Pathway Impact Analysis and is taken from
+the 2009 paper by Tarca et al, A novel signaling pathway impact analysis. 
+'SPIA in C', herein spia_c, is a C language implementation of the SPIA algorithm
+based in part by the R code made available by Tarca et al. on their website,
+http://bioinformaticsprb.med.wayne.edu/SPIA/
+spia_c was written at UCSC by Dent Earl while working for Josh Stuart.
+We wrote the version in C to facilitate as-fast-as-possible batch running of
+SPIA for use with the UCSC Cancer Browser, or with the BioIntegrator.
+IF your project is fairly simple, or doesn't require super-fast results, or
+doesn't need to be in a pipeline, you may want to try out the R version, first.
+
+BACKGROUND
+The SPIA method, described in the Tarca paper, involves a combination of a
+traditional over-representation analysis (ORA) and a novel pathway analysis.
+The pathway analysis is performed by grabbing pathways (the R version pulls
+from Kegg, the C version requires you to provide pathways in the specific
+Charlie-format), and then using the experiment results (both the test space,
+meaning all genes that were on the array you used, and the genes that were
+differentially expressed along with their log-fold change values) checks to
+see if your experiment 'perturbed' a particular pathway.
+
+DETAILS
+The ORA used in SPIA is the hypergeometeric. 
+The simple description is that each pathway is handled iteratively. First it is
+decomposed into 23 different 
+n by n matrices, where n is the number of genes in the pathway, and the
+number 23 comes from the number of different interaction types that Kegg 
+tracks. The values in the matrices are binary where a A_{ij} = 1 means 
+that gene j effects gene i (the effect being dependent on which of the 23
+matrices you're talking about, e.g. activation, inhibition, etc) and 
+A_{ij} = 0 means that gene j does not effect gene i.
+These matrices are compressed into a single matrix by normalizing the sum of each
+column to 1 and then multiplying the matrix by the coeffecient of that relationship.
+We use Tarca et al.'s coeffecient vector, but you could use anything. Additionally
+they use binary values, but there is no reason why you couldn't use doubles should
+you have cause to. HOWEVER, I never got around to writing the code for allowing
+custom coefficent vectors.
+The matrix B is then subtracted from the identity matrix, inverted, multiplied by the
+B matrix and then multiplied by the differentially expressed vector:
+Accumulation = B * (I-B)^{-1} * diffExpression
+Further we know that
+Accumulation = PerturbationFactor - diffExpression
+And this allows us to solve for the perterbation factor. tA is the net accumulation,
+and we sum the entire vector to calculate it.
+tA = sum(Accumulation)
+Next the bootstrap is applied to try to find an empirical distribution of tA scores.
+This is where the PPert, or probability of perturbation, comes from.
+
+INSTALLATION
+spia_c should be installed from the Makefile using $ make all . spia_c requires:
+* uthash - (provided), a C-library for hashes.
+* LAPACK and BLAS - Linear algebra libraries, used for inverting matrices.
+
+USE
+spia_c requires a couple of things to run. It requires a directory (--dir)
+containing pathways in a tab-delimited, Charlie-formatted pathay files
+(more information needed here). The files must end in '.tab'. It also requires a
+tab-delimited file containing the differentially expressed genes from your 
+experiment (geneName \t log-fold expression change). Lastly it requires a
+tab-delimited file containing all genes that were tested in the experminent,
+INCUDING the genes that were differentially expressed (order number 
+{1,2,3,...} \t geneName). All geneNames may be strings. The net accumulation
+data for each pathway may be silenced by using the --quietNetAcc command line
+option. The number of bootstraps is specified with the --nBoots command line
+option.
+
+./spia --dir testPathways/ --de testData/DE_Colorectal.tab  --array testData/ALL_Colorectal.tab --nBoots 2000
+./spia --dir testPathways/ --de testData/DE_Colorectal.tab  --array testData/ALL_Colorectal.tab --nBoots 2000 --queitNetAcc
+
+There are also --verbose and --debug flags.
+
+REFERENCES
+* Tarca et al. A novel signaling pathway impact analysis. Bioinformatics (2009) vol. 25 (1) pp. 75-82
