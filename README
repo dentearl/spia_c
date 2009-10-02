@@ -25,9 +25,12 @@ differentially expressed along with their log-fold change values) checks to
 see if your experiment 'perturbed' a particular pathway.
 
 DETAILS
-The ORA used in SPIA is the hypergeometeric. 
-The simple description is that each pathway is handled iteratively. First it is
-decomposed into 23 different 
+The ORA used in SPIA is the hypergeometeric. We get a p-value from the hypergeo
+and from the pathway analysis and we combine them at the end.
+spia_c loads all the tested genes and the differentially expressed genes into
+hashes and then iteratively processes each pathway file in the pathway directory
+(--dir).
+First it is decomposed into 23 different 
 n by n matrices, where n is the number of genes in the pathway, and the
 number 23 comes from the number of different interaction types that Kegg 
 tracks. The values in the matrices are binary where a A_{ij} = 1 means 
@@ -74,5 +77,18 @@ option.
 
 There are also --verbose and --debug flags.
 
+CHARLIE FORMAT
+I don't really know what Charlie's format is exactly. In goes the Kegg xml, out
+comes a tab delimited file, via kegg2tab.py (unknown location). One line looks like
+hsa:941	hsa:940	PPrel	activation	-->	path:hsa05330	Allograft rejection
+Here's my guess:
+species:gene1 species:gene2 type(?) relationship relationshipPictogram path:speciesPathNumber commonName(??)
+So from the example, Human gene 941 is activating gene 940 in pathway 05330.
+We get the Charlie parse from
+/projects/sysbio/Map/Data/Pathways/Human/KEGG/TabResults/
+
 REFERENCES
 * Tarca et al. A novel signaling pathway impact analysis. Bioinformatics (2009) vol. 25 (1) pp. 75-82
+* Draghici et al. A systems biology approach for pathway level analysis. Genome Res (2007) vol. 17 (10) pp. 1537-45
+* Hassan et al. Signature pathways identified from gene expression profiles in the human uterine cervix before and after spontaneous term parturition. Am J Obstet Gynecol (2007) vol. 197 (3) pp. 250.e1-7
+* Khatri et al. A System Biology Approach for the Steady-State Analysis of Gene Signaling Networks. 12th Iberoamerican Congress on Pattern Recognition, Valparasio, Chile (2007)
