@@ -17,9 +17,9 @@ int main(int argc, char *argv[]){
   char *dirName = NULL; 
   char *deName  = NULL; /* differential expression, file  */
   char *arrName = NULL; /* list of all genes tested, file*/
-  char *pathFormatName = NULL; /* alternate pathway input mode, one pathway file*/
+  char *singlePathFormatName = NULL; /* alternate pathway input mode, one pathway file*/
   srand(time(NULL));
-  gatherOptions(argc, argv, &dirName, &deName, &arrName, &pathFormatName);
+  gatherOptions(argc, argv, &dirName, &deName, &arrName, &singlePathFormatName);
   if(verbose_flag)
     fprintf(stdout,"Opening differetially expressed (DE) genes file: `%s'\n",deName);
   readDETab(deName);
