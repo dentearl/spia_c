@@ -17,9 +17,14 @@ int main(int argc, char *argv[]){
   char *dirName = NULL; 
   char *deName  = NULL; /* differential expression, file  */
   char *arrName = NULL; /* list of all genes tested, file */
+  char *betaCoeffFile = NULL; /* user specified beta coefficients */
   char *singlePathFormatName = NULL; /* alternate pathway input mode, one pathway file*/
   srand(time(NULL));
-  gatherOptions(argc, argv, &dirName, &deName, &arrName, &singlePathFormatName);
+  gatherOptions(argc, argv, &dirName, &deName, &arrName, &singlePathFormatName, &betaCoeffFile);
+  if(betaCoeffFile){
+    readBetaCoeffFile(betaCoeffFile);
+    //    printBetaCoeffs();
+  }
   if(verbose_flag)
     fprintf(stdout,"Opening differetially expressed (DE) genes file: `%s'\n",deName);
   readDETab(deName);
@@ -37,7 +42,7 @@ int main(int argc, char *argv[]){
     strcpy(fullPath, dirName);
     if((dip = opendir(dirName))==NULL){
       fprintf(stderr,"Error while openning directory `%s'!\n",dirName);
-      exit(-1);
+      exit(1);
     }
     double tA; // this is the sum of pert factors for our observed data.
     double tAc; // median corrected pert factor value.

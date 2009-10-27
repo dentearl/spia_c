@@ -105,6 +105,16 @@ void printNamedVector(double *a, int n){
   }
 }
 
+void printBetaCoeffs(void){
+  extern char *relationTypeStr[];
+  extern double betaCoefs[];
+  int i;
+  //  char *tmp;
+  for(i=0; i < NUM_REL; ++i)
+    printf("%s\t%lf\n",relationTypeStr[i], betaCoefs[i]);
+}
+
+
 void transposeMatrix(double **a, int n){
   /* leaves the diagonals alone.  */
   int i, j;

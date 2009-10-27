@@ -92,10 +92,11 @@ struct pGlobal{
 };
 
 /* General functions */
-void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **spf);
+void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **spf, char **betaCoFile);
 void usage(void);
 int  endsIn_tab(char *filename);
 int readPathway(char *filename);
+void readBetaCoeffFile(char *filename);
 double processPathway(int *status);
 void readDETab(char *filename);
 void readArrayTab(char *filename);
@@ -103,6 +104,7 @@ int  isRelationship(char *rel, relationType *relType_ptr);
 void addItemToIntersect(char *id, int orgOrd, int newOrd);
 void printIsectList(void);
 void deleteIntersect(void);
+void printBetaCoeffs(void);
 void cleanup(void);
 
 /* pathway hash and list functions */

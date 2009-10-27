@@ -34,13 +34,13 @@ char *relationTypeStr[48] = {"activation", "compound", "binding_association", "e
                               "transcriptional_activation", "transcriptional_inhibition",
                               "process_activation", "process_inhibition"};
 
-double     *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
-char *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
-double            **beta2 = NULL;
-double            probNDE;
-pGlobal          *pGlist  = NULL; /* our hash to store all the global p values for all pathways tested*/ 
+double  *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
+char    *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
+double  **beta2 = NULL;
+double  probNDE = -1.0;
+pGlobal *pGlist  = NULL; /* our hash to store all the global p values for all pathways tested*/ 
 
-void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **pathf){
+void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **pathFile, char **betaFile){
   /* 
      gather command line options and send them back to main
   */
@@ -65,6 +65,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
           {"nBoots", required_argument, 0,'b'},
           {"array", required_argument, 0,'a'},
           {"pathFile", required_argument, 0, 'p'},
+          {"betaCoFile", required_argument, 0, 'c'},
           {0, 0, 0, 0}
         };
       /* getopt_long stores the option index here. */
@@ -85,6 +86,9 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
         case 'e':
           *de = optarg;
           break;
+        case 'c':
+          *betaFile = optarg;
+          break;
         case 'b':
           sscanf(optarg, "%d", &nBoots);
           break;
@@ -92,7 +96,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
           *ar = optarg;
           break;
         case 'p':
-          *pathf = optarg;
+          *pathFile = optarg;
           break;
         case '?':
           /* getopt_long already printed an error message. */
@@ -101,7 +105,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
           abort ();
         }
     }
-  if((*dir == NULL && *pathf == NULL ) || *de == NULL || *ar == NULL)
+  if((*dir == NULL && *pathFile == NULL ) || *de == NULL || *ar == NULL)
     usage();
 }
 
@@ -265,6 +269,42 @@ int readPathway(char *filename){
   return HASH_COUNT(geneOrder);
 }
 
+void readBetaCoeffFile(char *filename){
+  extern int debug_flag;
+  extern int verbose_flag;
+  extern char *relationTypeStr[];
+  extern double betaCoefs[];
+  FILE *ifp;
+  int nbytes = 200;
+  int bytes_read = 1;
+  int c, i=0;
+  char *line, *relName;
+  relationType enumRelType;
+  int nArgs;
+  line     = (char *) malloc(nbytes + 1);
+  relName  = (char *) malloc(nbytes + 1);
+  double beta;
+  
+  ifp = fopen(filename, "r");
+  if(verbose_flag)
+    printf("READING `%s'\n", filename);
+  //  printBetaCoeffs();
+  while(bytes_read > 0){
+    bytes_read = getline(&line, &nbytes, ifp);
+    if(bytes_read <= 0)
+      continue;
+    nArgs = sscanf(line, "%s\t%lf", relName, &beta);
+    //    printf("I see %s, %lf")
+    if(isRelationship(relName, &enumRelType) && (nArgs == 2 )){
+      char *tmp = relationTypeStr[enumRelType];
+      //      printf("I see you want to use %s, [%d] with value %lf\n", tmp, enumRelType, beta);
+      betaCoefs[enumRelType] = beta;
+    }
+  }
+  //  printBetaCoeffs();
+  free(line);
+  free(relName);
+}
 
 double processPathway(int *status){
   extern int debug_flag;
