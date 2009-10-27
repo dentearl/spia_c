@@ -63,7 +63,7 @@ void printPathwayAll(void){
 	current = current->hh.next;
   }
 }
-void printPathwayAllarray(void){
+void printPathwayAllArray(void){
   extern allGene *pathway_all;
   extern char *all_pathway_ids[];
   int i,n;
@@ -133,13 +133,16 @@ void deleteAllPath(void){
 void printPathway(void){
   upstreamGene *current;
   extern upstreamGene *pathway_up;
+  extern char *relationTypeStr[];
   downList *d = NULL;
+  char *tmp;
   current = pathway_up;
   while(current != NULL){
 	printf("%s", current->id);
 	d = current->down;
 	while(d != NULL){
-	  printf("\n\t%s [%d]", d->id, d->relation);
+          tmp = relationTypeStr[d->relation];
+	  printf("\n\t%s [%s]", d->id, tmp);
 	  d = d->next;
 	}
 	printf("\n");

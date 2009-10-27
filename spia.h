@@ -3,21 +3,37 @@
 #define MAX_PATH_LENGTH 256 /* file system path names  */
 #define MAX_ID_LENGTH 100   /* maximum gene name (id) length */
 #define MAX_PATHWAY 1000    /* largest pathway in terms of unique genes*/
+#define NUM_REL 28 /* the number of relationships possible. length of 
+                      enum relationType.
+                   */
 /* 
    techincal note here, the actual binding/association relationships use `/'
    in their names, but c complains when we do this, so we have substituted
    `_' in their place.
 */ 
 enum relationType {activation, compound, binding_association, expression,
-				   inhibition, activation_phosphorylation, phosphorylation,
-				   indirect, inhibition_phosphorylation, dephosphorylation_inhibition,
-				   dissociation, dephosphorylation, activation_dephosphorylation,
-				   state, activation_indirect, inhibition_ubiquination, ubiquination,
-				   expression_indirect, indirect_inhibition, repression,
-				   binding_association_phosphorylation, dissociation_phosphorylation,
-				   indirect_phosphorylation};
-
+                   inhibition, activation_phosphorylation, phosphorylation,
+                   indirect, inhibition_phosphorylation, dephosphorylation_inhibition,
+                   dissociation, dephosphorylation, activation_dephosphorylation,
+                   state, activation_indirect, inhibition_ubiquination, ubiquination,
+                   expression_indirect, indirect_inhibition, repression,
+                   binding_association_phosphorylation, dissociation_phosphorylation,
+                   indirect_phosphorylation, family_membership,
+                   transcriptional_activation, transcriptional_inhibition,
+                   process_activation, process_inhibition};
 typedef enum relationType relationType;
+
+
+/* STEVE BENZ SAYS:
+  Yea I can give you some coefficients:
+  member> family_membership       0
+  -t> transcriptional_activation  1
+  -t| transcriptional_inhibition -1
+  -ap> process_activation         1
+  -ap| process_inhibition        -1
+*/
+
+
 typedef struct downList downList;
 struct downList {
   char id[MAX_ID_LENGTH];
@@ -75,10 +91,6 @@ struct pGlobal{
   UT_hash_handle hh;
 };
 
-#define NUM_REL 23 /* the number of relationships possible. length of 
-					  enum relationType.
-					*/
-
 /* General functions */
 void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **spf);
 void usage(void);
@@ -106,7 +118,7 @@ int  addGenePathAll(char *geneID);
 allGene* findGenePathAll(char *geneID);
 void deleteAllPathAll(void);
 void printPathwayAll(void);
-void printPathwayAllarray(void); // alternative method, using the global array of ptrs
+void printPathwayAllArray(void); // alternative method, using the global array of ptrs
 int countIntersect_array_path(void);
 
 /* gene order hash and list functions */
@@ -168,15 +180,14 @@ double correctTA(double *a, int n);                /* takes sorted *a, finds med
 void copyMatrix(double **a, double **b, int n);
 void solveForPF(double *a, double *b, double *c, int n);
 
-
 /* Probability functions ... Part of this project was cancelled in mid development.*/
 double  probCDFHyper(int x, int m, int n, int k); 
 double  probPDFHyper(int x, int m, int n, int k); // unused
 double  logOfFactorial(int n);         // unused
 double  sigmaLog(int i, int n);
 double  combPValue(double a, double b);
-double* bonferroni(double *a, int b);  // unused
-double* falseDR(double *a, int b);     // unimplemented
+double* bonferroni(double *a, int b); // unused
+double* falseDR(double *a, int b); // unimplemented
 
 /* Probability values hashes */
 int  addPGlobal(double p, char *c, int pathSize, int Nde, double t, double pPERT, double pNDE);

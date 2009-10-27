@@ -19,9 +19,23 @@ geneItem     *geneOrder   = NULL; /* our hash to report proper gene order (for m
 diffE        *diffGeneExp = NULL; /* our hash to store differential gene expression  */
 allGene   *allGenesTested = NULL; /* our hash to store the list of all genes tested*/
 diffE        *bootGenes   = NULL; /* our hash to store a bootstrap set of genes */
-double betaCoefs[] = {1, 0, 0, 1, -1, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0, 1, -1, -1, 0, 0, 0};
+double        betaCoefs[] = {1, 0, 0, 1, -1,  1, 0,  0, -1, -1,
+                             0, 0, 1, 0,  1, -1, 0 , 1, -1, -1,
+                             0, 0, 0, 0,  1, -1, 1, -1};
+/* check spia.h and the enum relationType for context of these values. */
+char *relationTypeStr[48] = {"activation", "compound", "binding_association", "expression",
+                              "inhibition", "activation_phosphorylation", "phosphorylation",
+                              "indirect", "inhibition_phosphorylation", "dephosphorylation_inhibition",
+                              "dissociation", "dephosphorylation", "activation_dephosphorylation",
+                              "state", "activation_indirect", "inhibition_ubiquination", "ubiquination",
+                              "expression_indirect", "indirect_inhibition", "repression",
+                              "binding_association_phosphorylation", "dissociation_phosphorylation",
+                              "indirect_phosphorylation", "family_membership",
+                              "transcriptional_activation", "transcriptional_inhibition",
+                              "process_activation", "process_inhibition"};
+
 double     *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
-char       *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
+char *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
 double            **beta2 = NULL;
 double            probNDE;
 pGlobal          *pGlist  = NULL; /* our hash to store all the global p values for all pathways tested*/ 
@@ -199,7 +213,7 @@ int readPathway(char *filename){
   extern int showNetAcc_flag;
   extern int quietNetAcc_flag;
   extern int nBoots;
-  extern geneItem      *geneOrder;
+  extern geneItem *geneOrder;
   FILE *ifp;
   int nbytes = 200;
   int bytes_read = 1;
@@ -386,7 +400,7 @@ double processPathway(int *status){
 int  isRelationship(char *rel, relationType *relType_ptr){
   /* 
      Truly, this is an ugly way of accomplishing this.
-     Function tests: does the string represent a known
+     This Function tests: does the string represent a known
      relationship type? returns 0 or 1
   */
   if(strcmp(rel, "activation")==0){
@@ -457,6 +471,22 @@ int  isRelationship(char *rel, relationType *relType_ptr){
     return 1;
   }else if(strcmp(rel, "indirect_phosphorylation")==0){
     *relType_ptr = indirect_phosphorylation;
+    return 1;
+    /* What follows are steve's relation types!  */
+  }else if(strcmp(rel, "family_membership")==0){
+    *relType_ptr = family_membership;
+    return 1;
+  }else if(strcmp(rel, "transcriptional_activation")==0){
+    *relType_ptr = transcriptional_activation;
+    return 1;
+  }else if(strcmp(rel, "transcriptional_inhibition")==0){
+    *relType_ptr = transcriptional_inhibition;
+    return 1;
+  }else if(strcmp(rel, "process_activation")==0){
+    *relType_ptr = process_activation;
+    return 1;
+  }else if(strcmp(rel, "process_inhibition")==0){
+    *relType_ptr = process_inhibition;
     return 1;
   }
   return 0;

@@ -8,33 +8,33 @@
 
 #define f77_dgetrf dgetrf_
 extern void f77_dgetrf (
-						/*
-						    dgetrf will fill in the ipiv, the pivot table. 
-							  We need this in order to call dgetri.
-						*/
-						int *m, int *n, double *a, int *lda, 
-						int *ipiv, int *info
-						);
+                        /*
+                          dgetrf will fill in the ipiv, the pivot table. 
+                          We need this in order to call dgetri.
+                        */
+                        int *m, int *n, double *a, int *lda, 
+                        int *ipiv, int *info
+                        );
 #define f77_dgetri dgetri_
 extern void f77_dgetri (
-						/*
-						    dgetri will calculate the inverse of our matrix
-							  a, using an LU decomposition approach. Yay.
-						*/
-						int *n, double *a, int *lda, int *ipiv,
-						double *workspace, int *lworkspace, int *info
-						);
+                        /*
+                          dgetri will calculate the inverse of our matrix
+                          a, using an LU decomposition approach. Yay.
+                        */
+                        int *n, double *a, int *lda, int *ipiv,
+                        double *workspace, int *lworkspace, int *info
+                        );
 
 double** buildBeta(relationType rel){
   /* 
-	 Given an enum relationType, this function will build the Beta_rel
-	 matrix by stepping through the pathway struct and hand back a
-	 pointer to the Beta_rel matrix. You must free the Beta_rel matrix.
-	 bc is a vector of beta coefficients
-   */
+     Given an enum relationType, this function will build the Beta_rel
+     matrix by stepping through the pathway struct and hand back a
+     pointer to the Beta_rel matrix. You must free the Beta_rel matrix.
+     betaCoefs is a vector of beta coefficients.
+  */
   extern upstreamGene *pathway_up;
   extern geneItem     *geneOrder;
-  extern double *betaCoefs;
+  //  extern double *betaCoefs;
   upstreamGene *cur;
   geneItem *ord;
   cur = pathway_up;
@@ -46,26 +46,26 @@ double** buildBeta(relationType rel){
   beta = zeros(n);
   int i;
   for (i = 0; i < n; ++i){
-	/* look down every column*/
-	upstreamGene *g = NULL;
-	geneItem     *o = NULL;
-	g = findGenePath(ord->id);
-	if(g == NULL){
-	  ord = ord->hh.next;
-	  continue;
-	  /* some genes are only downstream and have no
-	     upstream component */
-	}
-	downList *d = g->down;
-	while(d != NULL){
-	  if((int) rel == (int) d->relation){
-		o = findGeneOrder(d->id);
-		assert(o != NULL);
-		beta[o->order][i] = 1;
-	  }
-	  d = d->next;
-	}
-	ord = ord->hh.next;
+    /* look down every column*/
+    upstreamGene *g = NULL;
+    geneItem     *o = NULL;
+    g = findGenePath(ord->id);
+    if(g == NULL){
+      ord = ord->hh.next;
+      continue;
+      /* some genes are only downstream and have no
+         upstream component */
+    }
+    downList *d = g->down;
+    while(d != NULL){
+      if((int) rel == (int) d->relation){
+        o = findGeneOrder(d->id);
+        assert(o != NULL);
+        beta[o->order][i] = 1;
+      }
+      d = d->next;
+    }
+    ord = ord->hh.next;
   }
   return beta;
 }
@@ -74,23 +74,23 @@ void printMatrix(double **a, int n){
   /* for debug purposes only */
   int i, j;
   for(i = 0; i < n; ++i)
-	for(j = 0; j< n; ++j)
-	  fprintf(stderr, "%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
+    for(j = 0; j< n; ++j)
+      fprintf(stderr, "%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
 }
 
 void prettyPrintMatrix(double **a, int n){
   /* for debug purposes only */
   int i, j;
   for(i = 0; i < n; ++i)
-	for(j = 0; j< n; ++j)
-	  printf("%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
+    for(j = 0; j< n; ++j)
+      printf("%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
 }
 
 void printVector(double *a, int n){
   int i;
   for(i = 0; i < n; ++i){
-	printf(" %d: ",i);
-	printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
+    printf(" %d: ",i);
+    printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
   }
 }
 void printNamedVector(double *a, int n){
@@ -99,9 +99,9 @@ void printNamedVector(double *a, int n){
   ord = geneOrder;  
   int i;
   for(i = 0; i < n; ++i){
-	printf(" %s: ",ord->id);
-	printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
-	ord = ord->hh.next;
+    printf(" %s: ",ord->id);
+    printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
+    ord = ord->hh.next;
   }
 }
 
@@ -110,11 +110,11 @@ void transposeMatrix(double **a, int n){
   int i, j;
   double tmp;
   for (i = 0; i < n; ++i){
-	for (j = i + 1; j < n; ++j){
-	  tmp = a[i][j];
-	  a[i][j] = a[j][i];
-	  a[j][i] = tmp;
-	}
+    for (j = i + 1; j < n; ++j){
+      tmp = a[i][j];
+      a[i][j] = a[j][i];
+      a[j][i] = tmp;
+    }
   }
 }
 
@@ -123,9 +123,9 @@ void colNorm(double **a, int n){
   int i,j;
   sumVec = colSum(a, n);
   for (i = 0; i < n; ++i)
-	for (j = 0; j < n; ++j)
-	  if (sumVec[j] !=0)
-		a[i][j] /= sumVec[j];
+    for (j = 0; j < n; ++j)
+      if (sumVec[j] !=0)
+        a[i][j] /= sumVec[j];
   free(sumVec);
 }
 
@@ -136,11 +136,11 @@ double* colSum(double **a, int n){
   b = malloc(n * sizeof(double));
   assert(b != NULL);
   for (i = 0; i < n; ++i)
-	b[i] = 0;
+    b[i] = 0;
   for (i = 0; i < n; ++i){
-	for (j = 0; j < n; ++j){
-	  b[j] += a[i][j];
-	}
+    for (j = 0; j < n; ++j){
+      b[j] += a[i][j];
+    }
   }
   return b;
 }
@@ -148,16 +148,16 @@ double* colSum(double **a, int n){
 void matAdd(double **a, double **b, int n){
   int i,j;
   for (i = 0; i < n; ++i)
-	for (j = 0; j < n; ++j)
-	  a[i][j] += b[i][j];
+    for (j = 0; j < n; ++j)
+      a[i][j] += b[i][j];
 
 }
 
 void matScalMult(double **a, int n, double b){
   int i,j;
   for (i = 0; i < n; ++i)
-	for (j = 0; j < n; ++j)
-	  a[i][j] *= b;
+    for (j = 0; j < n; ++j)
+      a[i][j] *= b;
 }
 
 double** zeros(int n){
@@ -170,12 +170,12 @@ double** zeros(int n){
   assert(p != NULL);
   assert(a != NULL);
   for (i = 0; i < n; ++i)
-	a[i] = p + i * n;
+    a[i] = p + i * n;
   for (i = 0; i < n; ++i)
-	for (j = 0; j < n; ++j)
-	  a[i][j] = 0;
-/*   for (i = 0; i < n; ++i) */
-/* 	a[i] = calloc(n, sizeof(double)); */
+    for (j = 0; j < n; ++j)
+      a[i][j] = 0;
+  /*   for (i = 0; i < n; ++i) */
+  /*      a[i] = calloc(n, sizeof(double)); */
   return a;
 }
 
@@ -185,7 +185,7 @@ double* zerosVec(int n){
   a = calloc(n, sizeof(double));
   assert(a != NULL);
   //  for (i = 0; i < n; ++i)
-  //	a[i] = 0;
+  //    a[i] = 0;
   return a;
 }
 
@@ -202,36 +202,36 @@ void fillDEVec(double *vecNew, int n){
   ord = geneOrder;
   i=0;
   /* this loop should build the index array
-	 and build the ordered intersected diff expr vector
+     and build the ordered intersected diff expr vector
   */
   while(ord != NULL){
-	de = findDiffExpr(ord->id);
-	if(de != NULL){
-	  vecNew[i]  = de->expr;
-	  //	  addItemToIntersect(de->id, ord->order, i);
-	  index[i++] = ord->order;
-	  if(debug_flag)
-		fprintf(stderr,"\t[%d]-%s",ord->order,de->id);
-	}else{
-	  vecNew[i] = 0.0;
-	  //	  addItemToIntersect(ord->id, ord->order, i);
-	  index[i++] = ord->order;
-	  if(debug_flag)
-		fprintf(stderr,"\t[%d]-NA(%s)",ord->order,ord->id);
-	}
-	ord = ord->hh.next;
+    de = findDiffExpr(ord->id);
+    if(de != NULL){
+      vecNew[i]  = de->expr;
+      //      addItemToIntersect(de->id, ord->order, i);
+      index[i++] = ord->order;
+      if(debug_flag)
+        fprintf(stderr,"\t[%d]-%s",ord->order,de->id);
+    }else{
+      vecNew[i] = 0.0;
+      //      addItemToIntersect(ord->id, ord->order, i);
+      index[i++] = ord->order;
+      if(debug_flag)
+        fprintf(stderr,"\t[%d]-NA(%s)",ord->order,ord->id);
+    }
+    ord = ord->hh.next;
   }
   if(debug_flag)
-	fprintf(stderr,"\n");
+    fprintf(stderr,"\n");
 }
 
 int  isMatrixEmpty(double **a, int n){
   int i,j;
   for (i = 0; i < n; ++i){
-	for (j = 0; j < n; ++j){
-	  if(a[i][j] != 0)
-		return 0;
-	}
+    for (j = 0; j < n; ++j){
+      if(a[i][j] != 0)
+        return 0;
+    }
   }
   return 1;
 }
@@ -243,43 +243,43 @@ double determinant(double **a, int n){
   // make a copy of a in b, since we're going to be adjusting the contents
   b = zeros(n);
   for(i = 0; i < n; ++i)
-	for(j = 0; j < n; ++j)
-	  b[i][j]=a[i][j];
+    for(j = 0; j < n; ++j)
+      b[i][j]=a[i][j];
   
   for(k = 0; k < n-1; ++k){
-	// find the pivot element
-	absmax = b[k][k] * b[k][k];
-	for(m = k+1; m < n; ++m){
-	  if((b[m][k] * b[m][k]) > absmax){
-		row = b[m];
-		orig = m;
-		absmax = b[m][k];
-	  }
-	}
-	if(row != NULL){
-	  ++cnt;
-	  tmp = b[k];
-	  b[k] = row;
-	  b[orig] = tmp;
-	}
-	if(b[k][k] == 0.0){
-	  return 0.0;
-	}
-	//
-	pivot = b[k][k];
-	for(i = k + 1; i < n; ++i){
-	  multiplier = -b[i][k] * (1.0 / pivot);
-	  for (j = k; j < n; ++j){
-		b[i][j] += multiplier * b[k][j];
-	  }
-	}
+    // find the pivot element
+    absmax = b[k][k] * b[k][k];
+    for(m = k+1; m < n; ++m){
+      if((b[m][k] * b[m][k]) > absmax){
+        row = b[m];
+        orig = m;
+        absmax = b[m][k];
+      }
+    }
+    if(row != NULL){
+      ++cnt;
+      tmp = b[k];
+      b[k] = row;
+      b[orig] = tmp;
+    }
+    if(b[k][k] == 0.0){
+      return 0.0;
+    }
+    //
+    pivot = b[k][k];
+    for(i = k + 1; i < n; ++i){
+      multiplier = -b[i][k] * (1.0 / pivot);
+      for (j = k; j < n; ++j){
+        b[i][j] += multiplier * b[k][j];
+      }
+    }
   }
   if(cnt % 2 == 0)
-	ans = 1.0;
+    ans = 1.0;
   else
-	ans = -1.0;
+    ans = -1.0;
   for (i = 0; i <n; ++i){
-	ans *= b[i][i];
+    ans *= b[i][i];
   }
   return ans;
 }
@@ -287,24 +287,24 @@ double determinant(double **a, int n){
 
 void subtractIdent(double **a, int n){
   /* 
-	 we're subtracting the beta pathway matrix
-	 from the identity matrix of the same degree
-   */
+     we're subtracting the beta pathway matrix
+     from the identity matrix of the same degree
+  */
   int i,j;
   for (i=0; i < n; ++i){
-	for (j = 0; j < n; ++j){
-	  if(i == j)
-		a[i][j] = 1 - a[i][j];
-	  else
-		a[i][j] = 0 - a[i][j];
-	}
+    for (j = 0; j < n; ++j){
+      if(i == j)
+        a[i][j] = 1 - a[i][j];
+      else
+        a[i][j] = 0 - a[i][j];
+    }
   }
 }
 
 void invert(double **a, int n){
   transposeMatrix(a, n);
   /* now we come to the heart of the matter... First get the pivot table, ipiv,
-	 then we'll calculate the inverse, then it's high-fives and root-beers.
+     then we'll calculate the inverse, then it's high-fives and root-beers.
   */
   double **workspace;
   int lda, lworkspace, info, ipiv[n];
@@ -313,13 +313,13 @@ void invert(double **a, int n){
   workspace = zeros(n);
   f77_dgetrf(&n, &n, *a, &lda, ipiv, &info);
   if(info != 0){
-	printf("f77_dgetrf status:[%d]\n", info);
-	exit(1);
+    printf("f77_dgetrf status:[%d]\n", info);
+    exit(1);
   }
   f77_dgetri(&n, *a, &lda, ipiv, *workspace, &lworkspace, &info);
   if(info !=0){
-	printf("f77_dgetri status:[%d]\n", info);
-	exit(1);
+    printf("f77_dgetri status:[%d]\n", info);
+    exit(1);
   }
   transposeMatrix(a, n);
 }
@@ -329,11 +329,11 @@ void matVecMultiply(double **a, int n, double *b, double *c)
   int i, j;
   double sum = 0;
   for (i = 0; i < n; ++i){
-	sum = 0;
-	for (j = 0 ; j < n; ++j){
-	  sum += a[i][j] * b[j];
-	}
-	c[i] = sum;
+    sum = 0;
+    for (j = 0 ; j < n; ++j){
+      sum += a[i][j] * b[j];
+    }
+    c[i] = sum;
   }
 }
 
@@ -342,13 +342,13 @@ void matMatMultiply(double **a, int n, double **b, double **c)
   int i, j, m;
   double sum = 0;
   for (i = 0; i < n; ++i){
-	for (j = 0 ; j < n; ++j){
-	  sum = 0;
-	  for (m = 0; m < n; ++m){
-		sum += a[i][m] * b[m][j];
-	  }
-	  c[i][j] = sum;
-	}
+    for (j = 0 ; j < n; ++j){
+      sum = 0;
+      for (m = 0; m < n; ++m){
+        sum += a[i][m] * b[m][j];
+      }
+      c[i][j] = sum;
+    }
   }
 }
 
@@ -357,7 +357,7 @@ double sumVec(double *a, int n)
   int i;
   double sum = 0.0;
   for (i = 0; i < n; ++i)
-	sum += a[i];
+    sum += a[i];
   return sum;
 }
 
@@ -381,16 +381,16 @@ double correctTA(double *a, int n){
   int i;
   double med;
   if((n-1) % 2){
-	i = n/2;
-	med = (a[i] + a[i-1]) / 2.0;
-	//	printf("it was even, median = %f\n", med);
+    i = n/2;
+    med = (a[i] + a[i-1]) / 2.0;
+    //      printf("it was even, median = %f\n", med);
   }else{
-	i = (n-1)/2;
-	med = a[i];
-	//	printf("it was odd, median = %f\n", med);
+    i = (n-1)/2;
+    med = a[i];
+    //      printf("it was odd, median = %f\n", med);
   }
   for(i = 0; i < n; ++i)
-	a[i] -= med;
+    a[i] -= med;
   //  printf("med = %f\n",med);
   return med;
 }
@@ -398,14 +398,14 @@ double correctTA(double *a, int n){
 void copyMatrix(double **a, double **b, int n){
   int i,j;
   for(i = 0; i < n; ++i){
-	for(j = 0; j < n; ++j){
-	  b[i][j] = a[i][j];
-	}
+    for(j = 0; j < n; ++j){
+      b[i][j] = a[i][j];
+    }
   }
 }
 
 void solveForPF(double *a, double *b, double *c, int n){
   int i;
   for(i = 0; i < n; ++i)
-	c[i] = b[i] + a[i];
+    c[i] = b[i] + a[i];
 }

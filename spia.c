@@ -6,17 +6,17 @@
 #include <sys/stat.h>
 #include "spia.h"
 
-int debug_flag;   /* a nice extern that gets set in gatherOptions()*/
-int verbose_flag; /* a nice extern that gets set in gatherOptions()*/
-int showNetAcc_flag=1; /* a nice extern that gets set in gatherOptions()*/
-int quietNetAcc_flag=0; /* a nice extern that gets set in gatherOptions()*/
-int nBoots = 0; /* The number of bootstraps to be run, per pathway */
+int debug_flag;         /* an extern that gets set in gatherOptions() */
+int verbose_flag;       /* an extern that gets set in gatherOptions() */
+int showNetAcc_flag=1;  /* an extern that gets set in gatherOptions() */
+int quietNetAcc_flag=0; /* an extern that gets set in gatherOptions() */
+int nBoots = 0;         /* The number of bootstraps to be run, per pathway */
 
 int main(int argc, char *argv[]){
   extern double probNDE;
   char *dirName = NULL; 
   char *deName  = NULL; /* differential expression, file  */
-  char *arrName = NULL; /* list of all genes tested, file*/
+  char *arrName = NULL; /* list of all genes tested, file */
   char *singlePathFormatName = NULL; /* alternate pathway input mode, one pathway file*/
   srand(time(NULL));
   gatherOptions(argc, argv, &dirName, &deName, &arrName, &singlePathFormatName);
