@@ -64,7 +64,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
           {"de", required_argument, 0, 'e'},
           {"nBoots", required_argument, 0,'b'},
           {"array", required_argument, 0,'a'},
-          {"pathFile", required_argument, 0, 'p'},
+          {"pathFiles", required_argument, 0, 'p'},
           {"betaCoFile", required_argument, 0, 'c'},
           {0, 0, 0, 0}
         };
@@ -209,8 +209,68 @@ void readArrayTab(char *filename){
   free(line);
 }
 
-int readPathway(char *filename){
-  /* readPathwayTab should be able to take a pathname to a tab file,
+int readOldPathway(char *filename){
+  /* readOldPathwayTab should be able to take a pathname to a tab file,
+     read out the good bits, and then stuff them in a hash.*/
+  extern int debug_flag;
+  extern int verbose_flag;
+  extern int showNetAcc_flag;
+  extern int quietNetAcc_flag;
+  extern int nBoots;
+  extern geneItem *geneOrder;
+  FILE *ifp;
+  int nbytes = 200;
+  int bytes_read = 1;
+  int c, i=0;
+  char *line, *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
+  upstreamGene *g;
+  relationType enumRelType;
+  int nArgs;
+  line       = (char *) malloc(nbytes + 1);
+  ups        = (char *) malloc(nbytes + 1);
+  downs      = (char *) malloc(nbytes + 1);
+  pathname   = (char *) malloc(nbytes + 1);
+  relType    = (char *) malloc(nbytes + 1);
+  relName    = (char *) malloc(nbytes + 1);
+  relSymb    = (char *) malloc(nbytes + 1);
+  descrip    = (char *) malloc(nbytes + 1);
+  ifp = fopen(filename, "r");
+  if(verbose_flag)
+    printf("READING `%s'\n", filename);
+  while(bytes_read > 0){
+    bytes_read = getline(&line, &nbytes, ifp);
+    if(bytes_read <= 0)
+      continue;
+    nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, relName, relSymb, pathname, descrip);
+    g = findGenePath(ups);
+    if(isRelationship(relName, &enumRelType) && (nArgs == 7 )){
+      addGenePathAll(ups);
+      addGenePathAll(downs);
+      if(g!=NULL){
+        //     fprintf(stderr, "adding %s to existing gene %s\n", downs, ups);
+        addInteraction(ups, downs, enumRelType);
+      }else{
+        //     fprintf(stderr, "adding new gene %s\n", ups);
+        addGenePath(ups);
+        addInteraction(ups, downs, enumRelType);
+      
+      }
+    }
+  }
+  free(line);
+  free(ups);
+  free(downs);
+  free(pathname);
+  free(relType);
+  free(relName);
+  free(relSymb);
+  free(descrip);
+  /*** PATHWAY STORED IN HASHES, BEGIN POST PROCESSING ***/
+  return HASH_COUNT(geneOrder);
+}
+
+int readNewPathway(char *filename){
+  /* readNewPathwayTab should be able to take a pathname to a tab file,
      read out the good bits, and then stuff them in a hash.*/
   extern int debug_flag;
   extern int verbose_flag;
@@ -299,6 +359,8 @@ void readBetaCoeffFile(char *filename){
       char *tmp = relationTypeStr[enumRelType];
       //      printf("I see you want to use %s, [%d] with value %lf\n", tmp, enumRelType, beta);
       betaCoefs[enumRelType] = beta;
+      if((beta > 1.0) || (beta < -1.0))
+         fprintf(stderr, "Warning, your beta coefficient for %s is not (-1.0 < %e < 1.0) which may yield beta matrix singularity (i.e. determinant = 0) issues\n", relName, beta );
     }
   }
   //  printBetaCoeffs();
@@ -372,7 +434,11 @@ double processPathway(int *status){
     printMatrix(beta,szMat);
   }
   double det = determinant(beta,szMat); // check for matrix singularity
-  if((det * det) < 1e-14){
+  if(abs(det) < 1e-7){
+    if(verbose_flag){
+      fprintf(stderr, "abs(Determinant), %e, is less than 1e-7.\n", det);
+      printMatrix(beta, szMat);
+    }
     free(beta);
     free(betaOrig);
     free(tmp);

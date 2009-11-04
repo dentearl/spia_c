@@ -78,13 +78,15 @@ void printMatrix(double **a, int n){
       fprintf(stderr, "%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
 }
 
+/*
 void prettyPrintMatrix(double **a, int n){
-  /* for debug purposes only */
+  /* for debug purposes only 
   int i, j;
   for(i = 0; i < n; ++i)
     for(j = 0; j< n; ++j)
       printf("%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
 }
+*/
 
 void printVector(double *a, int n){
   int i;
@@ -252,10 +254,8 @@ double determinant(double **a, int n){
   double **b, ans, pivot, multiplier, absmax, *tmp = NULL, *row = NULL;
   // make a copy of a in b, since we're going to be adjusting the contents
   b = zeros(n);
-  for(i = 0; i < n; ++i)
-    for(j = 0; j < n; ++j)
-      b[i][j]=a[i][j];
-  
+  copyMatrix(a, b, n);
+
   for(k = 0; k < n-1; ++k){
     // find the pivot element
     absmax = b[k][k] * b[k][k];
@@ -304,9 +304,9 @@ void subtractIdent(double **a, int n){
   for (i=0; i < n; ++i){
     for (j = 0; j < n; ++j){
       if(i == j)
-        a[i][j] = 1 - a[i][j];
+        a[i][j] = 1.0 - a[i][j];
       else
-        a[i][j] = 0 - a[i][j];
+        a[i][j] = 0.0 - a[i][j];
     }
   }
 }
@@ -419,3 +419,4 @@ void solveForPF(double *a, double *b, double *c, int n){
   for(i = 0; i < n; ++i)
     c[i] = b[i] + a[i];
 }
+

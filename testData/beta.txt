@@ -1,0 +1,26 @@
+activation	1.00
+compound	-.2
+binding/association	0
+expression	2
+inhibition	-.67
+activation_phosphorylation	1
+phosphorylation	0
+indirect	0
+inhibition_phosphorylation	-1
+dephosphorylation_inhibition	-1
+dissociation	0
+dephosphorylation	0
+activation_dephosphorylation	1
+state	0
+activation_indirect	1
+inhibition_ubiquination	-1
+ubiquination	0
+expression_indirect	1
+indirect_inhibition	-1
+repression	-1
+binding/association_phosphorylation	0
+dissociation_phosphorylation	0
+indirect_phosphorylation	0
+banana                          8
+process_activation              1.12
+

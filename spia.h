@@ -1,6 +1,6 @@
 #include <uthash.h>    /* hashes! */
 
-#define MAX_PATH_LENGTH 256 /* file system path names  */
+#define MAX_PATH_LENGTH 512 /* file system path names  */
 #define MAX_ID_LENGTH 100   /* maximum gene name (id) length */
 #define MAX_PATHWAY 1000    /* largest pathway in terms of unique genes*/
 #define NUM_REL 28 /* the number of relationships possible. length of 
@@ -95,7 +95,8 @@ struct pGlobal{
 void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **spf, char **betaCoFile);
 void usage(void);
 int  endsIn_tab(char *filename);
-int readPathway(char *filename);
+int readOldPathway(char *filename); // charlie parse format
+int readNewPathway(char *filename); // cancer browser format
 void readBetaCoeffFile(char *filename);
 double processPathway(int *status);
 void readDETab(char *filename);
@@ -160,7 +161,7 @@ double** buildBeta(relationType rel);
 double** zeros(int n);
 double* zerosVec(int n);
 void printMatrix(double **a, int n);
-void prettyPrintMatrix(double **a, int n);
+/*void prettyPrintMatrix(double **a, int n);*/ /* unused, I'm going to remove this soon  */
 void printVector(double *a, int n);
 void printNamedVector(double *a, int n);       /* uses the ordered hash to print gene names */
 void transposeMatrix(double **a, int n);       /* for use with lapack / fortran */
@@ -179,7 +180,7 @@ double sumVec(double *a, int n);
 int  compare_dbls(const void *a, const void *b);     /* qsort(), ahoy!*/
 int  compare_dbls_rev(const void *a, const void *b); /* qsort(), ahoy!*/
 double correctTA(double *a, int n);                /* takes sorted *a, finds median, subtracts median*/
-void copyMatrix(double **a, double **b, int n);
+void copyMatrix(double **a, double **b, int n); /* copy matrix a into matrix b. */
 void solveForPF(double *a, double *b, double *c, int n);
 
 /* Probability functions ... Part of this project was cancelled in mid development.*/
