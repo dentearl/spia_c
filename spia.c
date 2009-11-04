@@ -36,22 +36,20 @@ int main(int argc, char *argv[]){
   struct dirent *dit;
   if(oldFormatDir){
     if(verbose_flag)
-      fprintf(stdout,"Opening pathway dir: `%s'\n",oldFormatDir);
+      fprintf(stdout,"Opening pathway dir: `%s'\n", oldFormatDir);
     strcpy(dirName, oldFormatDir);
   }
   if(singlePathFormatDir){
-    printf("So, you want a single path file, huh?\nLet me get back to you on that.\n");
     if(verbose_flag)
-      fprintf(stdout,"Opening pathway dir: `%s'\n",singlePathFormatDir);
+      fprintf(stdout,"Opening pathway dir: `%s'\n", singlePathFormatDir);
     strcpy(dirName, singlePathFormatDir);
   }
-
   int i = 0;
   int leng = 0;
   char fullPath[MAX_PATH_LENGTH];
   char tmpPath[MAX_PATH_LENGTH];
   struct stat buff;
-  strcpy(fullPath, oldFormatDir);
+  strcpy(fullPath, dirName);
   if((dip = opendir(dirName))==NULL){
     fprintf(stderr,"Error while openning directory `%s'!\n",dirName);
     exit(1);
@@ -82,16 +80,16 @@ int main(int argc, char *argv[]){
       szMat = readNewPathway(tmpPath);
 
     if(szMat == 0){
-      printf("Unable to process pathway, nothing read from pathway file.\n");
+      printf("Unable to process pathway `%s', nothing read from pathway file.\n", tmpPath);
       continue;
     }
     status = 0;
     tA = processPathway(&status);
     if(status != 0){
       if(status == -1)
-        printf("Unable to process pathway, beta empty.\n");
+        printf("Unable to process pathway `%s', beta empty.\n", tmpPath);
       if(status == -2)
-        printf("Unable to process pathway, beta singularity.\n");
+        printf("Unable to process pathway `%s', beta singularity.\n", tmpPath);
       continue;
     }
     if(nBoots){ // if bootstrapping is turned 'on'
@@ -100,7 +98,7 @@ int main(int argc, char *argv[]){
       totalAcc = zerosVec(nBoots);
       int k;
       if(Nde == 0){
-        printf("Unable to process pathway, Nde == 0.\n");
+        printf("Unable to process pathway `%s', Nde == 0.\n", tmpPath);
       }else{
         for(k = 0; k < nBoots; ++k){
           populateBootGenes(Nde);
@@ -127,10 +125,9 @@ int main(int argc, char *argv[]){
     } // end bootstrapping loop
   } // end file reading while loop
   if(closedir(dip) != 0){
-    fprintf(stderr, "Error while closing directory `%s'!\n",dirName);
+    fprintf(stderr, "Error while closing directory `%s'!\n", dirName);
     exit(1);
   }
-    
 
   /*** Now, having processed all pathways, we take the results, sort them,
        perform the appropriate corrections, and report them. ta-da!
@@ -142,6 +139,5 @@ int main(int argc, char *argv[]){
     fdrPGlobal();
     printPValues();
   }
-  
   exit(0);
 }

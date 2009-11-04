@@ -25,8 +25,8 @@ probFunctions.o: probFunctions.c
 # test functions
 test:
 	./spia --dir testPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab
-testSingle:
-	./spia --pathFiles alternateFormat/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab
+testSPath:
+	./spia --pathFiles alternateFormatPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab 
 testBeta:
 	./spia --betaCoFile testData/beta.txt --dir testPathways/ --de testData/DE_Colorectal.tab --nBoots 2000 --array testData/ALL_Colorectal.tab --verbose
 testd:

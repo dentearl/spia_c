@@ -282,18 +282,14 @@ int readNewPathway(char *filename){
   int nbytes = 200;
   int bytes_read = 1;
   int c, i=0;
-  char *line, *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
+  char *line, *itemA, *itemB, *interact;
   upstreamGene *g;
   relationType enumRelType;
   int nArgs;
   line       = (char *) malloc(nbytes + 1);
-  ups        = (char *) malloc(nbytes + 1);
-  downs      = (char *) malloc(nbytes + 1);
-  pathname   = (char *) malloc(nbytes + 1);
-  relType    = (char *) malloc(nbytes + 1);
-  relName    = (char *) malloc(nbytes + 1);
-  relSymb    = (char *) malloc(nbytes + 1);
-  descrip    = (char *) malloc(nbytes + 1);
+  itemA      = (char *) malloc(nbytes + 1);
+  itemB      = (char *) malloc(nbytes + 1);
+  interact   = (char *) malloc(nbytes + 1);
   ifp = fopen(filename, "r");
   if(verbose_flag)
     printf("READING `%s'\n", filename);
@@ -301,30 +297,26 @@ int readNewPathway(char *filename){
     bytes_read = getline(&line, &nbytes, ifp);
     if(bytes_read <= 0)
       continue;
-    nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, relName, relSymb, pathname, descrip);
-    g = findGenePath(ups);
-    if(isRelationship(relName, &enumRelType) && (nArgs == 7 )){
-      addGenePathAll(ups);
-      addGenePathAll(downs);
+    nArgs = sscanf(line, "%s\t%s\t%s", itemA, itemB, interact);
+    g = findGenePath(itemA);
+    if(isRelationship(interact, &enumRelType) && (nArgs == 3 )){
+      addGenePathAll(itemA);
+      addGenePathAll(itemB);
       if(g!=NULL){
         //     fprintf(stderr, "adding %s to existing gene %s\n", downs, ups);
-        addInteraction(ups, downs, enumRelType);
+        addInteraction(itemA, itemB, enumRelType);
       }else{
         //     fprintf(stderr, "adding new gene %s\n", ups);
-        addGenePath(ups);
-        addInteraction(ups, downs, enumRelType);
+        addGenePath(itemA);
+        addInteraction(itemA, itemB, enumRelType);
       
       }
     }
   }
   free(line);
-  free(ups);
-  free(downs);
-  free(pathname);
-  free(relType);
-  free(relName);
-  free(relSymb);
-  free(descrip);
+  free(itemA);
+  free(itemB);
+  free(interact);
   /*** PATHWAY STORED IN HASHES, BEGIN POST PROCESSING ***/
   return HASH_COUNT(geneOrder);
 }
@@ -592,6 +584,30 @@ int  isRelationship(char *rel, relationType *relType_ptr){
     *relType_ptr = process_activation;
     return 1;
   }else if(strcmp(rel, "process_inhibition")==0){
+    *relType_ptr = process_inhibition;
+    return 1;
+  }else if(strcmp(rel, "-p>")==0){
+    *relType_ptr = activation;
+    return 1;
+  }else if(strcmp(rel, "-p|")==0){
+    *relType_ptr = inhibition;
+    return 1;
+  }else if(strcmp(rel, "component>")==0){
+    *relType_ptr = compound;
+    return 1;
+  }else if(strcmp(rel, "member>")==0){
+    *relType_ptr = family_membership;
+    return 1;
+  }else if(strcmp(rel, "-t>")==0){
+    *relType_ptr = transcriptional_activation;
+    return 1;
+  }else if(strcmp(rel, "-t|")==0){
+    *relType_ptr = transcriptional_inhibition;
+    return 1;
+  }else if(strcmp(rel, "-ap>")==0){
+    *relType_ptr = process_activation;
+    return 1;
+  }else if(strcmp(rel, "-ap|")==0){
     *relType_ptr = process_inhibition;
     return 1;
   }
