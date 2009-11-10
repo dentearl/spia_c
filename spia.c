@@ -87,9 +87,9 @@ int main(int argc, char *argv[]){
     tA = processPathway(&status);
     if(status != 0){
       if(status == -1)
-        printf("Unable to process pathway `%s', beta empty.\n", tmpPath);
+        printf("Unable to process pathway `%s', beta matrix is empty (pathway issue).\n", tmpPath);
       if(status == -2)
-        printf("Unable to process pathway `%s', beta singularity.\n", tmpPath);
+        printf("Unable to process pathway `%s', beta matrix singularity (pathway issue).\n", tmpPath);
       continue;
     }
     if(nBoots){ // if bootstrapping is turned 'on'
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]){
       totalAcc = zerosVec(nBoots);
       int k;
       if(Nde == 0){
-        printf("Unable to process pathway `%s', Nde == 0.\n", tmpPath);
+        printf("Unable to process pathway `%s', number of differentially expressed genes, Nde == 0.\n", tmpPath);
       }else{
         for(k = 0; k < nBoots; ++k){
           populateBootGenes(Nde);
