@@ -132,14 +132,14 @@ void usage(void){
 void readDETab(char *filename){
   /* readDETab should be able to take a pathname to a tab file,
      read out the good bits, and then stuff them in a hash.*/
-  FILE *ifp;
+  FILE *ifp = NULL;
   char *line;
-  int nbytes = 200;
+  int nbytes = 512;
   int bytes_read = 1;
   extern double *all_de_values;
   extern int debug_flag;
   extern int verbose_flag;
-  int c;
+  int c, i=0;
   char id[MAX_ID_LENGTH];
   double de;
   diffE *g;
@@ -148,10 +148,16 @@ void readDETab(char *filename){
   ifp = fopen(filename, "r");
   if(verbose_flag)
     printf("READING `%s'\n", filename);
+  if(ifp == NULL){
+     fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
+     exit(1);
+  }
   while(bytes_read > 0){
     line = '\0'; /* failure to do this results in an extra readthrough  */
     bytes_read = getline(&line, &nbytes, ifp);
-    nArgs = sscanf(line, "%s %lf", &id, &de);
+    nArgs = sscanf(line, "%s\t%lf", &id, &de);
+    if(nArgs < 2)
+       nArgs = sscanf(line, "%s %lf", &id, &de);
     g = findDiffExpr(id);
     if(nArgs == 2 ){
       if(g!=NULL){
@@ -161,9 +167,11 @@ void readDETab(char *filename){
       }
     }
   }
+  if(verbose_flag)
+     printf("READ COMPLETE. Populating Hash and Array with DE values.\n");
   // now that all of the de_genes and values are read in, populate our
   // extern double array, 
-  int i,n;
+  int n;
   diffE *d;
   d = diffGeneExp;
   n = HASH_COUNT(diffGeneExp);
@@ -180,7 +188,7 @@ void readArrayTab(char *filename){
      read out the good bits, and then stuff them in a hash.
      reads in the array file.
   */
-  FILE *ifp;
+  FILE *ifp = NULL;
   char *line;
   int nbytes = 200;
   int bytes_read = 1;
@@ -194,6 +202,10 @@ void readArrayTab(char *filename){
   ifp = fopen(filename, "r");
   if(verbose_flag)
     printf("READING Array file:`%s'\n", filename);
+  if(ifp == NULL){
+     fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
+     exit(1);
+  }
   while(bytes_read > 0){
     line = '\0'; /* failure to do this results in an extra readthrough  */
     bytes_read = getline(&line, &nbytes, ifp);
@@ -218,8 +230,8 @@ int readOldPathway(char *filename){
   extern int quietNetAcc_flag;
   extern int nBoots;
   extern geneItem *geneOrder;
-  FILE *ifp;
-  int nbytes = 200;
+  FILE *ifp = NULL;
+  int nbytes = 512;
   int bytes_read = 1;
   int c, i=0;
   char *line, *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
@@ -235,6 +247,10 @@ int readOldPathway(char *filename){
   relSymb    = (char *) malloc(nbytes + 1);
   descrip    = (char *) malloc(nbytes + 1);
   ifp = fopen(filename, "r");
+  if(ifp == NULL){
+     fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
+     exit(1);
+  }
   if(verbose_flag)
     printf("READING `%s'\n", filename);
   while(bytes_read > 0){
@@ -278,7 +294,7 @@ int readNewPathway(char *filename){
   extern int quietNetAcc_flag;
   extern int nBoots;
   extern geneItem *geneOrder;
-  FILE *ifp;
+  FILE *ifp = NULL;
   int nbytes = 200;
   int bytes_read = 1;
   int c, i=0;
@@ -293,6 +309,10 @@ int readNewPathway(char *filename){
   ifp = fopen(filename, "r");
   if(verbose_flag)
     printf("READING `%s'\n", filename);
+  if(ifp == NULL){
+     fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
+     exit(1);
+  }
   while(bytes_read > 0){
     bytes_read = getline(&line, &nbytes, ifp);
     if(bytes_read <= 0)
@@ -326,7 +346,7 @@ void readBetaCoeffFile(char *filename){
   extern int verbose_flag;
   extern char *relationTypeStr[];
   extern double betaCoefs[];
-  FILE *ifp;
+  FILE *ifp = NULL;
   int nbytes = 200;
   int bytes_read = 1;
   int c, i=0;
@@ -340,6 +360,10 @@ void readBetaCoeffFile(char *filename){
   ifp = fopen(filename, "r");
   if(verbose_flag)
     printf("READING `%s'\n", filename);
+  if(ifp == NULL){
+     fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
+     exit(1);
+  }
   //  printBetaCoeffs();
   while(bytes_read > 0){
     bytes_read = getline(&line, &nbytes, ifp);
