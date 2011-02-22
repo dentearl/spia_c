@@ -5,22 +5,17 @@
 ########################################
 make:
 	cat Makefile
-
+all: spia
 spia: spia.c spia.h fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o
 	gcc -g spia.c -o spia fileHandling.o hashListFunctions.o linearAlg.o probFunctions.o -I uthash-1.5/src/ -F77 -I77 -llapack -lblas
-
 fileHandling.o: fileHandling.c
 	gcc -c -g fileHandling.c -I uthash-1.5/src/
-
 hashListFunctions.o: hashListFunctions.c
 	gcc -c -g hashListFunctions.c -I uthash-1.5/src/
 linearAlg.o: linearAlg.c
-#	gcc -c linearAlg.c -F77 -I77 -I ../uthash-1.5/src/
 	gcc -c -g linearAlg.c  -I uthash-1.5/src/
 probFunctions.o: probFunctions.c
 	gcc -c -g probFunctions.c  -I uthash-1.5/src/
-
-
 ##################################################
 # test functions
 test:
@@ -38,4 +33,4 @@ charlie:
 
 ##################################################
 clean:
-	\rm -rf *.o
+	\rm -rf *.o spia
