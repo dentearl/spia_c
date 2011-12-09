@@ -1,7 +1,3 @@
 *.o
 *~
-CVS
-RCS
-*.txt
-spia
-autoCI.sh
+bin/*
