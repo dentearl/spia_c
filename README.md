@@ -1,8 +1,10 @@
-'SPIA IN C' README
-Dent Earl, dearl a soe ucsc edu
-October 2009
+# 'SPIA IN C'
+(o) October 2009 The Author, see LICENSE.txt for details.
 
-OVERVIEW
+## Author
+[Dent Earl], (https://github.com/dentearl/)
+
+## OVERVIEW
   SPIA is an acronym for Signalling Pathway Impact Analysis and is taken from
 the 2009 paper by Tarca et al, A novel signaling pathway impact analysis. 
 'SPIA in C', herein spia_c, is a C language implementation of the SPIA algorithm
@@ -14,7 +16,7 @@ SPIA for use with the UCSC Cancer Browser, or with the BioIntegrator.
 IF your project is fairly simple, or doesn't require super-fast results, or
 doesn't need to be in a pipeline, you may want to try out the R version, first.
 
-BACKGROUND
+## BACKGROUND
 The SPIA method, described in the Tarca paper, involves a combination of a
 traditional over-representation analysis (ORA) and a novel pathway analysis.
 The pathway analysis is performed by grabbing pathways (the R version pulls
@@ -24,13 +26,13 @@ meaning all genes that were on the array you used, and the genes that were
 differentially expressed along with their log-fold change values) checks to
 see if your experiment 'perturbed' a particular pathway.
 
-DETAILS
+## DETAILS
 The ORA used in SPIA is the hypergeometeric. We get a p-value from the hypergeo
 and from the pathway analysis and we combine them at the end.
 spia_c loads all the tested genes and the differentially expressed genes into
 hashes and then iteratively processes each pathway file in the pathway directory
-(--dir), or in the UCSC Cancer Browser Analysis Team (UCSC CBAT)
-format (--pathFiles).
+(<code>--dir</code>), or in the UCSC Cancer Browser Analysis Team (UCSC CBAT)
+format (<node>--pathFiles</code>).
 First it is decomposed into 28 different 
 n by n matrices, where n is the number of genes in the pathway, and the
 number 28 comes from the number of different interaction types that Kegg 
@@ -56,16 +58,16 @@ tA = sum(Accumulation)
 Next the bootstrap is applied to try to find an empirical distribution of tA scores.
 This is where the PPert, or probability of perturbation, comes from.
 
-INSTALLATION
+## INSTALLATION
 spia_c should be installed from the Makefile using
 $ make spia
 spia_c requires:
 * uthash - (provided), a C-library for hashes.
 * LAPACK and BLAS - Linear algebra libraries, used for inverting matrices.
 
-USE
+## USE
 spia_c requires a couple of things to run. It requires a directory
-(--dir, or --pathFiles depending on format)
+(<code>--dir</code>, or <code>--pathFiles</code> depending on format)
 containing pathways in a tab-delimited, Charlie-formatted pathay files
 (more information needed here). The files must end in '.tab'. It also requires a
 tab-delimited file containing the differentially expressed genes from your 
@@ -73,29 +75,33 @@ experiment (geneName \t log-fold expression change). Lastly it requires a
 tab-delimited file containing all genes that were tested in the experminent,
 INCUDING the genes that were differentially expressed (order number 
 {1,2,3,...} \t geneName). All geneNames may be strings. The net accumulation
-data for each pathway may be silenced by using the --quietNetAcc command line
-option. The number of bootstraps is specified with the --nBoots command line
+data for each pathway may be silenced by using the <code>--quietNetAcc</code> command line
+option. The number of bootstraps is specified with the <code>--nBoots</code> command line
 option.
 
+<code>
 ./spia --dir testPathways/ --de testData/DE_Colorectal.tab  --array testData/ALL_Colorectal.tab --nBoots 2000
 ./spia --dir testPathways/ --de testData/DE_Colorectal.tab  --array testData/ALL_Colorectal.tab --nBoots 2000 --queitNetAcc
+</code>
 
-There are also --verbose and --debug flags.
+There are also <code>--verbose</code> and <code>--debug</code> flags.
 
-CHARLIE FORMAT:
+## CHARLIE FORMAT:
 I don't really know what Charlie's format is exactly. In goes the Kegg xml, out
 comes a tab delimited file, via kegg2tab.py (unknown location). One line looks like
-hsa:941	hsa:940	PPrel	activation	-->	path:hsa05330	Allograft rejection
+
+<code>hsa:941	hsa:940	PPrel	activation	-->	path:hsa05330	Allograft rejection</code>
+
 Here's my guess:
 species:gene1 species:gene2 type(?) relationship relationshipPictogram path:speciesPathNumber commonName(??)
 So from the example, Human gene 941 is activating gene 940 in pathway 05330.
 We get the Charlie parse from
 /projects/sysbio/Map/Data/Pathways/Human/KEGG/TabResults/
 
-UCSC CBAT FORMAT:
+## UCSC CBAT FORMAT:
 [fill this in!]
 
-REFERENCES
+## REFERENCES
 * Tarca et al. A novel signaling pathway impact analysis. Bioinformatics (2009) vol. 25 (1) pp. 75-82
 * Draghici et al. A systems biology approach for pathway level analysis. Genome Res (2007) vol. 17 (10) pp. 1537-45
 * Hassan et al. Signature pathways identified from gene expression profiles in the human uterine cervix before and after spontaneous term parturition. Am J Obstet Gynecol (2007) vol. 197 (3) pp. 250.e1-7
