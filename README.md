@@ -35,7 +35,7 @@ and from the pathway analysis and we combine them at the end.
 <code>spia_c</code> loads all the tested genes and the differentially expressed genes into
 hashes and then iteratively processes each pathway file in the pathway directory
 (<code>--dir</code>), or in the UCSC Cancer Browser Analysis Team (UCSC CBAT)
-format (<node>--pathFiles</code>).
+format (<code>--pathFiles</code>).
 
 First it is decomposed into 28 differentn by n matrices, where n is the 
 number of genes in the pathway, and the number 28 comes from the number 
