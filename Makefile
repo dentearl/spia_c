@@ -23,7 +23,7 @@ ${srcPath}/%.o: ${srcPath}/%.c
 
 ##############################
 # system tests
-test: test/testBasic.txt test/testTCGA.txt test/testSPath.txt test/testBeta.txt test/testD.txt test/testCharlie.txt
+test: test/testBasic.txt test/testTCGA.txt test/testSPath.txt test/testBeta.txt test/testD.txt 
 
 test/testBasic.txt: ${binPath}/spia
 	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
