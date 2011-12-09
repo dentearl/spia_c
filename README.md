@@ -41,9 +41,9 @@ First it is decomposed into 28 different _n_ by _n_ matrices, where _n_ is the
 number of genes in the pathway, and the number 28 comes from the number 
 of different interaction types that Kegg uses (23) plus 5 custom 
 types that Steve Benz and Charlie Vaske of (UCSC CBAT) use. The values in the matrices are
-binary where a *A* _{ij}_ = 1 means that gene _j_ effects gene _i_ (the effect
+binary where a **A**_{ij}_ = 1 means that gene _j_ effects gene _i_ (the effect
 being dependent on which of the 28 matrices. E.g. activation, inhibition, etc).
-*A* _{ij}_ = 0 means that gene _j_ does not effect gene _i_.
+**A**_{ij}_ = 0 means that gene _j_ does not effect gene _i_.
 
 These matrices are compressed into a single matrix by normalizing the sum of each
 column to 1 and then multiplying the matrix by the coeffecient of that relationship.
@@ -52,10 +52,10 @@ they use binary values, but there is no reason why you couldn't use doubles shou
 you have cause to. HOWEVER, I never got around to writing the code for allowing
 custom coefficent vectors.
 
-The matrix *B* is then subtracted from the identity matrix, inverted, multiplied by the
-*B* matrix and then multiplied by the differentially expressed vector:
+The matrix **B** is then subtracted from the identity matrix, inverted, multiplied by the
+**B** matrix and then multiplied by the differentially expressed vector:
 
-Accumulation = *B* * (*I* - *B*)^{-1} * diffExpression
+Accumulation = **B** * (**I** - **B**)^{-1} * diffExpression
 
 Further we know that
 
