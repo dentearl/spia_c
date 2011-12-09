@@ -1,0 +1,10 @@
+protein	CTNNB1
+protein	UniProt:P14923
+protein	CDH1
+complex	E-cadherin/beta catenin-gamma catenin
+complex	E-cadherin/beta catenin
+CTNNB1	E-cadherin/beta catenin-gamma catenin	component>
+CTNNB1	E-cadherin/beta catenin	component>
+UniProt:P14923	E-cadherin/beta catenin-gamma catenin	component>
+CDH1	E-cadherin/beta catenin-gamma catenin	component>
+CDH1	E-cadherin/beta catenin	component>

@@ -1,0 +1,9 @@
+protein	ITGB7
+protein	UniProt:P13612
+protein	UniProt:P05556
+complex	alpha4/beta7 Integrin
+complex	alpha4/beta1 Integrin
+ITGB7	alpha4/beta7 Integrin	component>
+UniProt:P13612	alpha4/beta7 Integrin	component>
+UniProt:P13612	alpha4/beta1 Integrin	component>
+UniProt:P05556	alpha4/beta1 Integrin	component>

@@ -1,0 +1,623 @@
+CREBBP	SMAD3
+CREBBP	SMAD2
+SMAD3	SMAD4
+SMAD2	SMAD4
+MYCN	MYC
+RUNX2	SMAD4
+miRNA	miR-126
+complex	mTOR
+abstract	folate_transport
+abstract	double_strand_break_repair_via_homologous_recombination
+complex	caspase_8_10
+protein	WWOX
+protein	TSC2
+protein	TSC1
+complex	TSC-complex
+protein	TP53BP1
+protein	TP53
+protein	TGFBR2
+protein	TGFBR1
+complex	TGFBR-complex
+protein	TGFB1
+protein	STAT5B
+protein	STAT5A
+protein	STAT3
+protein	STAT2
+protein	STAT1
+family	STAT
+protein	SRC
+protein	SPRY2
+protein	SPARC
+protein	SMAD4
+protein	SMAD3
+protein	SMAD2
+protein	SLC19A1
+family	S6K
+protein	RUNX2
+family	RTK
+protein	RPS6KB2
+protein	RPS6KB1
+protein	RPS6KA2
+protein	RPS6KA1
+protein	RPS6
+protein	RICTOR
+protein	RHEB
+protein	RBL2
+protein	RBL1
+protein	RB1
+family	RB
+protein	RASSF1
+family	RAS
+protein	RAF1
+family	RAF
+protein	RAD51
+protein	RAB25
+protein	PTK2
+protein	PTEN
+protein	PRKCZ
+protein	PRKCQ
+protein	PRKCI
+protein	PRKCH
+protein	PRKCD
+protein	PRKCB
+protein	PRKCA
+family	PLCG
+protein	PLAGL1
+family	PKC
+chemical	PIP3
+protein	PIK3R2
+protein	PIK3R1
+protein	PIK3CG
+protein	PIK3CD
+protein	PIK3CB
+protein	PIK3CA
+protein	PIK3C2G
+protein	PIK3C2B
+protein	PIK3C2A
+family	PI3K-class2
+complex	PI3K-class1b
+complex	PI3K-class1a
+chemical	PI-3-P
+protein	PEG3
+protein	PDPK1
+protein	PDGFRB
+protein	PDGFRA
+family	PDGFR
+protein	PDGFB
+protein	PDGFA
+protein	PARP1
+family	P38
+protein	OPCML
+protein	NRAS
+protein	NOTCH3
+protein	NFKB2
+protein	NFKB1
+protein	NF1
+protein	MYCN
+protein	MYC
+protein	MUC1
+protein	MSH6
+protein	MSH2
+family	MMP_family
+family	MMP_subfamily_4
+family	MMP_subfamily_3
+family	MMP_subfamily_2
+family	MMP_subfamily_1
+protein	MMP9
+protein	MMP7
+protein	MMP3
+protein	MMP28
+protein	MMP27
+protein	MMP26
+protein	MMP25
+protein	MMP24
+protein	MMP23B
+protein	MMP21
+protein	MMP2
+protein	MMP19
+protein	MMP17
+protein	MMP16
+protein	MMP15
+protein	MMP14
+protein	MMP13
+protein	MMP12
+protein	MMP11
+protein	MMP10
+protein	MMP1
+protein	MLH1
+protein	MIR182
+protein	MET
+family	MEKK
+family	MEK
+protein	MDM4
+protein	MDM2
+protein	MDC1
+protein	MAPK9
+protein	MAPK8
+protein	MAPK7
+protein	MAPK6
+protein	MAPK4
+protein	MAPK3
+protein	MAPK14
+protein	MAPK12
+protein	MAPK1
+family	MAPK
+protein	MAP3K5
+protein	MAP3K4
+protein	MAP3K3
+protein	MAP3K2
+protein	MAP3K1
+protein	MAP2K5
+protein	MAP2K4
+protein	MAP2K3
+protein	MAP2K2
+protein	MAP2K1
+chemical	LPA
+protein	KRAS
+protein	KIT
+protein	KIAA1303
+family	JNK
+protein	JAK2
+protein	JAK1
+protein	JAG1
+protein	IRS1
+family	INK4
+protein	IGF1R
+protein	IGF1
+protein	ID4
+protein	HRAS
+protein	HLA-G
+protein	HIF1A
+protein	GSK3B
+protein	GRB2
+protein	GOLPH3
+protein	GBL
+protein	GAS6
+protein	GAB1
+abstract	G2_M_ARREST
+abstract	G1_S_PROGRESSION
+protein	FRAP1
+protein	FOXO4
+protein	FOXO3
+protein	FOXO1
+family	FOXO
+protein	FOLR4
+protein	FOLR3
+protein	FOLR2
+protein	FOLR1
+family	FOLR
+protein	FGFR2
+protein	FGFR1
+family	FGFR
+protein	FGF1
+protein	FASLG
+protein	FAS
+protein	FANCF
+protein	EVI1
+protein	ERRFI1
+family	ERK
+protein	ERBB4
+protein	ERBB3
+protein	ERBB2
+protein	EP300
+protein	ELL
+protein	ELF3
+protein	EIF5A2
+protein	EIF4EBP1
+protein	EIF4E
+family	EGFR-family
+protein	EGFR
+protein	E2F8
+protein	E2F7
+protein	E2F6
+protein	E2F5
+protein	E2F4
+protein	E2F3
+protein	E2F2
+protein	E2F1
+family	E2F
+abstract	Degrade_extracellular_matrix
+protein	DPH1
+abstract	DNA_damage_checkpoint
+abstract	DNA_Repair
+protein	DLL3
+protein	DLEC1
+protein	DIRAS3
+protein	DAB2
+protein	CSF1R
+protein	CSF1
+protein	CREBBP
+protein	CHUK
+protein	CHEK2
+protein	CHEK1
+abstract	CELL_SURVIVAL
+abstract	CELL_MIGRATION
+abstract	CELL_GROWTH
+abstract	CELL_CYCLE_PROGRESSION
+protein	CDKN2C
+protein	CDKN2B
+protein	CDKN2A:p16
+protein	CDKN2A:ARF
+protein	CDKN1B
+protein	CDKN1A
+protein	CDK6
+protein	CDK4
+protein	CDK2
+protein	CDH1
+protein	CDC25A
+protein	CDC2
+protein	CCNE1
+complex	CCNE-CDK2-complex
+protein	CCND2
+protein	CCND1
+complex	CCND-CDK6-complex
+complex	CCND-CDK4-complex
+protein	CCNB1
+complex	CCNB-CDC2-complex
+protein	CCNA1
+complex	CCNA-CDK2-complex
+complex	CCNA-CDC2-complex
+protein	CBL
+protein	CASP9
+protein	CASP8
+protein	CASP7
+protein	CASP6
+protein	CASP3
+protein	CASP10
+protein	C11orf30
+complex	BRCC
+protein	BRCA2
+protein	BRCA1
+protein	BRAF
+protein	BIRC3
+protein	BIRC2
+protein	BCL2L1
+protein	BCL2
+complex	BASC
+protein	BAD
+protein	AXL
+protein	AURKA
+protein	ATR
+protein	ATM
+protein	ARL11
+protein	ARAF
+abstract	APOPTOSIS
+protein	APAF1
+protein	AKT3
+protein	AKT2
+protein	AKT1S1
+protein	AKT1
+family	AKT
+protein	AGAP2
+ID4	BRCA1	-a|
+ELL	TP53	-a|
+DLL3	NOTCH3	-a>
+C11orf30	BRCA2	-a|
+MIR182	FOXO3	-a|
+CDH1	CELL_MIGRATION	-ap>
+PTK2	CELL_MIGRATION	-ap>
+PTK2	PI3K-class1a	-a>
+SLC19A1	folate_transport	-ap>
+TGFBR-complex	SMAD3	-a>
+TGFBR-complex	SMAD2	-a>
+TGFBR2	TGFBR-complex	component>
+TGFBR1	TGFBR-complex	component>
+SMAD4	CDC25A	-a|
+SMAD3	CDC25A	-a|
+TGFB1	TGFBR-complex	-a>
+CASP7	PARP1	-a|
+CASP6	APOPTOSIS	-ap>
+CASP3	APOPTOSIS	-ap>
+CASP3	CASP6	-a>
+APAF1	APOPTOSIS	-ap>
+APAF1	CASP9	-a>
+HLA-G	APOPTOSIS	-ap>
+AGAP2	PI3K-class1a	-a>
+FAS	caspase_8_10	-a>
+CSF1	CSF1R	-a>
+IGF1	IGF1R	-a>
+PDGFB	PDGFR	-a>
+PDGFA	PDGFR	-a>
+E2F8	E2F	member>
+E2F7	E2F	member>
+E2F6	E2F	member>
+E2F5	E2F	member>
+E2F4	E2F	member>
+E2F3	E2F	member>
+E2F2	E2F	member>
+E2F1	E2F	member>
+CDC25A	CDC2	-a>
+CDC2	CCNB-CDC2-complex	component>
+CCNB1	CCNB-CDC2-complex	component>
+CCNB-CDC2-complex	G1_S_PROGRESSION	-ap>
+CCNA1	CCNA-CDC2-complex	component>
+CDC2	CCNA-CDC2-complex	component>
+CDK2	CCNA-CDK2-complex	component>
+CCNA1	CCNA-CDK2-complex	component>
+CCNA-CDK2-complex	RB	-a|
+RB	E2F1	-a|
+RBL2	RB	member>
+RBL1	RB	member>
+RB1	RB	member>
+P38	MAPK	member>
+JNK	MAPK	member>
+ERK	MAPK	member>
+MAPK14	P38	member>
+MAPK12	P38	member>
+MAP3K5	MAP2K4	-a>
+MAP3K2	CHUK	-a>
+MAP3K1	MAP2K4	-a>
+MAP3K5	MEKK	member>
+MAP3K4	MEKK	member>
+MAP3K3	MEKK	member>
+MAP3K2	MEKK	member>
+MAP3K1	MEKK	member>
+MAPK8	JNK	member>
+MAPK9	JNK	member>
+MAP2K5	MAPK7	-a>
+MAP2K4	P38	-a>
+MAP2K4	JNK	-a>
+MAP2K3	MAPK14	-a>
+MAP2K2	ERK	-a>
+AURKA	CELL_CYCLE_PROGRESSION	-ap>
+JAG1	NOTCH3	-a>
+NOTCH3	CELL_CYCLE_PROGRESSION	-ap>
+EIF5A2	CELL_CYCLE_PROGRESSION	-ap>
+FASLG	FAS	-a>
+CASP9	CASP3	-a>
+CASP9	CASP7	-a>
+MYC	CDC25A	-a>
+MYC	CDK4	-a>
+MYC	CDK6	-a>
+FGF1	FGFR	-a>
+EVI1	CELL_CYCLE_PROGRESSION	-ap>
+RAB25	CELL_CYCLE_PROGRESSION	-ap>
+PEG3	APOPTOSIS	-ap>
+DPH1	CCND1	-a|
+WWOX	CELL_GROWTH	-a|
+ARL11	APOPTOSIS	-ap>
+OPCML	CELL_CYCLE_PROGRESSION	-a|
+PLAGL1	CELL_CYCLE_PROGRESSION	-a|
+DAB2	RAS	-a|
+SPARC	G1_S_PROGRESSION	-a|
+DLEC1	CELL_GROWTH	-a|
+RASSF1	CCND1	-a|
+DIRAS3	STAT3	-a|
+BCL2L1	CELL_SURVIVAL	-ap>
+BCL2	CELL_SURVIVAL	-ap>
+BAD	BCL2L1	-a|
+BAD	BCL2	-a|
+NFKB2	CELL_SURVIVAL	-ap>
+NFKB1	CELL_SURVIVAL	-ap>
+CHUK	NFKB2	-a|
+CHUK	NFKB1	-a|
+GSK3B	CELL_SURVIVAL	-a|
+RPS6	CELL_GROWTH	-ap>
+RPS6KA2	S6K	member>
+RPS6KA1	S6K	member>
+S6K	RPS6	-a>
+RPS6KB2	S6K	member>
+RPS6KB1	S6K	member>
+EIF4E	CELL_GROWTH	-ap>
+EIF4EBP1	EIF4E	-a|
+AKT1S1	mTOR	-a|
+HIF1A	CELL_GROWTH	-ap>
+mTOR	S6K	-a>
+mTOR	EIF4EBP1	-a|
+mTOR	HIF1A	-a>
+GBL	mTOR	component>
+FRAP1	mTOR	component>
+RICTOR	mTOR	component>
+KIAA1303	mTOR	component>
+RHEB	mTOR	-a>
+JAK2	STAT	-a>
+STAT1	STAT	member>
+STAT	CELL_CYCLE_PROGRESSION	-ap>
+STAT5B	STAT	member>
+STAT5A	STAT	member>
+STAT3	STAT	member>
+STAT2	STAT	member>
+JAK1	STAT	-a>
+FANCF	DNA_Repair	-ap>
+PARP1	DNA_Repair	-ap>
+MDC1	DNA_Repair	-ap>
+ATR	CHEK1	-a>
+ATR	DNA_Repair	-ap>
+ATR	DNA_damage_checkpoint	-ap>
+CHEK2	DNA_damage_checkpoint	-ap>
+CHEK1	DNA_Repair	-ap>
+CHEK1	DNA_damage_checkpoint	-ap>
+RAD51	double_strand_break_repair_via_homologous_recombination	-ap>
+RAD51	DNA_Repair	-ap>
+TP53BP1	ATM	-a>
+PDGFRB	PDGFR	member>
+PDGFRA	PDGFR	member>
+FOXO	FASLG	-a>
+FOXO1	FOXO	member>
+FOXO3	FOXO	member>
+FOXO4	FOXO	member>
+FOXO	SPRY2	-a>
+FOXO	CDKN1A	-a>
+FOXO	CDKN1B	-a>
+FGFR2	FGFR	member>
+FGFR1	FGFR	member>
+PIK3C2A	PI3K-class2	member>
+PIK3C2B	PI3K-class2	member>
+PIK3C2G	PI3K-class2	member>
+PIK3C2B	PI-3-P	-a>
+LPA	PIK3C2B	-a>
+PI-3-P	CELL_MIGRATION	-ap>
+CDKN2A:ARF	MDM2	-a|
+CCND-CDK4-complex	CCND2	component>
+CCND-CDK6-complex	CCND2	component>
+CDKN1A	CCND-CDK4-complex	-a|
+CDKN1A	CCND-CDK6-complex	-a|
+CDKN1B	CCNE-CDK2-complex	-a|
+E2F1	G1_S_PROGRESSION	-ap>
+GAB1	PI3K-class1a	-a>
+GRB2	GAB1	-a>
+GRB2	RAS	-a>
+IGF1R	IRS1	-a>
+IRS1	PI3K-class1a	-a>
+MDM2	TP53	-a|
+MDM4	TP53	-a|
+NF1	RAS	-a|
+PDPK1	AKT	-a>
+PTEN	PIP3	-a|
+PTEN	PTK2	-a|
+SRC	PTEN	-a|
+SRC	PI3K-class1a	-a>
+TP53	G2_M_ARREST	-ap>
+TP53	APOPTOSIS	-ap>
+TP53	MDM2	-a>
+TP53	CDKN1A	-a>
+SPRY2	RAF	-a|
+SPRY2	CBL	-a|
+PLCG	PKC	-a>
+PRKCA	PKC	member>
+PRKCD	PKC	member>
+PRKCH	PKC	member>
+PRKCI	PKC	member>
+PRKCQ	PKC	member>
+PRKCZ	PKC	member>
+PKC	RAF	-a>
+PKC	MEK	-a>
+PRKCB	PKC	member>
+RAF1	RAF	member>
+ARAF	RAF	member>
+BRAF	RAF	member>
+RAF	MEK	-a>
+MAP2K5	MEK	member>
+MAP2K4	MEK	member>
+MAP2K3	MEK	member>
+MAP2K2	MEK	member>
+MAP2K1	MEK	member>
+MEK	ERK	-a>
+MAPK7	ERK	member>
+MAPK6	ERK	member>
+MAPK4	ERK	member>
+MAPK3	ERK	member>
+MAPK1	ERK	member>
+ERK	MYC	-a>
+ERK	CELL_CYCLE_PROGRESSION	-ap>
+ERK	CCND-CDK4-complex	-a>
+ERK	CCND-CDK6-complex	-a>
+ERK	ELF3	-a>
+HRAS	RAS	member>
+KRAS	RAS	member>
+NRAS	RAS	member>
+RAS	RAF	-a>
+RAS	PI3K-class1b	-a>
+PIK3R1	PI3K-class1a	component>
+PIK3R2	PI3K-class1a	component>
+PIK3CA	PI3K-class1a	component>
+PIK3CB	PI3K-class1a	component>
+PIK3CD	PI3K-class1a	component>
+PI3K-class1a	PIP3	-a>
+PIP3	PDPK1	-a>
+TSC-complex	RHEB	-a|
+TSC1	TSC-complex	component>
+TSC2	TSC-complex	component>
+CCND-CDK4-complex	RB	-a|
+CCND1	CCND-CDK4-complex	component>
+CDK4	CCND-CDK4-complex	component>
+CCND-CDK6-complex	RB	-a|
+CCND1	CCND-CDK6-complex	component>
+CDK6	CCND-CDK6-complex	component>
+CCNE-CDK2-complex	RB	-a|
+CDK2	CCNE-CDK2-complex	component>
+CCNE1	CCNE-CDK2-complex	component>
+ERBB4	EGFR-family	member>
+EGFR	EGFR-family	member>
+ERBB2	EGFR-family	member>
+ERBB3	EGFR-family	member>
+AKT	CASP9	-a|
+AKT	BAD	-a|
+AKT	CHUK	-a>
+AKT	GSK3B	-a|
+AKT	AKT1S1	-a|
+AKT	TSC-complex	-a|
+AKT	FOXO	-a|
+AKT	CDKN1B	-a|
+AKT	MDM2	-a>
+AKT2	AKT	member>
+AKT3	AKT	member>
+AKT1	AKT	member>
+CBL	RTK	-a|
+EP300	TP53	-a>
+ATM	CHEK2	-a>
+ATM	MDM2	-a|
+ATM	TP53	-a>
+ATM	BRCA1	-a>
+CSF1R	RTK	member>
+KIT	RTK	member>
+RTK	PI3K-class2	-a>
+FGFR	RTK	member>
+IGF1R	RTK	member>
+RTK	PLCG	-a>
+RTK	SRC	-a>
+PDGFR	RTK	member>
+MET	RTK	member>
+EGFR-family	RTK	member>
+RTK	GRB2	-a>
+PIK3CG	PI3K-class1b	component>
+PI3K-class1b	PIP3	-a>
+MSH2	BASC	component>
+MLH1	BASC	component>
+BASC	DNA_Repair	-ap>
+BRCA1	BASC	component>
+MSH6	BASC	component>
+DNA_Repair	APOPTOSIS	-a|
+INK4	CCND-CDK4-complex	-a|
+INK4	CCND-CDK6-complex	-a|
+CDKN2A:p16	INK4	member>
+CDKN2C	INK4	member>
+CDKN2B	INK4	member>
+BRCC	DNA_Repair	-ap>
+BRCA2	BRCC	component>
+BRCA1	BRCC	component>
+ERRFI1	EGFR-family	-a|
+CASP8	caspase_8_10	component>
+CASP10	caspase_8_10	component>
+caspase_8_10	APAF1	-a>
+folate_transport	CELL_GROWTH	-ap>
+FOLR1	FOLR	member>
+FOLR2	FOLR	member>
+FOLR3	FOLR	member>
+FOLR4	FOLR	member>
+FOLR	folate_transport	-ap>
+MMP_subfamily_4	MMP_family	member>
+MMP_subfamily_3	MMP_family	member>
+MMP_subfamily_2	MMP_family	member>
+MMP_subfamily_1	MMP_family	member>
+MMP1	MMP_subfamily_4	member>
+MMP2	MMP_subfamily_4	member>
+MMP3	MMP_subfamily_4	member>
+MMP7	MMP_subfamily_4	member>
+MMP9	MMP_subfamily_4	member>
+MMP10	MMP_subfamily_4	member>
+MMP11	MMP_subfamily_3	member>
+MMP12	MMP_subfamily_3	member>
+MMP13	MMP_subfamily_3	member>
+MMP14	MMP_subfamily_3	member>
+MMP15	MMP_subfamily_3	member>
+MMP16	MMP_subfamily_2	member>
+MMP17	MMP_subfamily_2	member>
+MMP19	MMP_subfamily_2	member>
+MMP21	MMP_subfamily_2	member>
+MMP23B	MMP_subfamily_2	member>
+MMP24	MMP_subfamily_1	member>
+MMP25	MMP_subfamily_1	member>
+MMP26	MMP_subfamily_1	member>
+MMP27	MMP_subfamily_1	member>
+MMP28	MMP_subfamily_1	member>
+MMP_family	Degrade_extracellular_matrix	-ap>
+Degrade_extracellular_matrix	CELL_MIGRATION	-ap>
+MUC1	AKT1	-a|
+MUC1	FOXO3	-a>
+AXL	PI3K-class1a	-a>
+BIRC2	APOPTOSIS	-a|
+BIRC3	APOPTOSIS	-a|
+GAS6	AXL	-a>
+miR-126	IRS1	-a|
+GOLPH3	mTOR	-a>

@@ -1,0 +1,13 @@
+protein	AURKC
+protein	UniProt:Q9NQS7
+protein	AURKB
+protein	UniProt:Q66I33
+complex	Aurora C/Aurora B/INCENP
+abstract	mitosis
+abstract	metaphase
+mitosis	UniProt:Q66I33	-ap>
+metaphase	Aurora C/Aurora B/INCENP	-ap>
+AURKC	Aurora C/Aurora B/INCENP	component>
+UniProt:Q9NQS7	Aurora C/Aurora B/INCENP	component>
+AURKB	Aurora C/Aurora B/INCENP	component>
+Aurora C/Aurora B/INCENP	UniProt:Q66I33	-a>

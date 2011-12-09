@@ -1,0 +1,151 @@
+protein	WIF1
+protein	FZD1
+protein	FBXW11
+protein	DKK2
+protein	UniProt:Q9UBE8
+protein	PSENEN
+protein	APH1A
+protein	NKD1
+protein	FRAT1
+protein	CREBBP
+protein	NCSTN
+protein	APH1B
+protein	KREMEN2
+protein	DTX1
+protein	MAP3K7IP1
+protein	PPP2R5D
+protein	HDAC1
+protein	CTBP1
+protein	AES
+protein	UniProt:Q06330
+protein	TLE1
+protein	PPARD
+protein	CSNK2A1
+protein	GSK3B
+protein	PSEN1
+protein	CSNK1A1
+protein	UniProt:P46531
+protein	CTNNB1
+protein	MAPK1
+protein	MAPK3
+protein	APC
+protein	CCND1
+protein	UniProt:P20823
+protein	JUN
+protein	WNT1
+protein	UniProt:P01106
+protein	FOS
+protein	DKK1
+protein	UniProt:O75581
+protein	MAP3K7
+protein	AXIN1
+protein	ADAM10
+protein	UniProt:O14640
+protein	DLL1
+complex	beta catenin/beta TrCP1
+complex	WNT1/LRP6/FZD1
+complex	NOTCH1 precursor/Deltex homolog 1
+complex	NOTCH1 precursor/DVL1
+complex	NOTCH/Deltex homolog 1
+complex	NICD/RBPSUH
+complex	LRP6/FZD1
+complex	Gamma Secretase
+complex	Delta 1/NOTCHprecursor
+complex	Delta 1/NOTCH/NOTCH(cleaved)
+complex	DKK2/LRP6/Kremen 2
+complex	DKK1/LRP6/Kremen 2
+complex	CtBP/CBP/TCF1/TLE1/AES
+complex	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4
+complex	Axin1/APC/beta catenin
+complex	AP1
+abstract	apoptosis
+WNT1/LRP6/FZD1	UniProt:O14640	-a>
+WIF1	WNT1/LRP6/FZD1	-a|
+FZD1	WNT1/LRP6/FZD1	component>
+FZD1	LRP6/FZD1	component>
+FBXW11	beta catenin/beta TrCP1	component>
+DKK2	DKK2/LRP6/Kremen 2	component>
+UniProt:Q9UBE8	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	-a|
+PSENEN	Gamma Secretase	component>
+APH1A	Gamma Secretase	component>
+NKD1	PPP2R5D	-a|
+NKD1	AP1	-a>
+FRAT1	CTNNB1	-a|
+FRAT1	APC	-a|
+FRAT1	AXIN1	-a|
+CREBBP	CtBP/CBP/TCF1/TLE1/AES	component>
+CREBBP	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+NCSTN	Gamma Secretase	component>
+APH1B	Gamma Secretase	component>
+KREMEN2	DKK2/LRP6/Kremen 2	component>
+KREMEN2	DKK1/LRP6/Kremen 2	component>
+DTX1	NOTCH1 precursor/Deltex homolog 1	component>
+DTX1	NOTCH/Deltex homolog 1	component>
+MAP3K7IP1	UniProt:Q9UBE8	-a>
+PPP2R5D	CTNNB1	-a|
+PPP2R5D	CTNNB1	-a>
+PPP2R5D	APC	-a|
+PPP2R5D	APC	-a>
+PPP2R5D	AXIN1	-a|
+PPP2R5D	AXIN1	-a>
+HDAC1	CtBP/CBP/TCF1/TLE1/AES	-a>
+CTBP1	CtBP/CBP/TCF1/TLE1/AES	component>
+CTBP1	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+AES	CtBP/CBP/TCF1/TLE1/AES	component>
+AES	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+UniProt:Q06330	NICD/RBPSUH	component>
+TLE1	CtBP/CBP/TCF1/TLE1/AES	component>
+TLE1	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+CSNK2A1	UniProt:O14640	-a>
+GSK3B	CTNNB1	-a>
+GSK3B	APC	-a>
+GSK3B	AXIN1	-a>
+PSEN1	Gamma Secretase	component>
+CSNK1A1	UniProt:O14640	-a>
+UniProt:P46531	CTNNB1	-a>
+UniProt:P46531	APC	-a>
+UniProt:P46531	AXIN1	-a>
+UniProt:P46531	NOTCH1 precursor/Deltex homolog 1	component>
+UniProt:P46531	NOTCH1 precursor/DVL1	component>
+UniProt:P46531	NOTCH/Deltex homolog 1	component>
+UniProt:P46531	NICD/RBPSUH	component>
+UniProt:P46531	Delta 1/NOTCHprecursor	component>
+UniProt:P46531	Delta 1/NOTCH/NOTCH(cleaved)	component>
+UniProt:P46531	AP1	-a|
+CTNNB1	beta catenin/beta TrCP1	component>
+CTNNB1	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+CTNNB1	Axin1/APC/beta catenin	component>
+MAPK1	AP1	-a>
+MAPK3	AP1	-a>
+APC	Axin1/APC/beta catenin	component>
+UniProt:P20823	CtBP/CBP/TCF1/TLE1/AES	component>
+UniProt:P20823	Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	component>
+JUN	AP1	component>
+WNT1	WNT1/LRP6/FZD1	component>
+FOS	AP1	component>
+DKK1	DKK1/LRP6/Kremen 2	component>
+UniProt:O75581	WNT1/LRP6/FZD1	component>
+UniProt:O75581	LRP6/FZD1	component>
+UniProt:O75581	DKK2/LRP6/Kremen 2	component>
+UniProt:O75581	DKK1/LRP6/Kremen 2	component>
+MAP3K7	UniProt:Q9UBE8	-a>
+AXIN1	Axin1/APC/beta catenin	component>
+ADAM10	UniProt:P46531	-a>
+ADAM10	NOTCH/Deltex homolog 1	-a>
+ADAM10	Delta 1/NOTCH/NOTCH(cleaved)	-a>
+UniProt:O14640	PPP2R5D	-a>
+UniProt:O14640	CTNNB1	-a|
+UniProt:O14640	APC	-a|
+UniProt:O14640	AXIN1	-a|
+UniProt:O14640	NOTCH1 precursor/DVL1	component>
+DLL1	Delta 1/NOTCHprecursor	component>
+DLL1	Delta 1/NOTCH/NOTCH(cleaved)	component>
+Gamma Secretase	UniProt:P46531	-a>
+Gamma Secretase	CTNNB1	-a>
+CtBP/CBP/TCF1/TLE1/AES	PPARD	-t|
+CtBP/CBP/TCF1/TLE1/AES	CCND1	-t|
+CtBP/CBP/TCF1/TLE1/AES	UniProt:P01106	-t|
+Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	PPARD	-t>
+Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	CCND1	-t>
+Beta Catenin/TCF1/CtBP/CBP/TLE1/AES/SMAD4	UniProt:P01106	-t>
+AP1	apoptosis	-ap>

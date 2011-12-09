@@ -1,0 +1,215 @@
+protein	IKBKG
+protein	UniProt:Q9Y4K4
+protein	TNIK
+protein	MAP3K7IP2
+protein	CYLD
+protein	MAP3K3
+protein	MAP3K5
+protein	UniProt:Q92636
+protein	RFFL
+protein	MADD
+protein	MAP4K3
+protein	UniProt:Q7Z2Y5
+protein	MAP3K7IP1
+protein	TRADD
+protein	CASP8
+protein	RIPK1
+protein	SQSTM1
+protein	BIRC2
+protein	BIRC3
+protein	UniProt:Q13233
+protein	FADD
+protein	TRAF1
+protein	TRAF2
+protein	MAP4K2
+protein	PRKCZ
+protein	RELA
+protein	CAV1
+protein	ADAM17
+protein	GNB2L1
+protein	MAP2K3
+protein	STAT1
+protein	PRKCI
+protein	TNFAIP3
+protein	TNFRSF1B
+protein	NFKB1
+protein	TNFRSF1A
+protein	UniProt:P17405
+protein	TXN
+protein	TNF
+protein	MAP4K4
+protein	BAG4
+protein	SMPD2
+protein	MAP3K7
+protein	CHUK
+protein	IKBKB
+protein	MAP2K7
+complex	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD
+complex	sTNF-alpha/TNFR1A/TRADD/TRAF2
+complex	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)
+complex	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs
+complex	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2
+complex	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3
+complex	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family
+complex	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2
+complex	sTNF-alpha/TNFR1A/TRADD
+complex	sTNF-alpha/TNFR1A/MADD
+complex	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1
+complex	sTNF-alpha/TNFR1A/FAN/NSMASE
+complex	sTNF-alpha/TNFR1A
+complex	sTNF-alpha
+complex	TRX/ASK1
+complex	TRAF1/TRAF2
+complex	TNFR2 (cleaved)
+complex	TNFR2
+complex	TNFR1A/BAG4
+complex	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2
+complex	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2
+complex	TNF-alpha/TNFR2 (cleaved)
+complex	TNF-alpha
+complex	TAK1/TAB family
+complex	RelA/NF kappa B1
+complex	NF kappa B1 p50/RelA
+complex	IKK complex
+chemical	mol:ceramide
+abstract	response to oxidative stress
+abstract	MAPKKK cascade
+abstract	JNK cascade
+sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	CASP8	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	UniProt:P17405	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	UniProt:Q9Y4K4	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	TNIK	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	MAP3K5	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	MAP4K3	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	UniProt:Q7Z2Y5	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	MAP4K2	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	TXN	-a>
+sTNF-alpha/TNFR1A/TRADD/TRAF2	MAP4K4	-a>
+sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	-a>
+sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	NF kappa B1 p50/RelA	-a>
+sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	CASP8	-a|
+sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	IKK complex	-a>
+sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	MAP2K3	-a>
+sTNF-alpha/TNFR1A/MADD	MAPKKK cascade	-ap>
+sTNF-alpha/TNFR1A/MADD	JNK cascade	-ap>
+response to oxidative stress	MAP3K5	-ap>
+response to oxidative stress	TXN	-ap>
+IKBKG	IKK complex	component>
+UniProt:Q9Y4K4	UniProt:Q13233	-a>
+TNIK	UniProt:Q13233	-a>
+MAP3K7IP2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+MAP3K7IP2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+MAP3K7IP2	TAK1/TAB family	component>
+CYLD	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	-a|
+CYLD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	-a|
+MAP3K3	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+MAP3K5	MAP2K3	-a>
+MAP3K5	MAP2K7	-a>
+MAP3K5	TRX/ASK1	component>
+UniProt:Q92636	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1	component>
+UniProt:Q92636	sTNF-alpha/TNFR1A/FAN/NSMASE	component>
+RFFL	sTNF-alpha/TNFR1A/TRADD/TRAF2	-a>
+RFFL	RIPK1	-a>
+MADD	sTNF-alpha/TNFR1A/MADD	component>
+MAP4K3	UniProt:Q13233	-a>
+UniProt:Q7Z2Y5	UniProt:Q13233	-a>
+MAP3K7IP1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+MAP3K7IP1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+MAP3K7IP1	TAK1/TAB family	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/TRAF2	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	component>
+TRADD	sTNF-alpha/TNFR1A/TRADD	component>
+RIPK1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+RIPK1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+RIPK1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+RIPK1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+RIPK1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	component>
+SQSTM1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+BIRC2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+BIRC2	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+BIRC3	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+BIRC3	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+UniProt:Q13233	MAP2K7	-a>
+FADD	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	component>
+TRAF1	TRAF1/TRAF2	component>
+TRAF1	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+TRAF1	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/TRAF2	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+TRAF2	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	component>
+TRAF2	TRAF1/TRAF2	component>
+TRAF2	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+TRAF2	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2	component>
+MAP4K2	UniProt:Q13233	-a>
+PRKCZ	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+RELA	RelA/NF kappa B1	component>
+RELA	NF kappa B1 p50/RelA	component>
+CAV1	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	-a>
+ADAM17	sTNF-alpha	-a>
+ADAM17	TNFR2 (cleaved)	-a>
+GNB2L1	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1	component>
+STAT1	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	component>
+PRKCI	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+TNFAIP3	sTNF-alpha/TNFR1A/TRADD/TRAF2	-a>
+TNFAIP3	RIPK1	-a>
+TNFRSF1B	TNFR2 (cleaved)	component>
+TNFRSF1B	TNFR2	component>
+TNFRSF1B	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+TNFRSF1B	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2	component>
+TNFRSF1B	TNF-alpha/TNFR2 (cleaved)	component>
+NFKB1	RelA/NF kappa B1	component>
+NFKB1	NF kappa B1 p50/RelA	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/TRAF2	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/TRADD	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/MADD	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1	component>
+TNFRSF1A	sTNF-alpha/TNFR1A/FAN/NSMASE	component>
+TNFRSF1A	sTNF-alpha/TNFR1A	component>
+TNFRSF1A	TNFR1A/BAG4	component>
+UniProt:P17405	mol:ceramide	-a>
+TXN	TRX/ASK1	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/TRAF2/FADD	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/TRAF2	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/STAT1 (dimer)	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/p62/Atypical PKCs	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/cIAP1/cIAP2	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+TNF	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2	component>
+TNF	sTNF-alpha/TNFR1A/TRADD	component>
+TNF	sTNF-alpha/TNFR1A/MADD	component>
+TNF	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1	component>
+TNF	sTNF-alpha/TNFR1A/FAN/NSMASE	component>
+TNF	sTNF-alpha/TNFR1A	component>
+TNF	sTNF-alpha	component>
+TNF	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2/cIAP1/cIAP2	component>
+TNF	TNF-alpha/TNFR2 (cleaved)/TRAF1/TRAF2	component>
+TNF	TNF-alpha/TNFR2 (cleaved)	component>
+TNF	TNF-alpha	component>
+MAP4K4	UniProt:Q13233	-a>
+BAG4	TNFR1A/BAG4	component>
+SMPD2	sTNF-alpha/TNFR1A/FAN/NSMASE/RACK1	component>
+SMPD2	sTNF-alpha/TNFR1A/FAN/NSMASE	component>
+MAP3K7	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family/MEKK3	component>
+MAP3K7	sTNF-alpha/TNFR1A/TRADD/RIP1/TRAF2/TAK1/TAB family	component>
+MAP3K7	TAK1/TAB family	component>
+CHUK	IKK complex	component>
+IKBKB	IKK complex	component>
+MAP2K7	JNK cascade	-ap>
