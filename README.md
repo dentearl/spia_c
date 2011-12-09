@@ -37,13 +37,13 @@ hashes and then iteratively processes each pathway file in the pathway directory
 (<code>--dir</code>), or in the UCSC Cancer Browser Analysis Team (UCSC CBAT)
 format (<code>--pathFiles</code>).
 
-First it is decomposed into 28 differentn by n matrices, where n is the 
+First it is decomposed into 28 different _n_ by _n_ matrices, where _n_ is the 
 number of genes in the pathway, and the number 28 comes from the number 
 of different interaction types that Kegg uses (23) plus 5 custom 
 types that Steve Benz and Charlie Vaske of (UCSC CBAT) use. The values in the matrices are
-binary where a A_{ij} = 1 means that gene j effects gene i (the effect
+binary where a *A* _{ij}_ = 1 means that gene _j_ effects gene _i_ (the effect
 being dependent on which of the 28 matrices. E.g. activation, inhibition, etc).
-A_{ij} = 0 means that gene j does not effect gene i.
+*A* _{ij}_ = 0 means that gene _j_ does not effect gene _i_.
 
 These matrices are compressed into a single matrix by normalizing the sum of each
 column to 1 and then multiplying the matrix by the coeffecient of that relationship.
@@ -52,21 +52,21 @@ they use binary values, but there is no reason why you couldn't use doubles shou
 you have cause to. HOWEVER, I never got around to writing the code for allowing
 custom coefficent vectors.
 
-The matrix B is then subtracted from the identity matrix, inverted, multiplied by the
-B matrix and then multiplied by the differentially expressed vector:
+The matrix *B* is then subtracted from the identity matrix, inverted, multiplied by the
+*B* matrix and then multiplied by the differentially expressed vector:
 
-Accumulation = B * (I-B)^{-1} * diffExpression
+Accumulation = *B* * (*I* - *B*)^{-1} * diffExpression
 
 Further we know that
 
 Accumulation = PerturbationFactor - diffExpression
 
-And this allows us to solve for the perterbation factor. tA is the net accumulation,
+And this allows us to solve for the perterbation factor. _tA_ is the net accumulation,
 and we sum the entire vector to calculate it.
-tA = sum(Accumulation)
+_tA_ = sum(Accumulation)
 
-Next the bootstrap is applied to try to find an empirical distribution of tA scores.
-This is where the PPert, or probability of perturbation, comes from.
+Next the bootstrap is applied to try to find an empirical distribution of _tA_ scores.
+This is where the _PPert_, or probability of perturbation, comes from.
 
 ## INSTALLATION
 spia_c should be installed from the Makefile using
@@ -108,7 +108,8 @@ Here's my guess:
 species:gene1 species:gene2 type(?) relationship relationshipPictogram path:speciesPathNumber commonName(??)
 So from the example, Human gene 941 is activating gene 940 in pathway 05330.
 We get the Charlie parse from
-/projects/sysbio/Map/Data/Pathways/Human/KEGG/TabResults/
+
+<code>/projects/sysbio/Map/Data/Pathways/Human/KEGG/TabResults/</code>
 
 ## UCSC CBAT FORMAT:
 [fill this in!]
