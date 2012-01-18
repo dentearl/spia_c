@@ -117,7 +117,7 @@ void printPathway(void);
 int  id_sortPath(upstreamGene *a, upstreamGene *b);
 void sort_by_idPath(void);
 int  countDowns(char *geneID);
-int  addGenePathAll(char *geneID);
+void addGenePathAll(char *geneID);
 allGene* findGenePathAll(char *geneID);
 void deleteAllPathAll(void);
 void printPathwayAll(void);

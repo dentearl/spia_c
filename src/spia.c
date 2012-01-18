@@ -28,6 +28,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 #include "spia.h"
 
 int debug_flag;         /* an extern that gets set in gatherOptions() */

@@ -5,8 +5,11 @@ export SHELLOPTS=pipefail
 #  dent earl, dearl soe ucsc edu
 #  1 may 2009
 ##############################
-binPath = bin
-srcPath = src
+binPath = ./bin
+srcPath = ./src
+
+CC = gcc 
+CFLAGS = -Wall -Werror -std=c99 -pedantic -g
 
 .PHONY: all clean test
 
@@ -14,11 +17,11 @@ all: ${binPath}/spia
 
 ${binPath}/spia: ${srcPath}/spia.c ${srcPath}/spia.h ${srcPath}/fileHandling.o ${srcPath}/hashListFunctions.o ${srcPath}/linearAlg.o ${srcPath}/probFunctions.o
 	mkdir -p $(dir $@)
-	gcc -g -o $@.tmp $^ -I external/uthash-1.5/src/ -F77 -I77 -llapack -lblas
+	${CC} ${CFLAGS} -o $@.tmp $^ -I external/uthash-1.5/src/ -I77 -llapack -lblas
 	mv $@.tmp $@
 
 ${srcPath}/%.o: ${srcPath}/%.c
-	gcc -c -g -o $@.tmp $< -I external/uthash-1.5/src/
+	${CC} ${CFLAGS} -c -o $@.tmp $< -I external/uthash-1.5/src/
 	mv $@.tmp $@
 
 ##############################

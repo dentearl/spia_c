@@ -65,7 +65,6 @@ double** buildBeta(relationType rel){
   ord = geneOrder;
   unsigned int n;
   n = HASH_COUNT(geneOrder);
-  double *p;
   double **beta;
   beta = zeros(n);
   int i;
@@ -104,7 +103,7 @@ void printMatrix(double **a, int n){
 
 /*
 void prettyPrintMatrix(double **a, int n){
-  /* for debug purposes only 
+  // for debug purposes only 
   int i, j;
   for(i = 0; i < n; ++i)
     for(j = 0; j< n; ++j)
@@ -226,17 +225,13 @@ double* zerosVec(int n){
 }
 
 void fillDEVec(double *vecNew, int n){
-  extern diffE *diffGeneExp;
   extern geneItem *geneOrder;
   extern int debug_flag;
-  extern int verbose_flag;
-  int nDownStream;
-  int index[n],i,j; /* index contains intersected genes' positions in big beta matrix*/
+  int index[n], i; /* index contains intersected genes' positions in big beta matrix*/
   diffE *de = NULL;
-  geneItem *order = NULL;
   geneItem *ord   = NULL;
   ord = geneOrder;
-  i=0;
+  i = 0;
   /* this loop should build the index array
      and build the ordered intersected diff expr vector
   */
@@ -274,7 +269,7 @@ int  isMatrixEmpty(double **a, int n){
 
 double determinant(double **a, int n){
   /* Gaussian elimination method to calculate determinant of matrix*/
-  int i,j,k,m,orig, cnt=0, max;
+  int i, j, k, m, orig, cnt = 0;
   double **b, ans, pivot, multiplier, absmax, *tmp = NULL, *row = NULL;
   // make a copy of a in b, since we're going to be adjusting the contents
   b = zeros(n);
@@ -283,7 +278,7 @@ double determinant(double **a, int n){
   for(k = 0; k < n-1; ++k){
     // find the pivot element
     absmax = b[k][k] * b[k][k];
-    for(m = k+1; m < n; ++m){
+    for(m = k + 1; m < n; ++m){
       if((b[m][k] * b[m][k]) > absmax){
         row = b[m];
         orig = m;
@@ -312,7 +307,7 @@ double determinant(double **a, int n){
     ans = 1.0;
   else
     ans = -1.0;
-  for (i = 0; i <n; ++i){
+  for (i = 0; i < n; ++i){
     ans *= b[i][i];
   }
   return ans;
