@@ -168,8 +168,7 @@ double* colSum(double **a, int n){
     /* a is a ptr to a matrix of size n */
     double *b = NULL;
     int i,j;
-    b = malloc(n * sizeof(double));
-    assert(b != NULL);
+    b = daemalloc(n * sizeof(double));
     for (i = 0; i < n; ++i)
         b[i] = 0;
     for (i = 0; i < n; ++i){
@@ -199,11 +198,8 @@ double** zeros(int n){
     double *p = NULL;
     double **a = NULL;
     int i, j;
-    p = malloc(n * n * sizeof(double));
-    a = malloc(n * sizeof(double *));
-    //a = calloc(n, sizeof(double *));
-    assert(p != NULL);
-    assert(a != NULL);
+    p = daemalloc(n * n * sizeof(double));
+    a = daemalloc(n * sizeof(double *));
     for (i = 0; i < n; ++i)
         a[i] = p + i * n;
     for (i = 0; i < n; ++i)

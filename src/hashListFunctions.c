@@ -36,9 +36,7 @@ int  addGenePath(char *geneID){
     /* front add  */
     extern upstreamGene *pathway_up;
     upstreamGene *g = NULL;
-    g = malloc(sizeof(upstreamGene));
-    if(g==NULL)
-        return -1;
+    g = daemalloc(sizeof(upstreamGene));
     strcpy(g->id, geneID);
     g->down = NULL;
     HASH_ADD_STR(pathway_up, id, g);
@@ -61,9 +59,7 @@ void addGenePathAll(char *geneID){
     f = findGenePathAll(geneID);
     if(f != NULL)
         return;
-    g = malloc(sizeof(allGene));
-    if(g == NULL)
-        return;
+    g = daemalloc(sizeof(allGene));
     strcpy(g->id, geneID);
     HASH_ADD_STR(pathway_all, id, g);
     while(all_pathway_ids[i] != NULL)
@@ -125,7 +121,7 @@ int addInteraction(char *upID, char *downID, relationType rel){
     if(g == NULL){
         return -1;
     }
-    d = malloc(sizeof(downList));
+    d = daemalloc(sizeof(downList));
     strcpy(d->id, downID);
     d->relation = rel;
     d->next = g->down;
@@ -212,9 +208,7 @@ int addGeneOrder(char *geneID){
     /* front add  */
     extern geneItem *geneOrder;
     geneItem *g = NULL;
-    g = malloc(sizeof(geneItem)); // changed from upstreamGene
-    if(g == NULL)
-        return -1;
+    g = daemalloc(sizeof(geneItem)); // changed from upstreamGene
     strcpy(g->id, geneID);
     g->order =-1;
     HASH_ADD_STR(geneOrder, id, g);
@@ -263,8 +257,7 @@ int addDiffExprsGene(char *geneID, double expr){
     /* front add  */
     extern diffE *diffGeneExp;
     diffE *d = NULL;
-    d = malloc(sizeof(diffE));
-    assert(d != NULL);
+    d = daemalloc(sizeof(diffE));
     strcpy(d->id, geneID);
     d->expr = expr;
     d->count = 1;
@@ -382,8 +375,7 @@ int addAllGeneEntry(char *geneID){
     /* front add  */
     extern allGene *allGenesTested;
     allGene *a = NULL;
-    a = malloc(sizeof(allGene));
-    assert(a != NULL);
+    a = daemalloc(sizeof(allGene));
     strcpy(a->id, geneID);
     HASH_ADD_STR(allGenesTested, id, a);
     return 0;
@@ -438,8 +430,7 @@ int addBootGene(char *geneID){
     /* front add  */
     extern diffE *bootGenes;
     diffE *d;
-    d = malloc(sizeof(diffE));
-    assert(d != NULL);
+    d = daemalloc(sizeof(diffE));
     strcpy(d->id, geneID);
     d->expr = randomDEvalue(); // random expression value, with resampling
     HASH_ADD_STR(bootGenes, id, d);
@@ -548,8 +539,7 @@ int addPGlobal(double p, char *c, int pathSize, int Nde, double t, double pPERT,
     /* front add  */
     extern pGlobal *pGlist;
     pGlobal *pGlob = NULL;
-    pGlob = malloc(sizeof(pGlobal));
-    assert(pGlob != NULL);
+    pGlob = daemalloc(sizeof(pGlobal));
     strcpy(pGlob->path, c);
     pGlob->p = p;
     pGlob->bonf = -1;

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#define _GNU_SOURCE // getline()
+// #define _GNU_SOURCE // getline()
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -134,6 +134,43 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
         usage();
 }
 
+
+size_t daeline(char **s, size_t *n, FILE *f) {
+    // shamelessly cribbed from Benedict Paten and sonLib
+    register size_t nMinus1 = ((*n) - 1), i = 0;
+    
+    char *s2 = *s;
+
+    while(1) {
+        register size_t ch = (char) getc(f);
+
+        if(ch == '\r') {
+            ch = getc(f);
+        }
+
+        if(i == nMinus1) {
+            // double the buffer
+            *n = 2 * (*n) + 1;
+            *s = realloc(*s, (*n + 1) * sizeof(char));
+            assert(*s != NULL);
+            s2 = *s + i;
+            nMinus1 = ((*n)-1);
+        }
+
+        if((ch == '\n') || (ch == EOF)) {
+            *s2 = '\0';
+            return(feof(f) ? 0 : i);
+        }
+        else {
+            *s2 = ch;
+            s2++;
+        }
+        ++i;
+    }
+}
+
+
+
 int endsIn_tab(char *filename){
     /* endsIn should return a 0 if the name does not end
        in `.tab', and a 1 if it does */
@@ -158,18 +195,19 @@ void readDETab(char *filename){
     /* readDETab should be able to take a pathname to a tab file,
        read out the good bits, and then stuff them in a hash.*/
     FILE *ifp = NULL;
-    char *line;
+    
     size_t nbytes = 512;
-    int bytes_read = 1;
+    size_t bytes_read = 1;
+    char *line = (char *) daemalloc((nbytes + 1));
+
     extern double *all_de_values;
     extern int debug_flag;
     extern int verbose_flag;
     int i = 0;
-    char *id = (char *) malloc(MAX_ID_LENGTH + 1);
+    char *id = (char *) daemalloc(MAX_ID_LENGTH + 1);
     double de;
     diffE *g;
     int nArgs;
-    line = (char *) malloc(nbytes + 1);
     ifp = fopen(filename, "r");
     if(verbose_flag)
         printf("READING `%s'\n", filename);
@@ -178,20 +216,20 @@ void readDETab(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        line = '\0'; /* failure to do this results in an extra readthrough  */
-        bytes_read = getline(&line, &nbytes, ifp);
+        bytes_read = daeline(&line, &nbytes, ifp);
         nArgs = sscanf(line, "%s\t%lf", id, &de);
         if(nArgs < 2)
             nArgs = sscanf(line, "%s %lf", id, &de);
         g = findDiffExpr(id);
         if(nArgs == 2 ){
-            if(g!=NULL){
+            if(g != NULL){
                 addDiffExprsGeneEntry(id, de);
             }else{
                 addDiffExprsGene(id, de);
             }
         }
     }
+    fclose(ifp);
     if(verbose_flag)
         printf("READ COMPLETE. Populating Hash and Array with DE values.\n");
     // now that all of the de_genes and values are read in, populate our
@@ -214,15 +252,14 @@ void readArrayTab(char *filename){
        reads in the array file.
     */
     FILE *ifp = NULL;
-    char *line;
     size_t nbytes = 200;
-    int bytes_read = 1;
+    size_t bytes_read = 1;
+    char *line = (char *) daemalloc((nbytes + 1));
     extern int debug_flag;
     extern int verbose_flag;
-    char *id = (char *) malloc(MAX_ID_LENGTH + 1);
+    char *id = (char *) daemalloc(MAX_ID_LENGTH + 1);
     allGene *g;
     int nArgs,i;
-    line = (char *) malloc (nbytes + 1);
     ifp = fopen(filename, "r");
     if(verbose_flag)
         printf("READING Array file:`%s'\n", filename);
@@ -231,8 +268,7 @@ void readArrayTab(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        line = '\0'; /* failure to do this results in an extra readthrough  */
-        bytes_read = getline(&line, &nbytes, ifp);
+        bytes_read = daeline(&line, &nbytes, ifp);
         nArgs = sscanf(line, "%d\t%s", &i, id);
         // fprintf(stdout, "%s\n",id);
         g = findAllGene(id);
@@ -242,6 +278,7 @@ void readArrayTab(char *filename){
             }
         }
     }
+    fclose(ifp);
     free(line);
 }
 
@@ -256,19 +293,20 @@ int readOldPathway(char *filename){
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
     size_t nbytes = 512;
-    int bytes_read = 1;
-    char *line, *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
+    size_t bytes_read = 1;
+    char *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
+    char *line = (char *) daemalloc((nbytes + 1));
+
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    line       = (char *) malloc(nbytes + 1);
-    ups        = (char *) malloc(nbytes + 1);
-    downs      = (char *) malloc(nbytes + 1);
-    pathname   = (char *) malloc(nbytes + 1);
-    relType    = (char *) malloc(nbytes + 1);
-    relName    = (char *) malloc(nbytes + 1);
-    relSymb    = (char *) malloc(nbytes + 1);
-    descrip    = (char *) malloc(nbytes + 1);
+    ups        = (char *) daemalloc(nbytes + 1);
+    downs      = (char *) daemalloc(nbytes + 1);
+    pathname   = (char *) daemalloc(nbytes + 1);
+    relType    = (char *) daemalloc(nbytes + 1);
+    relName    = (char *) daemalloc(nbytes + 1);
+    relSymb    = (char *) daemalloc(nbytes + 1);
+    descrip    = (char *) daemalloc(nbytes + 1);
     ifp = fopen(filename, "r");
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
@@ -277,7 +315,7 @@ int readOldPathway(char *filename){
     if(verbose_flag)
         printf("READING `%s'\n", filename);
     while(bytes_read > 0){
-        bytes_read = getline(&line, &nbytes, ifp);
+        bytes_read = daeline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, relName, relSymb, pathname, descrip);
@@ -296,6 +334,7 @@ int readOldPathway(char *filename){
             }
         }
     }
+    fclose(ifp);
     free(line);
     free(ups);
     free(downs);
@@ -319,15 +358,16 @@ int readNewPathway(char *filename){
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
     size_t nbytes = 200;
-    int bytes_read = 1;
-    char *line, *itemA, *itemB, *interact;
+    size_t bytes_read = 1;
+    char *itemA, *itemB, *interact;
+    char *line = (char *) daemalloc((nbytes + 1));
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    line       = (char *) malloc(nbytes + 1);
-    itemA      = (char *) malloc(nbytes + 1);
-    itemB      = (char *) malloc(nbytes + 1);
-    interact   = (char *) malloc(nbytes + 1);
+    line       = (char *) daemalloc(nbytes + 1);
+    itemA      = (char *) daemalloc(nbytes + 1);
+    itemB      = (char *) daemalloc(nbytes + 1);
+    interact   = (char *) daemalloc(nbytes + 1);
     ifp = fopen(filename, "r");
     if(verbose_flag)
         printf("READING `%s'\n", filename);
@@ -336,7 +376,7 @@ int readNewPathway(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        bytes_read = getline(&line, &nbytes, ifp);
+        bytes_read = daeline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "%s\t%s\t%s", itemA, itemB, interact);
@@ -351,10 +391,10 @@ int readNewPathway(char *filename){
                 //     fprintf(stderr, "adding new gene %s\n", ups);
                 addGenePath(itemA);
                 addInteraction(itemA, itemB, enumRelType);
-      
             }
         }
     }
+    fclose(ifp);
     free(line);
     free(itemA);
     free(itemB);
@@ -370,12 +410,12 @@ void readBetaCoeffFile(char *filename){
     extern double betaCoefs[];
     FILE *ifp = NULL;
     size_t nbytes = 200;
-    int bytes_read = 1;
-    char *line, *relName;
+    size_t bytes_read = 1;
+    char *line = (char *) daemalloc((nbytes + 1) * sizeof(char));
+    char *relName;
     relationType enumRelType;
     int nArgs;
-    line     = (char *) malloc(nbytes + 1);
-    relName  = (char *) malloc(nbytes + 1);
+    relName  = (char *) daemalloc(nbytes + 1);
     double beta;
   
     ifp = fopen(filename, "r");
@@ -387,7 +427,7 @@ void readBetaCoeffFile(char *filename){
     }
     // printBetaCoeffs();
     while(bytes_read > 0){
-        bytes_read = getline(&line, &nbytes, ifp);
+        bytes_read = daeline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "%s\t%lf", relName, &beta);
@@ -401,6 +441,7 @@ void readBetaCoeffFile(char *filename){
         }
     }
     //  printBetaCoeffs();
+    fclose(ifp);
     free(line);
     free(relName);
 }

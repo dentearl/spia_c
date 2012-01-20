@@ -1,4 +1,5 @@
 #include <uthash.h>    /* hashes! */
+#include <stdlib.h>
 
 #define MAX_PATH_LENGTH 512 /* file system path names  */
 #define MAX_ID_LENGTH 100   /* maximum gene name (id) length */
@@ -199,3 +200,4 @@ void rev_sort_by_pValue(void);
 void printPValues(void);
 void bonferrPGlobal(void);
 void fdrPGlobal(void);
+void* daemalloc(size_t n);
