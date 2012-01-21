@@ -83,6 +83,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                     {"verbose", no_argument, &verbose_flag, 1},
                     {"printNetAcc", no_argument, &showNetAcc_flag, 1},
                     {"quietNetAcc", no_argument, &quietNetAcc_flag, 1},
+                    {"help",  no_argument, 0, 'h'},
                     /* These options don't set a flag.
                        We distinguish them by their indices. */
                     {"dir",  required_argument, 0, 'd'},
@@ -95,7 +96,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                 };
             /* getopt_long stores the option index here. */
             int option_index = 0;
-            c = getopt_long(argc, argv, "d:e:b:a:s:",
+            c = getopt_long(argc, argv, "d:e:b:a:p:c:",
                             long_options, &option_index);
             /* Detect the end of the options. */
             if (c == -1){
@@ -123,6 +124,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                 case 'p':
                     *pathFile = optarg;
                     break;
+                case 'h':
                 case '?':
                     /* getopt_long already printed an error message. */
                     break;
