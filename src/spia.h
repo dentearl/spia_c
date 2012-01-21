@@ -7,6 +7,7 @@
 #define NUM_REL 28 /* the number of relationships possible. length of 
                       enum relationType.
                    */
+#define TRUE 1
 /* 
    techincal note here, the actual binding/association relationships use `/'
    in their names, but c complains when we do this, so we have substituted

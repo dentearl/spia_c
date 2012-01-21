@@ -135,13 +135,11 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
 }
 
 
-size_t daeline(char **s, size_t *n, FILE *f) {
-    // shamelessly cribbed from Benedict Paten and sonLib
+size_t de_getline(char **s, size_t *n, FILE *f) {
     register size_t nMinus1 = ((*n) - 1), i = 0;
-    
     char *s2 = *s;
 
-    while(1) {
+    while(TRUE) {
         register size_t ch = (char) getc(f);
 
         if(ch == '\r') {
@@ -149,7 +147,6 @@ size_t daeline(char **s, size_t *n, FILE *f) {
         }
 
         if(i == nMinus1) {
-            // double the buffer
             *n = 2 * (*n) + 1;
             *s = realloc(*s, (*n + 1) * sizeof(char));
             assert(*s != NULL);
@@ -216,7 +213,7 @@ void readDETab(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        bytes_read = daeline(&line, &nbytes, ifp);
+        bytes_read = de_getline(&line, &nbytes, ifp);
         nArgs = sscanf(line, "%s\t%lf", id, &de);
         if(nArgs < 2)
             nArgs = sscanf(line, "%s %lf", id, &de);
@@ -268,7 +265,7 @@ void readArrayTab(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        bytes_read = daeline(&line, &nbytes, ifp);
+        bytes_read = de_getline(&line, &nbytes, ifp);
         nArgs = sscanf(line, "%d\t%s", &i, id);
         // fprintf(stdout, "%s\n",id);
         g = findAllGene(id);
@@ -315,7 +312,7 @@ int readOldPathway(char *filename){
     if(verbose_flag)
         printf("READING `%s'\n", filename);
     while(bytes_read > 0){
-        bytes_read = daeline(&line, &nbytes, ifp);
+        bytes_read = de_getline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, relName, relSymb, pathname, descrip);
@@ -376,7 +373,7 @@ int readNewPathway(char *filename){
         exit(1);
     }
     while(bytes_read > 0){
-        bytes_read = daeline(&line, &nbytes, ifp);
+        bytes_read = de_getline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "%s\t%s\t%s", itemA, itemB, interact);
@@ -427,7 +424,7 @@ void readBetaCoeffFile(char *filename){
     }
     // printBetaCoeffs();
     while(bytes_read > 0){
-        bytes_read = daeline(&line, &nbytes, ifp);
+        bytes_read = de_getline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
         nArgs = sscanf(line, "%s\t%lf", relName, &beta);
