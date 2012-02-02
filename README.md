@@ -96,6 +96,12 @@ option.
 
 <code>bin/spia --dir testPathways/ --de testData/DE_Colorectal.tab  --array testData/ALL_Colorectal.tab --nBoots 2000 --queitNetAcc</code>
 
+<code>--de</code> A two column tab delimited file, first column is a unique integer ID 
+the second column is the differential expression value.
+<code>--array</code> A two column tab delimited file, first column is an integer index, 
+starting at 1 and the second column is one of the unique gene IDs from the <code>--array</code> file
+
+
 There are also <code>--verbose</code> and <code>--debug</code> flags.
 
 ## CHARLIE FORMAT:
