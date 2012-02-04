@@ -26,17 +26,17 @@ ${srcPath}/%.o: ${srcPath}/%.c
 
 ##############################
 # system tests
-test: test/testBasic.txt test/testTCGA.txt test/testSPath.txt test/testBeta.txt test/testD.txt 
+test: test/testBasic.txt test/testACGT.txt test/testSPath.txt test/testBeta.txt test/testD.txt 
 
 test/testBasic.txt: ${binPath}/spia
 	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
 		--nBoots 2000 --array test/testData/ALL_Colorectal.tab 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testTCGA.txt: ${binPath}/spia
-	${binPath}/spia --pathFiles test/tcgaGBM/pathways/ --de test/tcgaGBM/sample_291.txt \
-		--nBoots 2000 --array test/tcgaGBM/tcga_all.txt 2&> $@.tmp
-	mv $@.tmp $@
+test/testACGT.txt: ${binPath}/spia
+	${binPath}/spia --pathFiles test/GBM/pathways/ --de test/GBM/sampleDE.txt \
+		--nBoots 2000 --array test/GBM/allDE.txt #2&> $@.tmp
+#	mv $@.tmp $@
 
 test/testSPath.txt: ${binPath}/spia
 	${binPath}/spia --pathFiles test/alternateFormatPathways/ --de test/testData/DE_Colorectal.tab \
