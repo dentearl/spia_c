@@ -94,38 +94,27 @@ double** buildBeta(relationType rel){
 }
 
 void printMatrix(double **a, int n){
-    /* for debug purposes only */
     int i, j;
     for(i = 0; i < n; ++i)
-        for(j = 0; j< n; ++j)
-            fprintf(stderr, "%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
+        for(j = 0; j < n; ++j)
+            fprintf(stderr, "%7.4f%s", a[i][j], (j == (n - 1)) ? "\n" : " ");
 }
-
-/*
-  void prettyPrintMatrix(double **a, int n){
-  // for debug purposes only 
-  int i, j;
-  for(i = 0; i < n; ++i)
-  for(j = 0; j< n; ++j)
-  printf("%7.4f%s", a[i][j], (j == (n-1))?"\n":" ");
-  }
-*/
 
 void printVector(double *a, int n){
     int i;
     for(i = 0; i < n; ++i){
         printf(" %d: ",i);
-        printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
+        printf("%7.4f%s", a[i], (i == (n - 1)) ? "\n" : " ");
     }
 }
 void printNamedVector(double *a, int n){
-    extern geneItem     *geneOrder;
+    extern geneItem *geneOrder;
     geneItem *ord;
     ord = geneOrder;  
     int i;
     for(i = 0; i < n; ++i){
-        printf(" %s: ",ord->id);
-        printf("%7.4f%s", a[i], (i == (n-1))?"\n":" ");
+        printf(" %s: ", ord->id);
+        printf("%7.4f%s", a[i], (i == (n-1)) ? "\n" : " ");
         ord = ord->hh.next;
     }
 }
@@ -184,7 +173,6 @@ void matAdd(double **a, double **b, int n){
     for (i = 0; i < n; ++i)
         for (j = 0; j < n; ++j)
             a[i][j] += b[i][j];
-
 }
 
 void matScalMult(double **a, int n, double b){
@@ -204,9 +192,7 @@ double** zeros(int n){
         a[i] = p + i * n;
     for (i = 0; i < n; ++i)
         for (j = 0; j < n; ++j)
-            a[i][j] = 0;
-    /*   for (i = 0; i < n; ++i) */
-    /*      a[i] = calloc(n, sizeof(double)); */
+            a[i][j] = 0.;
     return a;
 }
 
@@ -215,14 +201,11 @@ double* zerosVec(int n){
     //  int i;
     a = calloc(n, sizeof(double));
     assert(a != NULL);
-    //  for (i = 0; i < n; ++i)
-    //    a[i] = 0;
     return a;
 }
 
 void fillDEVec(double *vecNew, int n){
     extern geneItem *geneOrder;
-    extern int debug_flag;
     int index[n], i; /* index contains intersected genes' positions in big beta matrix*/
     diffE *de = NULL;
     geneItem *ord   = NULL;
@@ -237,19 +220,16 @@ void fillDEVec(double *vecNew, int n){
             vecNew[i]  = de->expr;
             //      addItemToIntersect(de->id, ord->order, i);
             index[i++] = ord->order;
-            if(debug_flag)
-                fprintf(stderr,"\t[%d]-%s",ord->order,de->id);
+            debug("\t[%d]-%s",ord->order,de->id);
         }else{
             vecNew[i] = 0.0;
             //      addItemToIntersect(ord->id, ord->order, i);
             index[i++] = ord->order;
-            if(debug_flag)
-                fprintf(stderr,"\t[%d]-NA(%s)",ord->order,ord->id);
+            debug("\t[%d]-NA(%s)",ord->order,ord->id);
         }
         ord = ord->hh.next;
     }
-    if(debug_flag)
-        fprintf(stderr,"\n");
+    debug("\n");
 }
 
 int  isMatrixEmpty(double **a, int n){

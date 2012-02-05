@@ -15,13 +15,14 @@
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#include <stdarg.h> // va_list
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -31,43 +32,42 @@
 #include <time.h>
 #include "spia.h"
 
-int debug_flag;           /* an extern that gets set in gatherOptions() */
-int verbose_flag;         /* an extern that gets set in gatherOptions() */
-int showNetAcc_flag = 1;  /* an extern that gets set in gatherOptions() */
+int debug_flag; /* an extern that gets set in gatherOptions() */
+int verbose_flag; /* an extern that gets set in gatherOptions() */
+int showNetAcc_flag = 1; /* an extern that gets set in gatherOptions() */
 int quietNetAcc_flag = 0; /* an extern that gets set in gatherOptions() */
-int nBoots = 0;           /* The number of bootstraps to be run, per pathway */
+int nBoots = 0; /* The number of bootstraps to be run, per pathway */
 
 int main(int argc, char *argv[]){
     extern double probNDE;
     char *oldFormatDir = NULL; 
-    char *singlePathFormatDir = NULL; /* alternate pathway input mode*/
+    char *newPathFormatDir = NULL; /* alternate pathway input mode*/
     char dirName[MAX_PATH_LENGTH];
     char *deName  = NULL; /* differential expression, file  */
     char *arrName = NULL; /* list of all genes tested, file */
     char *betaCoeffFile = NULL; /* user specified beta coefficients */
 
     srand(time(NULL));
-    gatherOptions(argc, argv, &oldFormatDir, &deName, &arrName, &singlePathFormatDir, &betaCoeffFile);
+    gatherOptions(argc, argv, &oldFormatDir, &deName, &arrName, &newPathFormatDir, &betaCoeffFile);
     if(betaCoeffFile){
         readBetaCoeffFile(betaCoeffFile);
         //    printBetaCoeffs();
     }
-    if(verbose_flag)
-        fprintf(stdout,"Opening differetially expressed (DE) genes file: `%s'\n",deName);
+    verbose("Opening differetially expressed (DE) genes file: `%s'\n", deName);
+
     readDETab(deName);
+    verbose("Opening array file: `%s'\n", arrName);
     readArrayTab(arrName);
     /*** Get the pathway dir name, regardless of the format  ***/
     DIR *dip;
     struct dirent *dit;
     if(oldFormatDir){
-        if(verbose_flag)
-            fprintf(stdout,"Opening pathway dir: `%s'\n", oldFormatDir);
+        verbose("Opening pathway dir (oldFormat): `%s'\n", oldFormatDir);
         strcpy(dirName, oldFormatDir);
     }
-    if(singlePathFormatDir){
-        if(verbose_flag)
-            fprintf(stdout,"Opening pathway dir: `%s'\n", singlePathFormatDir);
-        strcpy(dirName, singlePathFormatDir);
+    if(newPathFormatDir){
+        verbose("Opening pathway dir (newFormat): `%s'\n", newPathFormatDir);
+        strcpy(dirName, newPathFormatDir);
     }
     int i = 0;
     int leng = 0;
@@ -75,8 +75,8 @@ int main(int argc, char *argv[]){
     char tmpPath[MAX_PATH_LENGTH];
     struct stat buff;
     strcpy(fullPath, dirName);
-    if((dip = opendir(dirName))==NULL){
-        fprintf(stderr,"Error while openning directory `%s'!\n",dirName);
+    if((dip = opendir(dirName)) == NULL){
+        fprintf(stderr, "Error while openning directory `%s'!\n", dirName);
         exit(1);
     }
     double tA; // this is the sum of pert factors for our observed data.
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]){
     int status = 0;
     while((dit = readdir(dip)) != NULL){
         i++;
-        strcpy(tmpPath,fullPath);
+        strcpy(tmpPath, fullPath);
         strcat(tmpPath, dit->d_name);
         leng = strlen(dit->d_name);
         stat(tmpPath, &buff);
@@ -98,23 +98,25 @@ int main(int argc, char *argv[]){
         if(!endsIn_tab(tmpPath)){
             continue; // if it does not end in .tab, bail on this file
         }
-        printf("%s\n", dit->d_name); // print name of pathway
+        // printf("%s\n", dit->d_name); // print name of pathway
         if(oldFormatDir)
             szMat = readOldPathway(tmpPath);
-        if(singlePathFormatDir)
+        if(newPathFormatDir)
             szMat = readNewPathway(tmpPath);
 
         if(szMat == 0){
-            printf("Unable to process pathway `%s', nothing read from pathway file.\n", tmpPath);
+            fprintf(stderr, "Unable to process pathway `%s', nothing read from pathway file.\n", tmpPath);
             continue;
         }
         status = 0;
         tA = processPathway(&status);
         if(status != 0){
             if(status == -1)
-                printf("Unable to process pathway `%s', beta matrix is empty (pathway issue).\n", tmpPath);
+                fprintf(stderr, "Unable to process pathway `%s', beta matrix is "
+                        "empty (this is a pathway issue).\n", tmpPath);
             if(status == -2)
-                printf("Unable to process pathway `%s', beta matrix singularity (pathway issue).\n", tmpPath);
+                fprintf(stderr, "Unable to process pathway `%s', beta matrix is "
+                        "singular (this as a pathway issue).\n", tmpPath);
             continue;
         }
         if(nBoots){ // if bootstrapping is turned 'on'
@@ -123,7 +125,9 @@ int main(int argc, char *argv[]){
             totalAcc = zerosVec(nBoots);
             int k;
             if(Nde == 0){
-                printf("Unable to process pathway `%s', number of differentially expressed genes, Nde == 0.\n", tmpPath);
+                fprintf(stderr, "Unable to process pathway `%s', number of "
+                        "differentially expressed genes, Nde = 0 (None of the genes "
+                        "in your DE file are present in this pathway).\n", tmpPath);
             }else{
                 for(k = 0; k < nBoots; ++k){
                     populateBootGenes(Nde);
@@ -133,19 +137,19 @@ int main(int argc, char *argv[]){
                 qsort(totalAcc, nBoots, sizeof(double), compare_dbls);
                 double median = correctTA(totalAcc, nBoots);
                 tAc = tA - median;
-                printf("t_Ac  = %f\n",tAc);
-                if(tAc >= 0)
+                printf("%6s = %f\n", "t_Ac", tAc);
+                if(tAc >= 0.)
                     pPERT = pPERTcalc(tAc, totalAcc, nBoots, 1);
                 else
                     pPERT = pPERTcalc(tAc, totalAcc, nBoots, 0);
-                printf("pPERT = %e\n",pPERT);
-                double pG = combPValue(pPERT,probNDE);
+                printf("%6s = %e\n", "pPERT", pPERT);
+                double pG = combPValue(pPERT, probNDE);
                 if((probNDE > -1) && pG != -1 ){
-                    printf("pG    = %e\n", pG);
+                    printf("%6s = %e\n", "pG", pG);
                     int pSize = countIntersect_array_path();
-                    addPGlobal(pG, dit->d_name, pSize ,Nde, tAc, pPERT, probNDE);
+                    addPGlobal(pG, dit->d_name, pSize , Nde, tAc, pPERT, probNDE);
                 }else
-                    printf("pG    = NaN\n");
+                    printf("%6s = NaN\n", "pG");
             }
         } // end bootstrapping loop
     } // end file reading while loop
@@ -154,7 +158,7 @@ int main(int argc, char *argv[]){
         exit(1);
     }
 
-    /*** Now, having processed all pathways, we take the results, sort them,
+    /*** Now, having processed all pathways, we take the results, sort them, 
          perform the appropriate corrections, and report them. ta-da!
     ***/
     extern pGlobal *pGlist;
@@ -171,10 +175,54 @@ void* daemalloc(size_t n)
 {
     void *i;
     i = malloc(n);
-    if (i == 0){
+    if (i == NULL){
         fprintf(stderr, "malloc failed on a request for %zu bytes\n", n);
         exit(1);
     }
-
     return i;
+}
+
+void verbose(char const *fmt, ...)
+{
+    extern int verbose_flag;
+    char str[512];
+    va_list args;
+    va_start(args, fmt);
+    if(verbose_flag){
+        int n = vsprintf(str, fmt, args);
+        if(n >= 512){
+            fprintf(stderr, "Error, failure in verbose(), n = %d\n", n);
+            exit(1);
+        }
+        message("Verbose", str, args);
+    }
+    va_end(args);
+}
+
+void debug(char const *fmt, ...)
+{
+    extern int debug_flag;
+    char str[512];
+    va_list args;
+    va_start(args, fmt);
+    if(debug_flag){
+        int n = vsprintf(str, fmt, args);
+        if(n >= 512){
+            fprintf(stderr, "Error, failure in debug(), n = %d\n", n);
+            exit(1);
+        }
+        message("Debug", str, args);
+    }
+    va_end(args);
+}
+
+void message(char const *type, char const *fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    if(verbose_flag){
+        fprintf(stderr, "%s: ", type);
+        vfprintf(stderr, fmt, args);
+    }
+    va_end(args);
 }

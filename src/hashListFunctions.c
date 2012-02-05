@@ -53,7 +53,7 @@ upstreamGene* findGenePath(char *geneID){
 void addGenePathAll(char *geneID){
     extern allGene *pathway_all;
     extern char *all_pathway_ids[];
-    int i=0;
+    int i = 0;
     allGene *g = NULL;
     allGene *f = NULL;
     f = findGenePathAll(geneID);
@@ -64,7 +64,7 @@ void addGenePathAll(char *geneID){
     HASH_ADD_STR(pathway_all, id, g);
     while(all_pathway_ids[i] != NULL)
         ++i;
-    all_pathway_ids[i] = calloc(MAX_ID_LENGTH+1, sizeof(char));
+    all_pathway_ids[i] = calloc(MAX_ID_LENGTH + 1, sizeof(char));
     strcpy(all_pathway_ids[i], geneID);
     //  fprintf(stderr,"adding %s @%d.\n",all_pathway_ids[i],i);
   
@@ -272,14 +272,10 @@ int addDiffExprsGeneEntry(char *geneID, double expr){
     */
     extern diffE *diffGeneExp;
     diffE *d = NULL;
-    int c;
-    double e;
     d = findDiffExpr(geneID);
     assert(d != NULL);
-    e = d->expr;
-    c = d->count;
-    d->expr = (expr - e) / (double) c;
-    d->count= ++c;
+    d->expr = (expr - d->expr) / (double) d->count;
+    d->count++;
     return 0;
 }
 
@@ -603,7 +599,7 @@ void printPValues(void){
     pGlobal *cur = NULL;
     sort_by_pValue();
     cur = pGlist;
-    printf("Path\tpSize\tNDE\ttAc\tpNDE\tpPERT\tpGlobal\tBonferr\tFDR\n");
+    printf("Path\tpSize\tNDE\ttAc\tpNDE\tpPERT\tpGlobal\tpG-Bonferroni\tFDR\n");
     while(cur != NULL){
         printf("%s\t%d\t%d\t%e\t%e\t%e\t%e",cur->path, cur->pathSize, cur->NDE, cur->tAc, cur->pNDE, cur->pPERT ,cur->p);
         if(cur->bonf > -1)

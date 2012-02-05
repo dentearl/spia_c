@@ -96,19 +96,23 @@ struct pGlobal{
 /* General functions */
 void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **spf, char **betaCoFile);
 void usage(void);
-int  endsIn_tab(char *filename);
+int endsIn_tab(char *filename);
 int readOldPathway(char *filename); // charlie parse format
 int readNewPathway(char *filename); // cancer browser format
 void readBetaCoeffFile(char *filename);
 double processPathway(int *status);
 void readDETab(char *filename);
 void readArrayTab(char *filename);
-int  isRelationship(char *rel, relationType *relType_ptr);
+int isRelationship(char *rel, relationType *relType_ptr);
 void addItemToIntersect(char *id, int orgOrd, int newOrd);
 void printIsectList(void);
 void deleteIntersect(void);
 void printBetaCoeffs(void);
 void cleanup(void);
+void* daemalloc(size_t n);
+void verbose(char const *s, ...);
+void debug(char const *s, ...);
+void message(char const *t, char const *s, ...);
 
 /* pathway hash and list functions */
 int  addGenePath(char *geneID);
@@ -201,4 +205,3 @@ void rev_sort_by_pValue(void);
 void printPValues(void);
 void bonferrPGlobal(void);
 void fdrPGlobal(void);
-void* daemalloc(size_t n);

@@ -38,15 +38,18 @@
   as this is written, this is like the main() function, calling the others.
 */
 
-upstreamGene *pathway_up  = NULL; /* our pathway hash, upstream genes as keys */
-allGene      *pathway_all = NULL; /* our pathway_all hash, all pathway genes as keys */
-geneItem     *geneOrder   = NULL; /* our hash to report proper gene order (for matrix access)  */
-diffE        *diffGeneExp = NULL; /* our hash to store differential gene expression  */
-allGene   *allGenesTested = NULL; /* our hash to store the list of all genes tested*/
-diffE        *bootGenes   = NULL; /* our hash to store a bootstrap set of genes */
-double        betaCoefs[] = {1, 0, 0, 1, -1,  1, 0,  0, -1, -1,
-                                    0, 0, 1, 0,  1, -1, 0 , 1, -1, -1,
-                                    0, 0, 0, 0,  1, -1, 1, -1};
+upstreamGene *pathway_up = NULL; /* our pathway hash, upstream genes as keys */
+allGene *pathway_all = NULL; /* our pathway_all hash, all pathway genes as keys */
+geneItem *geneOrder = NULL; /* our hash to report proper gene order (for matrix access)  */
+diffE *diffGeneExp = NULL; /* our hash to store differential gene expression  */
+allGene *allGenesTested = NULL; /* our hash to store the list of all genes tested*/
+diffE *bootGenes = NULL; /* our hash to store a bootstrap set of genes */
+double betaCoefs[] = {1., 0., 0., 1., -1.,
+                      1., 0., 0., -1., -1.,
+                      0., 0., 1., 0.,  1.,
+                      -1., 0. , 1., -1., -1.,
+                      0., 0., 0., 0.,  1.,
+                      -1., 1., -1.};
 /* check spia.h and the enum relationType for context of these values. */
 char *relationTypeStr[48] = {"activation", "compound", "binding_association", "expression",
                              "inhibition", "activation_phosphorylation", "phosphorylation",
@@ -59,13 +62,14 @@ char *relationTypeStr[48] = {"activation", "compound", "binding_association", "e
                              "transcriptional_activation", "transcriptional_inhibition",
                              "process_activation", "process_inhibition"};
 
-double  *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
-char    *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
-double  **beta2 = NULL;
-double  probNDE = -1.0;
+double *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
+char *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
+double **beta2 = NULL;
+double probNDE = -1.0;
 pGlobal *pGlist  = NULL; /* our hash to store all the global p values for all pathways tested*/ 
 
-void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char **pathFile, char **betaFile){
+void gatherOptions(int argc, char **argv, char **oldPathFormatDir, char **de, 
+                   char **ar, char **newPathFormatDir, char **betaFile){
     /* 
        gather command line options and send them back to main
     */
@@ -80,7 +84,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
             static struct option long_options[] =
                 {
                     {"debug", no_argument, &debug_flag, 1},
-                    {"verbose", no_argument, &verbose_flag, 1},
+                    {"verbose", no_argument, NULL, 'v'},
                     {"printNetAcc", no_argument, &showNetAcc_flag, 1},
                     {"quietNetAcc", no_argument, &quietNetAcc_flag, 1},
                     {"help",  no_argument, 0, 'h'},
@@ -96,7 +100,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                 };
             /* getopt_long stores the option index here. */
             int option_index = 0;
-            c = getopt_long(argc, argv, "d:e:b:a:p:c:",
+            c = getopt_long(argc, argv, "d:e:b:a:p:c:vh",
                             long_options, &option_index);
             /* Detect the end of the options. */
             if (c == -1){
@@ -107,7 +111,7 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                 case 0:
                     break;
                 case 'd':
-                    *dir = optarg;
+                    *oldPathFormatDir = optarg;
                     break;
                 case 'e':
                     *de = optarg;
@@ -122,17 +126,21 @@ void gatherOptions(int argc, char **argv, char **dir, char **de, char **ar, char
                     *ar = optarg;
                     break;
                 case 'p':
-                    *pathFile = optarg;
+                    *newPathFormatDir = optarg;
+                    break;
+                case 'v':
+                    verbose_flag++;
                     break;
                 case 'h':
                 case '?':
+                    usage();
                     /* getopt_long already printed an error message. */
                     break;
                 default:
                     abort ();
                 }
         }
-    if((*dir == NULL && *pathFile == NULL ) || *de == NULL || *ar == NULL)
+    if((*oldPathFormatDir == NULL && *newPathFormatDir == NULL) || *de == NULL || *ar == NULL)
         usage();
 }
 
@@ -153,14 +161,13 @@ size_t de_getline(char **s, size_t *n, FILE *f) {
             *s = realloc(*s, (*n + 1) * sizeof(char));
             assert(*s != NULL);
             s2 = *s + i;
-            nMinus1 = ((*n)-1);
+            nMinus1 = ((*n) - 1);
         }
 
         if((ch == '\n') || (ch == EOF)) {
             *s2 = '\0';
             return(feof(f) ? 0 : i);
-        }
-        else {
+        }else{
             *s2 = ch;
             s2++;
         }
@@ -176,17 +183,29 @@ int endsIn_tab(char *filename){
     char nameCopy[MAX_PATH_LENGTH];
     strcpy(nameCopy, filename);
     char *tmp;
-    int status=0;
+    int status = 0;
     /* We'll use strtok to cut up the filename and see if .tab is on the end  */
     for(tmp=strtok(nameCopy,"."); tmp != NULL; tmp = strtok(NULL, ".")){
-        if(strcmp(tmp, "tab")==0)
-            status=1;
+        if(strcmp(tmp, "tab") == 0)
+            status = 1;
     }
     return status;
 }
 
 void usage(void){
-    fprintf(stderr, "Usage: --dir <pathway directory> --de <Diff Exp File> --array <Entire Test Set File>  --nBoots <int> --quietNetAcc [optional]\n");
+    fprintf(stderr, "Usage: --dir <pathway directory> --de <Diff Exp File> "
+            "--array <Entire Test Set File>  --nBoots <int> --quietNetAcc [options]\n\n");
+    fprintf(stderr, "NDE: Number of differentiall expressend genes in pathway.\n");
+    fprintf(stderr, "Acc: net perturbation acumulation at a gene.\n");
+    fprintf(stderr, "PF: perturbation factor at a gene.\n");
+    fprintf(stderr, "t_A: total net accumulated perturbation in the paythway.\n");
+    fprintf(stderr, "pPERT: The probability that the total accumulated perturbation of "
+            "the pathway, as a random variable of the observed tA is greater than the "
+            "observed. i.e. Pr(TA >= t_A | H0).\n");
+    fprintf(stderr, "pNDE: Probability based on a standard overrepresentation analysis "
+            "using a hypergeometric.\n");
+    fprintf(stderr, "pGlobal: Combined probabilities of P_NDE and P_PERT. See Tarca et "
+            "al. supplemental for details.\n");
     exit(2);
 }
 
@@ -208,8 +227,7 @@ void readDETab(char *filename){
     diffE *g;
     int nArgs;
     ifp = fopen(filename, "r");
-    if(verbose_flag)
-        printf("READING `%s'\n", filename);
+    verbose("Reading `%s'\n", filename);
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
@@ -220,7 +238,7 @@ void readDETab(char *filename){
         if(nArgs < 2)
             nArgs = sscanf(line, "%s %lf", id, &de);
         g = findDiffExpr(id);
-        if(nArgs == 2 ){
+        if(nArgs == 2){
             if(g != NULL){
                 addDiffExprsGeneEntry(id, de);
             }else{
@@ -229,16 +247,16 @@ void readDETab(char *filename){
         }
     }
     fclose(ifp);
-    if(verbose_flag)
-        printf("READ COMPLETE. Populating Hash and Array with DE values.\n");
+    verbose("Read complete. Populated hash, now creating array with DE values.\n");
     // now that all of the de_genes and values are read in, populate our
     // extern double array, 
     int n;
     diffE *d;
     d = diffGeneExp;
     n = HASH_COUNT(diffGeneExp);
+    verbose("Verbose: DE hash count: %d\n", n);
     all_de_values = zerosVec(n);
-    for(i=0; i < n; ++i){
+    for(i = 0; i < n; ++i){
         all_de_values[i] = d->expr;
         d = d->hh.next;
     }
@@ -251,7 +269,7 @@ void readArrayTab(char *filename){
        reads in the array file.
     */
     FILE *ifp = NULL;
-    size_t nbytes = 200;
+    size_t nbytes = 255;
     size_t bytes_read = 1;
     char *line = (char *) daemalloc((nbytes + 1));
     extern int debug_flag;
@@ -260,8 +278,7 @@ void readArrayTab(char *filename){
     allGene *g;
     int nArgs,i;
     ifp = fopen(filename, "r");
-    if(verbose_flag)
-        printf("READING Array file:`%s'\n", filename);
+    verbose("Reading Array file:`%s'\n", filename);
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
@@ -271,12 +288,16 @@ void readArrayTab(char *filename){
         nArgs = sscanf(line, "%d\t%s", &i, id);
         // fprintf(stdout, "%s\n",id);
         g = findAllGene(id);
-        if(nArgs == 2 ){
-            if(g==NULL){
+        if(nArgs == 2){
+            if(g == NULL){
                 addAllGeneEntry(id);
             }
         }
     }
+    int n;
+    allGene *d;
+    n = HASH_COUNT(d);
+    verbose("array hash count: %d\n", n);
     fclose(ifp);
     free(line);
 }
@@ -299,40 +320,41 @@ int readOldPathway(char *filename){
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    ups        = (char *) daemalloc(nbytes + 1);
-    downs      = (char *) daemalloc(nbytes + 1);
-    pathname   = (char *) daemalloc(nbytes + 1);
-    relType    = (char *) daemalloc(nbytes + 1);
-    relName    = (char *) daemalloc(nbytes + 1);
-    relSymb    = (char *) daemalloc(nbytes + 1);
-    descrip    = (char *) daemalloc(nbytes + 1);
+    ups = (char *) daemalloc(nbytes + 1);
+    downs = (char *) daemalloc(nbytes + 1);
+    pathname = (char *) daemalloc(nbytes + 1);
+    relType = (char *) daemalloc(nbytes + 1);
+    relName = (char *) daemalloc(nbytes + 1);
+    relSymb = (char *) daemalloc(nbytes + 1);
+    descrip = (char *) daemalloc(nbytes + 1);
     ifp = fopen(filename, "r");
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
     }
-    if(verbose_flag)
-        printf("READING `%s'\n", filename);
+    verbose("READING `%s'\n", filename);
     while(bytes_read > 0){
         bytes_read = de_getline(&line, &nbytes, ifp);
         if(bytes_read <= 0)
             continue;
-        nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, relName, relSymb, pathname, descrip);
+        nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, 
+                       relName, relSymb, pathname, descrip);
         g = findGenePath(ups);
-        if(isRelationship(relName, &enumRelType) && (nArgs == 7 )){
+        if(isRelationship(relName, &enumRelType) && (nArgs == 7)){
             addGenePathAll(ups);
             addGenePathAll(downs);
-            if(g!=NULL){
-                //     fprintf(stderr, "adding %s to existing gene %s\n", downs, ups);
+            if(g != NULL){
+                verbose("adding %s to existing gene %s\n", downs, ups);
                 addInteraction(ups, downs, enumRelType);
             }else{
-                //     fprintf(stderr, "adding new gene %s\n", ups);
+                verbose("adding new gene %s\n", ups);
                 addGenePath(ups);
                 addInteraction(ups, downs, enumRelType);
-      
             }
         }
     }
+    verbose("%d items stored in the geneOrder hash after reading %s.\n",
+            HASH_COUNT(geneOrder), filename);
     fclose(ifp);
     free(line);
     free(ups);
@@ -363,13 +385,12 @@ int readNewPathway(char *filename){
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    line       = (char *) daemalloc(nbytes + 1);
-    itemA      = (char *) daemalloc(nbytes + 1);
-    itemB      = (char *) daemalloc(nbytes + 1);
-    interact   = (char *) daemalloc(nbytes + 1);
+    line = (char *) daemalloc(nbytes + 1);
+    itemA = (char *) daemalloc(nbytes + 1);
+    itemB = (char *) daemalloc(nbytes + 1);
+    interact = (char *) daemalloc(nbytes + 1);
     ifp = fopen(filename, "r");
-    if(verbose_flag)
-        printf("READING `%s'\n", filename);
+    verbose("Reading new pathway format file `%s'\n", filename);
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
@@ -380,14 +401,14 @@ int readNewPathway(char *filename){
             continue;
         nArgs = sscanf(line, "%s\t%s\t%s", itemA, itemB, interact);
         g = findGenePath(itemA);
-        if(isRelationship(interact, &enumRelType) && (nArgs == 3 )){
+        if(isRelationship(interact, &enumRelType) && (nArgs == 3)){
             addGenePathAll(itemA);
             addGenePathAll(itemB);
-            if(g!=NULL){
-                //     fprintf(stderr, "adding %s to existing gene %s\n", downs, ups);
+            if(g != NULL){
+                debug("adding interaction %s (new) on %s,\n", itemA, itemB);
                 addInteraction(itemA, itemB, enumRelType);
             }else{
-                //     fprintf(stderr, "adding new gene %s\n", ups);
+                debug("adding interaction %s on %s,\n", itemA, itemB);
                 addGenePath(itemA);
                 addInteraction(itemA, itemB, enumRelType);
             }
@@ -398,6 +419,8 @@ int readNewPathway(char *filename){
     free(itemA);
     free(itemB);
     free(interact);
+    verbose("%d items stored in the geneOrder hash after reading %s.\n",
+            HASH_COUNT(geneOrder), filename);
     /*** PATHWAY STORED IN HASHES, BEGIN POST PROCESSING ***/
     return HASH_COUNT(geneOrder);
 }
@@ -418,8 +441,7 @@ void readBetaCoeffFile(char *filename){
     double beta;
   
     ifp = fopen(filename, "r");
-    if(verbose_flag)
-        printf("READING `%s'\n", filename);
+    verbose("Reading beta coef file `%s'\n", filename);
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
@@ -431,12 +453,15 @@ void readBetaCoeffFile(char *filename){
             continue;
         nArgs = sscanf(line, "%s\t%lf", relName, &beta);
         // printf("I see %s, %lf")
-        if(isRelationship(relName, &enumRelType) && (nArgs == 2 )){
+        if(isRelationship(relName, &enumRelType) && (nArgs == 2)){
             // char *tmp = relationTypeStr[enumRelType];
             // printf("I see you want to use %s, [%d] with value %lf\n", tmp, enumRelType, beta);
             betaCoefs[enumRelType] = beta;
             if((beta > 1.0) || (beta < -1.0))
-                fprintf(stderr, "Warning, your beta coefficient for %s is not (-1.0 < %e < 1.0) which may yield beta matrix singularity (i.e. determinant = 0) issues\n", relName, beta );
+                fprintf(stderr, "Warning, your beta coefficient for %s, %e, is not in "
+                        "[-1.0 < x < 1.0] which may yield beta matrix singularity "
+                        "(i.e. determinant = 0) which would prevent matrix inversion.\n", 
+                        relName, beta);
         }
     }
     //  printBetaCoeffs();
@@ -451,13 +476,13 @@ double processPathway(int *status){
     extern int showNetAcc_flag;
     extern int quietNetAcc_flag;
     extern int nBoots;
-    extern allGene       *pathway_all;
-    extern geneItem      *geneOrder;
-    extern diffE         *diffGeneExp;
-    extern allGene       *allGenesTested;
-    extern double        *all_de_values;
-    extern double        **beta2;
-    extern double        probNDE;
+    extern allGene *pathway_all;
+    extern geneItem *geneOrder;
+    extern diffE *diffGeneExp;
+    extern allGene *allGenesTested;
+    extern double *all_de_values;
+    extern double **beta2;
+    extern double probNDE;
     if(beta2 != NULL){
         free(beta2);
         beta2 = NULL;
@@ -484,11 +509,13 @@ double processPathway(int *status){
         matScalMult(tmp, szMat, betaCoefs[i]);
         matAdd(beta, tmp, szMat);
     }
-    if(debug_flag)
+    if(debug_flag){
+        debug("beta matrix = \n");
         printMatrix(beta, szMat);
+    }
     int Nde = countIntersect_de_path(); // number of diff exp genes on pathway
-    if(verbose_flag)
-        fprintf(stderr, "There are %d intersections between genes in the pathway and your DE genes\n", Nde);
+    verbose("There are %d intersections between genes in the pathway "
+            "and your DE genes\n", Nde);
 
     double *deVec = zerosVec(szMat);
     fillDEVec(deVec, szMat);
@@ -505,13 +532,13 @@ double processPathway(int *status){
     copyMatrix(beta, betaOrig, szMat);
     subtractIdent(beta, szMat);
     if(debug_flag){
-        fprintf(stderr,"I-B = \n");
+        debug("I - B = \n");
         printMatrix(beta,szMat);
     }
-    double det = determinant(beta,szMat); // check for matrix singularity
+    double det = determinant(beta, szMat); // check for matrix singularity
     if(abs(det) < 1e-7){
+        verbose("abs(Determinant), %e, is less than 1e-7.\n", det);
         if(verbose_flag){
-            fprintf(stderr, "abs(Determinant), %e, is less than 1e-7.\n", det);
             printMatrix(beta, szMat);
         }
         free(beta);
@@ -523,14 +550,14 @@ double processPathway(int *status){
     }
     invert(beta, szMat);
     if(debug_flag){
-        fprintf(stderr,"inv(I-B) = \n");
+        debug("inv(I - B) = \n");
         printMatrix(beta,szMat);
     }
     //double **beta2;
     beta2 = zeros(szMat);
     matMatMultiply(betaOrig, szMat, beta, beta2);
     if(debug_flag){
-        fprintf(stderr,"B(inv(I-B)) = \n");
+        debug("B * (inv(I - B)) = \n");
         printMatrix(beta2,szMat);
     }
 
@@ -541,32 +568,32 @@ double processPathway(int *status){
     double *pertFact = zerosVec(szMat);
     solveForPF(deVec, netAcc, pertFact, szMat);
     if(!quietNetAcc_flag){
-        printf("Acc  = ");
+        printf("%6s = ", "Acc");
         // printVector(netAcc, szMat);
         printNamedVector(netAcc, szMat);
-        printf("PF   = ");
+        printf("%6s = ", "PF");
         // printVector(pertFact, szMat);
         printNamedVector(pertFact, szMat);
     }
     sumNetAcc = sumVec(netAcc, szMat);
-    printf("pSize = %d\n", pathSize);
-    printf("NDE   = %d\n", Nde);
-    fprintf(stdout, "t_A   = %f\n",sumNetAcc);
+    printf("%6s = %d\n", "pSize", pathSize);
+    printf("%6s = %d\n", "NDE", Nde);
+    printf("%6s = %f\n", "t_A", sumNetAcc);
 
-    /**** PROBABILITY OF SEEING THIS MANY DIFF EXPR GENES TESTING VIA 
-          THE HYPER GEOMETRIC
-    ****/  
+    /* PROBABILITY OF SEEING THIS MANY DIFF EXPR GENES TESTING VIA 
+     * THE HYPER GEOMETRIC
+    */  
 
     int pathArrayIntersect = countIntersect_array_path();
-    if(verbose_flag)
-        fprintf(stdout,"1 - hygecdf(x = %d, m = %d, n = %d, k = %d) = ",Nde-1, pathArrayIntersect, all_genes_tested-pathArrayIntersect, all_de);
-    if((Nde-1 < pathArrayIntersect) && (pathArrayIntersect < all_genes_tested) && (Nde-1 < all_de)){
+    verbose("1 - hygecdf(x = %d, m = %d, n = %d, k = %d) = pNDE\n", Nde - 1, 
+            pathArrayIntersect, all_genes_tested-pathArrayIntersect, all_de);
+    if((Nde - 1 < pathArrayIntersect) && (pathArrayIntersect < all_genes_tested) && (Nde - 1 < all_de)){
         double ans;
-        ans = 1-probCDFHyper(Nde-1, pathArrayIntersect, all_genes_tested-pathArrayIntersect, all_de);  
-        fprintf(stdout, "pNDE  = %e\n",ans);
+        ans = 1 - probCDFHyper(Nde - 1, pathArrayIntersect, all_genes_tested-pathArrayIntersect, all_de);  
+        printf("%6s = %e\n", "pNDE", ans);
         probNDE = ans;
     }else{
-        fprintf(stdout, "pNDE  = NA\n");
+        printf("%6s = NA\n", "pNDE");
         probNDE = -1;
     }
     free(pertFact);
