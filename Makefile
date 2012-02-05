@@ -26,30 +26,41 @@ ${srcPath}/%.o: ${srcPath}/%.c
 
 ##############################
 # system tests
-test: test/testBasic.txt test/testACGT.txt test/testSPath.txt test/testBeta.txt test/testD.txt 
+test: test/testOut/small.txt test/testOut/testBasic.txt test/testOut/testACGT.txt test/testOut/testSPath.txt test/testOut/testBeta.txt test/testOut/testD.txt 
 
-test/testBasic.txt: ${binPath}/spia
+test/testOut/small.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
+	${binPath}/spia --pathFiles test/altTest/paths/ --de test/altTest/de.txt --nBoots 1000 \
+		--array test/altTest/all.txt --verbose 2&> $@.tmp
+	mv $@.tmp $@
+
+test/testOut/testBasic.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
 	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
 		--nBoots 2000 --array test/testData/ALL_Colorectal.tab 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testACGT.txt: ${binPath}/spia
+test/testOut/testACGT.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
 	${binPath}/spia --pathFiles test/GBM/pathways/ --de test/GBM/sampleDE.txt \
-		--nBoots 2000 --array test/GBM/allDE.txt #2&> $@.tmp
-#	mv $@.tmp $@
+		--nBoots 2000 --array test/GBM/allDE.txt 2&> $@.tmp
+	mv $@.tmp $@
 
-test/testSPath.txt: ${binPath}/spia
+test/testOut/testSPath.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
 	${binPath}/spia --pathFiles test/alternateFormatPathways/ --de test/testData/DE_Colorectal.tab \
 		--nBoots 2000 --array test/testData/ALL_Colorectal.tab 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testBeta.txt: ${binPath}/spia
+test/testOut/testBeta.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
 	${binPath}/spia --betaCoFile test/testData/beta.txt --dir test/testPathways/ \
 		--de test/testData/DE_Colorectal.tab --nBoots 2000 \
 		--array test/testData/ALL_Colorectal.tab --verbose 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testD.txt: ${binPath}/spia
+test/testOut/testD.txt: ${binPath}/spia
+	mkdir -p $(dir $@)
 	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
 		--nBoots 2000 --array test/testData/ALL_Colorectal.tab --debug --verbose 2&> $@.tmp
 	mv $@.tmp $@
