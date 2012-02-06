@@ -195,15 +195,16 @@ int endsIn_tab(char *filename){
 void usage(void){
     fprintf(stderr, "Usage: --dir <pathway directory> --de <Diff Exp File> "
             "--array <Entire Test Set File>  --nBoots <int> --quietNetAcc [options]\n\n");
-    fprintf(stderr, "NDE: Number of differentiall expressend genes in pathway.\n");
+    fprintf(stderr, "TERMS\n");
+    fprintf(stderr, "NDE: Number of differentially expressend genes in pathway.\n");
     fprintf(stderr, "Acc: net perturbation acumulation at a gene.\n");
     fprintf(stderr, "PF: perturbation factor at a gene.\n");
     fprintf(stderr, "t_A: total net accumulated perturbation in the paythway.\n");
     fprintf(stderr, "pPERT: The probability that the total accumulated perturbation of "
             "the pathway, as a random variable of the observed tA is greater than the "
-            "observed. i.e. Pr(TA >= t_A | H0).\n");
+            "observed. i.e. Pr(TA >= t_A | H0). Calculated via bootstrapping.\n");
     fprintf(stderr, "pNDE: Probability based on a standard overrepresentation analysis "
-            "using a hypergeometric.\n");
+            "using the hypergeometric distribution.\n");
     fprintf(stderr, "pGlobal: Combined probabilities of P_NDE and P_PERT. See Tarca et "
             "al. supplemental for details.\n");
     exit(2);
