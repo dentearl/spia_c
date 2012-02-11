@@ -157,7 +157,7 @@ double* colSum(double **a, int n){
     /* a is a ptr to a matrix of size n */
     double *b = NULL;
     int i,j;
-    b = daemalloc(n * sizeof(double));
+    b = de_malloc(n * sizeof(double));
     for (i = 0; i < n; ++i)
         b[i] = 0;
     for (i = 0; i < n; ++i){
@@ -186,8 +186,8 @@ double** zeros(int n){
     double *p = NULL;
     double **a = NULL;
     int i, j;
-    p = daemalloc(n * n * sizeof(double));
-    a = daemalloc(n * sizeof(double *));
+    p = de_malloc(n * n * sizeof(double));
+    a = de_malloc(n * sizeof(double *));
     for (i = 0; i < n; ++i)
         a[i] = p + i * n;
     for (i = 0; i < n; ++i)

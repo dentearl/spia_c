@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 // #define _GNU_SOURCE // getline()
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -144,18 +145,15 @@ void gatherOptions(int argc, char **argv, char **oldPathFormatDir, char **de,
         usage();
 }
 
-
-size_t de_getline(char **s, size_t *n, FILE *f) {
-    register size_t nMinus1 = ((*n) - 1), i = 0;
+int32_t de_getline(char **s, size_t *n, FILE *f) {
+    // returns -1 on EOF, otherwise returns number of chars read
+    register int32_t  nMinus1 = ((*n) - 1), i = 0;
     char *s2 = *s;
-
     while(TRUE) {
         register size_t ch = (char) getc(f);
-
         if(ch == '\r') {
             ch = getc(f);
         }
-
         if(i == nMinus1) {
             *n = 2 * (*n) + 1;
             *s = realloc(*s, (*n + 1) * sizeof(char));
@@ -163,10 +161,9 @@ size_t de_getline(char **s, size_t *n, FILE *f) {
             s2 = *s + i;
             nMinus1 = ((*n) - 1);
         }
-
         if((ch == '\n') || (ch == EOF)) {
             *s2 = '\0';
-            return(feof(f) ? 0 : i);
+            return(feof(f) ? -1 : i);
         }else{
             *s2 = ch;
             s2++;
@@ -174,8 +171,6 @@ size_t de_getline(char **s, size_t *n, FILE *f) {
         ++i;
     }
 }
-
-
 
 int endsIn_tab(char *filename){
     /* endsIn should return a 0 if the name does not end
@@ -195,19 +190,30 @@ int endsIn_tab(char *filename){
 void usage(void){
     fprintf(stderr, "Usage: --dir <pathway directory> --de <Diff Exp File> "
             "--array <Entire Test Set File>  --nBoots <int> --quietNetAcc [options]\n\n");
-    fprintf(stderr, "TERMS\n");
-    fprintf(stderr, "NDE: Number of differentially expressend genes in pathway.\n");
-    fprintf(stderr, "Acc: net perturbation acumulation at a gene.\n");
-    fprintf(stderr, "PF: perturbation factor at a gene.\n");
-    fprintf(stderr, "t_A: total net accumulated perturbation in the paythway.\n");
-    fprintf(stderr, "pPERT: The probability that the total accumulated perturbation of "
-            "the pathway, as a random variable of the observed tA is greater than the "
-            "observed. i.e. Pr(TA >= t_A | H0). Calculated via bootstrapping.\n");
-    fprintf(stderr, "pNDE: Probability based on a standard overrepresentation analysis "
-            "using the hypergeometric distribution.\n");
-    fprintf(stderr, "pGlobal: Combined probabilities of P_NDE and P_PERT. See Tarca et "
-            "al. supplemental for details.\n");
-    exit(2);
+    fprintf(stderr, "Options:\n");
+    fprintf(stderr, "  -h, --help    show this help message and exit.\n");
+    fprintf(stderr, "  --dir         directory containing pathway files in KEGG format.\n");
+    fprintf(stderr, "  --de          Two column tab delimited file, column 1 gene name, coloumn 2\n"
+            "                the log fold difference in expression.\n");
+    fprintf(stderr, "  --array       A two column tab delemited file, column 1 ascending index \n"
+            "                column 2 gene name. Contains all genes assayed, including the "
+            "DE genes.\n");
+    fprintf(stderr, "  --nBoots      Number of bootstraps to apply. Greater number should improve\n"
+            "                the stablitiy of the pPERT and pGlobal numbers.\n");
+    fprintf(stderr, "  --quietNetAcc Turn off the per gene Acc output.\n\n");
+    fprintf(stderr, "Terms:\n");
+    fprintf(stderr, "  NDE: Number of differentially expressend genes in pathway.\n");
+    fprintf(stderr, "  Acc: net perturbation acumulation at a gene.\n");
+    fprintf(stderr, "  PF: perturbation factor at a gene.\n");
+    fprintf(stderr, "  t_A: total net accumulated perturbation in the paythway.\n");
+    fprintf(stderr, "  pPERT: The probability that the total accumulated perturbation of\n"
+            "         the pathway, as a random variable of the observed tA is greater than the\n"
+            "         observed. i.e. Pr(TA >= t_A | H_0). Calculated via bootstrapping.\n");
+    fprintf(stderr, "  pNDE: Probability based on a standard overrepresentation analysis\n"
+            "         using the hypergeometric distribution.\n");
+    fprintf(stderr, "  pGlobal: Combined probabilities of P_NDE and P_PERT. See Tarca et\n"
+            "         al. supplemental for details.\n");
+    exit(1);
 }
 
 void readDETab(char *filename){
@@ -216,14 +222,13 @@ void readDETab(char *filename){
     FILE *ifp = NULL;
     
     size_t nbytes = 512;
-    size_t bytes_read = 1;
-    char *line = (char *) daemalloc((nbytes + 1));
+    char *line = (char *) de_malloc((nbytes + 1));
 
     extern double *all_de_values;
     extern int debug_flag;
     extern int verbose_flag;
     int i = 0;
-    char *id = (char *) daemalloc(MAX_ID_LENGTH + 1);
+    char *id = (char *) de_malloc(MAX_ID_LENGTH + 1);
     double de;
     diffE *g;
     int nArgs;
@@ -233,8 +238,7 @@ void readDETab(char *filename){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
     }
-    while(bytes_read > 0){
-        bytes_read = de_getline(&line, &nbytes, ifp);
+    while(de_getline(&line, &nbytes, ifp) != -1){
         nArgs = sscanf(line, "%s\t%lf", id, &de);
         if(nArgs < 2)
             nArgs = sscanf(line, "%s %lf", id, &de);
@@ -271,11 +275,10 @@ void readArrayTab(char *filename){
     */
     FILE *ifp = NULL;
     size_t nbytes = 255;
-    size_t bytes_read = 1;
-    char *line = (char *) daemalloc((nbytes + 1));
+    char *line = (char *) de_malloc((nbytes + 1));
     extern int debug_flag;
     extern int verbose_flag;
-    char *id = (char *) daemalloc(MAX_ID_LENGTH + 1);
+    char *id = (char *) de_malloc(MAX_ID_LENGTH + 1);
     allGene *g;
     int nArgs,i;
     ifp = fopen(filename, "r");
@@ -284,8 +287,7 @@ void readArrayTab(char *filename){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
     }
-    while(bytes_read > 0){
-        bytes_read = de_getline(&line, &nbytes, ifp);
+    while(de_getline(&line, &nbytes, ifp) != -1){
         nArgs = sscanf(line, "%d\t%s", &i, id);
         // fprintf(stdout, "%s\n",id);
         g = findAllGene(id);
@@ -314,30 +316,26 @@ int readOldPathway(char *filename){
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
     size_t nbytes = 512;
-    size_t bytes_read = 1;
     char *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
-    char *line = (char *) daemalloc((nbytes + 1));
+    char *line = (char *) de_malloc((nbytes + 1));
 
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    ups = (char *) daemalloc(nbytes + 1);
-    downs = (char *) daemalloc(nbytes + 1);
-    pathname = (char *) daemalloc(nbytes + 1);
-    relType = (char *) daemalloc(nbytes + 1);
-    relName = (char *) daemalloc(nbytes + 1);
-    relSymb = (char *) daemalloc(nbytes + 1);
-    descrip = (char *) daemalloc(nbytes + 1);
+    ups = (char *) de_malloc(nbytes + 1);
+    downs = (char *) de_malloc(nbytes + 1);
+    pathname = (char *) de_malloc(nbytes + 1);
+    relType = (char *) de_malloc(nbytes + 1);
+    relName = (char *) de_malloc(nbytes + 1);
+    relSymb = (char *) de_malloc(nbytes + 1);
+    descrip = (char *) de_malloc(nbytes + 1);
     ifp = fopen(filename, "r");
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
     }
     verbose("READING `%s'\n", filename);
-    while(bytes_read > 0){
-        bytes_read = de_getline(&line, &nbytes, ifp);
-        if(bytes_read <= 0)
-            continue;
+    while(de_getline(&line, &nbytes, ifp) != -1){
         nArgs = sscanf(line, "hsa:%s hsa:%s %s %s %s path:%s %s", ups, downs, relType, 
                        relName, relSymb, pathname, descrip);
         g = findGenePath(ups);
@@ -380,26 +378,22 @@ int readNewPathway(char *filename){
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
     size_t nbytes = 200;
-    size_t bytes_read = 1;
     char *itemA, *itemB, *interact;
-    char *line = (char *) daemalloc((nbytes + 1));
+    char *line = (char *) de_malloc((nbytes + 1));
     upstreamGene *g;
     relationType enumRelType;
     int nArgs;
-    line = (char *) daemalloc(nbytes + 1);
-    itemA = (char *) daemalloc(nbytes + 1);
-    itemB = (char *) daemalloc(nbytes + 1);
-    interact = (char *) daemalloc(nbytes + 1);
+    line = (char *) de_malloc(nbytes + 1);
+    itemA = (char *) de_malloc(nbytes + 1);
+    itemB = (char *) de_malloc(nbytes + 1);
+    interact = (char *) de_malloc(nbytes + 1);
     ifp = fopen(filename, "r");
     verbose("Reading new pathway format file `%s'\n", filename);
     if(ifp == NULL){
         fprintf(stderr, "ERROR, unable to open `%s', is path correct?\n", filename);
         exit(1);
     }
-    while(bytes_read > 0){
-        bytes_read = de_getline(&line, &nbytes, ifp);
-        if(bytes_read <= 0)
-            continue;
+    while(de_getline(&line, &nbytes, ifp) != -1){
         nArgs = sscanf(line, "%s\t%s\t%s", itemA, itemB, interact);
         g = findGenePath(itemA);
         if(isRelationship(interact, &enumRelType) && (nArgs == 3)){
@@ -433,12 +427,11 @@ void readBetaCoeffFile(char *filename){
     extern double betaCoefs[];
     FILE *ifp = NULL;
     size_t nbytes = 200;
-    size_t bytes_read = 1;
-    char *line = (char *) daemalloc((nbytes + 1) * sizeof(char));
+    char *line = (char *) de_malloc((nbytes + 1) * sizeof(char));
     char *relName;
     relationType enumRelType;
     int nArgs;
-    relName  = (char *) daemalloc(nbytes + 1);
+    relName  = (char *) de_malloc(nbytes + 1);
     double beta;
   
     ifp = fopen(filename, "r");
@@ -448,10 +441,7 @@ void readBetaCoeffFile(char *filename){
         exit(1);
     }
     // printBetaCoeffs();
-    while(bytes_read > 0){
-        bytes_read = de_getline(&line, &nbytes, ifp);
-        if(bytes_read <= 0)
-            continue;
+    while(de_getline(&line, &nbytes, ifp) != -1){
         nArgs = sscanf(line, "%s\t%lf", relName, &beta);
         // printf("I see %s, %lf")
         if(isRelationship(relName, &enumRelType) && (nArgs == 2)){

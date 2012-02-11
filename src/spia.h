@@ -1,3 +1,6 @@
+#ifndef SPIA_H_
+#define SPIA_H_
+
 #include <uthash.h>    /* hashes! */
 #include <stdlib.h>
 
@@ -109,7 +112,7 @@ void printIsectList(void);
 void deleteIntersect(void);
 void printBetaCoeffs(void);
 void cleanup(void);
-void* daemalloc(size_t n);
+void* de_malloc(size_t n);
 void verbose(char const *s, ...);
 void debug(char const *s, ...);
 void message(char const *t, char const *s, ...);
@@ -205,3 +208,5 @@ void rev_sort_by_pValue(void);
 void printPValues(void);
 void bonferrPGlobal(void);
 void fdrPGlobal(void);
+
+#endif // SPIA_H_

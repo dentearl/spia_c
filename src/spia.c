@@ -171,7 +171,7 @@ int main(int argc, char *argv[]){
     exit(0);
 }
 
-void* daemalloc(size_t n)
+void* de_malloc(size_t n)
 {
     void *i;
     i = malloc(n);
