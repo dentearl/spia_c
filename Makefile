@@ -20,51 +20,51 @@ ${binPath}/spia: ${srcPath}/spia.c ${srcPath}/spia.h ${srcPath}/fileHandling.o $
 	${CC} ${CFLAGS} -o $@.tmp $^ -I external/uthash-1.5/src/ -I77 -llapack -lblas
 	mv $@.tmp $@
 
-${srcPath}/%.o: ${srcPath}/%.c
+${srcPath}/%.o: ${srcPath}/%.c ${srcPath}/spia.h
 	${CC} ${CFLAGS} -c -o $@.tmp $< -I external/uthash-1.5/src/
 	mv $@.tmp $@
 
 ##############################
 # system tests
-test: test/testOut/small.txt test/testOut/testBasic.txt test/testOut/testACGT.txt test/testOut/testSPath.txt test/testOut/testBeta.txt test/testOut/testD.txt 
+test: test/out/small.txt test/out/testBasic.txt test/out/testACGT.txt test/out/testSPath.txt test/out/testBeta.txt test/out/testD.txt 
 
-test/testOut/small.txt: ${binPath}/spia
+test/out/small.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
 	${binPath}/spia --pathFiles test/altTest/paths/ --de test/altTest/de.txt --nBoots 1000 \
 		--array test/altTest/all.txt --verbose 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testOut/testBasic.txt: ${binPath}/spia
+test/out/testBasic.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
-	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
-		--nBoots 2000 --array test/testData/ALL_Colorectal.tab 2&> $@.tmp
+	${binPath}/spia --dir test/pathways/ --de test/data/DE_Colorectal.tab \
+		--nBoots 2000 --array test/data/ALL_Colorectal.tab 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testOut/testACGT.txt: ${binPath}/spia
+test/out/testACGT.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
 	${binPath}/spia --pathFiles test/GBM/pathways/ --de test/GBM/sampleDE.txt \
 		--nBoots 2000 --array test/GBM/allDE.txt 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testOut/testSPath.txt: ${binPath}/spia
+test/out/testSPath.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
-	${binPath}/spia --pathFiles test/alternateFormatPathways/ --de test/testData/DE_Colorectal.tab \
-		--nBoots 2000 --array test/testData/ALL_Colorectal.tab 2&> $@.tmp
+	${binPath}/spia --pathFiles test/alternateFormatPathways/ --de test/data/DE_Colorectal.tab \
+		--nBoots 2000 --array test/data/ALL_Colorectal.tab 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testOut/testBeta.txt: ${binPath}/spia
+test/out/testBeta.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
-	${binPath}/spia --betaCoFile test/testData/beta.txt --dir test/testPathways/ \
-		--de test/testData/DE_Colorectal.tab --nBoots 2000 \
-		--array test/testData/ALL_Colorectal.tab --verbose 2&> $@.tmp
+	${binPath}/spia --betaCoFile test/data/beta.txt --dir test/pathways/ \
+		--de test/data/DE_Colorectal.tab --nBoots 2000 \
+		--array test/data/ALL_Colorectal.tab --verbose 2&> $@.tmp
 	mv $@.tmp $@
 
-test/testOut/testD.txt: ${binPath}/spia
+test/out/testD.txt: ${binPath}/spia
 	mkdir -p $(dir $@)
-	${binPath}/spia --dir test/testPathways/ --de test/testData/DE_Colorectal.tab \
-		--nBoots 2000 --array test/testData/ALL_Colorectal.tab --debug --verbose 2&> $@.tmp
+	${binPath}/spia --dir test/pathways/ --de test/data/DE_Colorectal.tab \
+		--nBoots 2000 --array test/data/ALL_Colorectal.tab --debug --verbose 2&> $@.tmp
 	mv $@.tmp $@
 
 ##############################
 clean:
-	rm -rf ${srcPath}/*.o ${binPath} test/*.txt
+	rm -rf ${srcPath}/*.o ${binPath} test/out/

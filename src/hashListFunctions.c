@@ -51,30 +51,29 @@ upstreamGene* findGenePath(char *geneID){
 }
 
 void addGenePathAll(char *geneID){
+    // add geneID into the all_pathway_ids array
     extern allGene *pathway_all;
     extern char *all_pathway_ids[];
-    int i = 0;
+    int n = 0;
     allGene *g = NULL;
-    allGene *f = NULL;
-    f = findGenePathAll(geneID);
-    if(f != NULL)
+    g = findGenePathAll(geneID);
+    if(g != NULL)
         return;
     g = de_malloc(sizeof(allGene));
     strcpy(g->id, geneID);
     HASH_ADD_STR(pathway_all, id, g);
-    while(all_pathway_ids[i] != NULL)
-        ++i;
-    all_pathway_ids[i] = calloc(MAX_ID_LENGTH + 1, sizeof(char));
-    strcpy(all_pathway_ids[i], geneID);
-    //  fprintf(stderr,"adding %s @%d.\n",all_pathway_ids[i],i);
-  
+    n = HASH_COUNT(pathway_all) - 1;
+    all_pathway_ids[n] = (char*) de_malloc(MAX_ID_LENGTH);
+    strcpy(all_pathway_ids[n], g->id);
 }
+
 allGene* findGenePathAll(char *geneID){
     extern allGene *pathway_all;
     allGene *g = NULL;
     HASH_FIND_STR(pathway_all, geneID, g);
     return g;
 }
+
 void printPathwayAll(void){
     extern allGene *pathway_all;
     allGene *current;
@@ -316,57 +315,6 @@ int countIntersect_de_path(void){
     return n;
 }
 
-/* void addItemToIntersect(char *id, int orgOrd, int newOrd){ */
-/*   extern isectList *isect; */
-/*   isectList *head = isect; */
-/*   isectList *ilist = isect; */
-/*   isectList *new = isect; */
-/*   int cnt=0; */
-/*   new = (isectList *) malloc(sizeof(isectList)); */
-/*   assert(new != NULL); */
-/*   strcpy(new->id , id); */
-/*   new->origOrder = orgOrd; */
-/*   new->newOrder  = newOrd; */
-/*   new->next = NULL; */
-/*   if(head == NULL){ */
-/* 	head = new; */
-/*   }else{ */
-/* 	for( ; ilist->next != NULL; ilist = ilist->next){ */
-/* 	  ++cnt; */
-/* 	} */
-/* 	ilist->next = new; */
-/*   } */
-/* } */
-/* void deleteIntersect(void){ */
-/*   printIsectList(); */
-/*   fprintf(stderr,"free intersect -- "); */
-/*   extern isectList *isect; */
-/*   if(isect == NULL) */
-/* 	return; */
-/*   isectList *cur = isect; */
-/*   isectList *nxt = cur->next; */
-/*   while(nxt!= NULL){ */
-/* 	fprintf(stderr,"."); */
-/* 	free(cur); */
-/* 	cur = nxt; */
-/* 	nxt = nxt->next; */
-/*   } */
-/*   free(cur); */
-/*   fprintf(stderr," success\n"); */
-/* } */
-
-/* void printIsectList(void){ */
-/*   extern isectList *isect; */
-/*   isectList *cur; */
-/*   cur = isect; */
-/*   fprintf(stderr,"\npreparing to print interesect list:\n"); */
-/*   while(cur != NULL){ */
-/* 	fprintf(stderr,"[%d %d] %s\n", cur-> newOrder, cur->origOrder, cur->id); */
-/* 	cur = cur->next; */
-/*   } */
-/* } */
-
-
 int addAllGeneEntry(char *geneID){
     /* front add  */
     extern allGene *allGenesTested;
@@ -409,17 +357,24 @@ void deleteAllBootGenes(void){
 void populateBootGenes(int n){
     extern diffE *bootGenes;
     diffE *d = NULL;
-    int i=0;
-    char **gene;
-    while(i <n){
+    int i = 0;
+    char *randGene = (char*) de_malloc(MAX_ID_LENGTH);
+    while(i < n){
         d = NULL;
-        gene = randomPathwayGene(); // pick a random pathway gene
-        d = findBootGene(*gene);
+        randomPathwayGene(randGene); // pick a random pathway gene
+        d = findBootGene(randGene); // see if that gene is already pulled
         if (d == NULL){
-            addBootGene(*gene);
+            addBootGene(randGene); // add it
             ++i;
         }
     }
+}
+
+diffE* findBootGene(char *geneID){
+    extern diffE *bootGenes;
+    diffE *d = NULL;
+    HASH_FIND_STR(bootGenes, geneID, d);
+    return d;
 }
 
 int addBootGene(char *geneID){
@@ -433,13 +388,6 @@ int addBootGene(char *geneID){
     return 0;
 }
 
-diffE* findBootGene(char *geneID){
-    extern diffE *bootGenes;
-    diffE *d = NULL;
-    HASH_FIND_STR(bootGenes, geneID, d);
-    return d;
-}
-
 double randomDEvalue(void){
     extern diffE *diffGeneExp;
     extern double *all_de_values;
@@ -450,16 +398,18 @@ double randomDEvalue(void){
     return all_de_values[i];
 }
 
-char** randomPathwayGene(void){
-    // returns a random char* with the gene ID for one
-    // gene in the pathway.
+void randomPathwayGene(char* randGene){
+    // selects a gene from all_pathway_ids
+    // at random and stores it in randGene
     extern char *all_pathway_ids[];
     extern allGene *pathway_all;
     int n = HASH_COUNT(pathway_all);
     assert(n != 0);
-    int i = rand()%n;
+    int i = rand() % n;
+    assert(i < n);
     //  fprintf(stderr,"%s\n", all_pathway_ids[i]);
-    return &all_pathway_ids[i];
+    strcpy(randGene, all_pathway_ids[i]);
+    // return &all_pathway_ids[i];
 }
 void deleteAllPathAll(void){
     extern allGene *pathway_all;
@@ -539,12 +489,12 @@ int addPGlobal(double p, char *c, int pathSize, int Nde, double t, double pPERT,
     strcpy(pGlob->path, c);
     pGlob->p = p;
     pGlob->bonf = -1;
-    pGlob->fdr  = -1;
+    pGlob->fdr = -1;
     pGlob->pathSize = pathSize;
-    pGlob->tAc  = t;
+    pGlob->tAc = t;
     pGlob->pPERT = pPERT;
-    pGlob->pNDE  = pNDE;
-    pGlob->NDE   = Nde;
+    pGlob->pNDE = pNDE;
+    pGlob->NDE = Nde;
     HASH_ADD_STR(pGlist, path, pGlob);
     return 0;
 }
@@ -582,7 +532,7 @@ void fdrPGlobal(void){
     rev_sort_by_pValue();
     cur = pGlist;
     double cummin = 1.0;
-    printf("\n");
+    // printf("\n");
     for(i = n;i > 0; --i){
         //	printf("(%d / %d) * %e = %e < %e ...\n ", n, i, cur->p, (n/(double)i)*cur->p, cummin);
         if(((n/(double)i) * cur->p) < cummin){
@@ -601,7 +551,8 @@ void printPValues(void){
     cur = pGlist;
     printf("Path\tpSize\tNDE\ttAc\tpNDE\tpPERT\tpGlobal\tpG-Bonferroni\tFDR\n");
     while(cur != NULL){
-        printf("%s\t%d\t%d\t%e\t%e\t%e\t%e",cur->path, cur->pathSize, cur->NDE, cur->tAc, cur->pNDE, cur->pPERT ,cur->p);
+        printf("%s\t%d\t%d\t%e\t%e\t%e\t%e", cur->path, cur->pathSize, 
+               cur->NDE, cur->tAc, cur->pNDE, cur->pPERT, cur->p);
         if(cur->bonf > -1)
             printf("\t%e",cur->bonf);
         if(cur->fdr > -1)

@@ -4,9 +4,9 @@
 #include <uthash.h>    /* hashes! */
 #include <stdlib.h>
 
-#define MAX_PATH_LENGTH 512 /* file system path names  */
-#define MAX_ID_LENGTH 100   /* maximum gene name (id) length */
-#define MAX_PATHWAY 1000    /* largest pathway in terms of unique genes*/
+#define MAX_PATH_LENGTH (1<<9)  /* file system path names  */
+#define MAX_ID_LENGTH (1<<14)   /* maximum gene name (id) length */
+#define MAX_PATHWAY (1<<14)  /* largest pathway in terms of unique genes*/
 #define NUM_REL 28 /* the number of relationships possible. length of 
                       enum relationType.
                    */
@@ -155,7 +155,7 @@ void printBootGenes(void);
 int addBootGene(char *id); //
 diffE* findBootGene(char *geneID);
 double randomDEvalue(void);
-char** randomPathwayGene(void);
+void randomPathwayGene(char *);
 double calcBootPerterb(void);
 void fillBootDEVec(double *vecNew, int n);
 double pPERTcalc(double a, double *b, int n, int opt);
@@ -168,6 +168,7 @@ void printAllGene(void);
 /* Linear Algebra functions */
 double** buildBeta(relationType rel);
 double** zeros(int n);
+void destroyMatrix(double **m);
 double* zerosVec(int n);
 void printMatrix(double **a, int n);
 /*void prettyPrintMatrix(double **a, int n);*/ /* unused, I'm going to remove this soon  */
