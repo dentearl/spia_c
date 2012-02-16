@@ -113,6 +113,13 @@ void gatherOptions(int argc, char **argv, char **oldPathFormatDir, char **de,
                     break;
                 case 'd':
                     *oldPathFormatDir = optarg;
+                    if (oldPathFormatDir[0][strlen(*oldPathFormatDir) - 1] != '/') {
+                        char *tmp = (char*) de_malloc(strlen(*oldPathFormatDir) + 2);
+                        strcpy(tmp, *oldPathFormatDir);
+                        tmp[strlen(tmp)] = '/';
+                        tmp[strlen(tmp)] = '\0';
+                        *oldPathFormatDir = tmp;
+                    }
                     break;
                 case 'e':
                     *de = optarg;
@@ -128,6 +135,13 @@ void gatherOptions(int argc, char **argv, char **oldPathFormatDir, char **de,
                     break;
                 case 'p':
                     *newPathFormatDir = optarg;
+                    if (newPathFormatDir[0][strlen(*newPathFormatDir) - 1] != '/') {
+                        char *tmp = (char*) de_malloc(strlen(*newPathFormatDir) + 2);
+                        strcpy(tmp, *newPathFormatDir);
+                        tmp[strlen(tmp)] = '/';
+                        tmp[strlen(tmp)] = '\0';
+                        *newPathFormatDir = tmp;
+                    }
                     break;
                 case 'v':
                     verbose_flag++;
