@@ -108,6 +108,7 @@ int main(int argc, char *argv[]) {
             continue;
         }
         status = 0;
+        printf("\n####################\nPathway: %s\n", tmpPath);
         tA = processPathway(&status);
         verbose("Pathway processed.\n");
         if (status != 0) {
