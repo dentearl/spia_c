@@ -4,7 +4,7 @@
 #include <uthash.h>    /* hashes! */
 #include <stdlib.h>
 
-#define MAX_PATH_LENGTH (1<<9)  /* file system path names  */
+#define MAX_PATH_LENGTH (1<<12)  /* file system path names  */
 #define MAX_ID_LENGTH (1<<14)   /* maximum gene name (id) length */
 #define MAX_PATHWAY (1<<14)  /* largest pathway in terms of unique genes*/
 #define NUM_REL 28 /* the number of relationships possible. length of 

@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     int leng = 0;
     char fullPath[MAX_PATH_LENGTH];
     char tmpPath[MAX_PATH_LENGTH];
-    struct stat buff;
+    struct stat buffer;
     strcpy(fullPath, dirName);
     if ((dip = opendir(dirName)) == NULL) {
         fprintf(stderr, "Error while openning directory `%s'!\n", dirName);
@@ -88,9 +88,9 @@ int main(int argc, char *argv[]) {
         strcpy(tmpPath, fullPath);
         strcat(tmpPath, dit->d_name);
         leng = strlen(dit->d_name);
-        stat(tmpPath, &buff);
+        stat(tmpPath, &buffer);
         cleanup();
-        if (!S_ISREG(buff.st_mode)) {       // Is it a regular file?
+        if (!S_ISREG(buffer.st_mode)) {       // Is it a regular file?
             continue; // if not, bail on this file
         }
         if (!endsIn_tab(tmpPath)) {
