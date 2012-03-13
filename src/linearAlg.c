@@ -420,8 +420,10 @@ void copyMatrix(double **a, double **b, int n) {
     }
 }
 
-void solveForPF(double *a, double *b, double *c, int n) {
+void solveForPF(double *deVec, double *netAcc, double *pertFact, int n) {
+    // solves for perturbation factors based on 
+    // Acc(g_i) = PF(g_i) - deltaExpression(g_i)
     int i;
     for (i = 0; i < n; ++i)
-        c[i] = b[i] + a[i];
+        pertFact[i] = netAcc[i] + deVec[i];
 }
