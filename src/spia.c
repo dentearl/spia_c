@@ -32,6 +32,11 @@
 #include <time.h>
 #include "spia.h"
 
+const int kMaxLineLength = 1 << 11; // strings, parsing stuff
+const int kMaxPathLength = 1 << 12; // file system path names
+const int kMaxIDLength = 1 << 14;   // maximum gene name (id) length
+const int kNumberOfRelationships = 28; // the number of relationships possible. length of enum "relationType"
+
 int debug_flag;
 int verbose_flag;
 int showNetAcc_flag = 1;
@@ -40,12 +45,12 @@ int nBoots = 0;
 
 int main(int argc, char *argv[]) {
     extern double probNDE;
-    char *oldFormatDir = (char *) de_malloc(MAX_PATH_LENGTH); 
-    char *newPathFormatDir = (char*) de_malloc(MAX_PATH_LENGTH); /* alternate pathway input mode*/
-    char *dirName = (char *) de_malloc(MAX_PATH_LENGTH);
-    char *deName = (char *) de_malloc(MAX_PATH_LENGTH); /* differential expression, file  */
-    char *arrName = (char *) de_malloc(MAX_PATH_LENGTH); /* list of all genes tested, file */
-    char *betaCoeffFile = (char *) de_malloc(MAX_PATH_LENGTH); /* user specified beta coefficients */
+    char *oldFormatDir = (char *) de_malloc(kMaxPathLength); 
+    char *newPathFormatDir = (char*) de_malloc(kMaxPathLength); /* alternate pathway input mode*/
+    char *dirName = (char *) de_malloc(kMaxPathLength);
+    char *deName = (char *) de_malloc(kMaxPathLength); /* differential expression, file  */
+    char *arrName = (char *) de_malloc(kMaxPathLength); /* list of all genes tested, file */
+    char *betaCoeffFile = (char *) de_malloc(kMaxPathLength); /* user specified beta coefficients */
     srand(time(NULL));
     gatherOptions(argc, argv, &oldFormatDir, &deName, &arrName, &newPathFormatDir, &betaCoeffFile);
     if (betaCoeffFile[0] != '\0') {
@@ -69,8 +74,8 @@ int main(int argc, char *argv[]) {
     }
     int i = 0;
     int leng = 0;
-    char fullPath[MAX_PATH_LENGTH];
-    char tmpPath[MAX_PATH_LENGTH];
+    char fullPath[kMaxPathLength];
+    char tmpPath[kMaxPathLength];
     struct stat buffer;
     strcpy(fullPath, dirName);
     if ((dip = opendir(dirName)) == NULL) {

@@ -126,7 +126,7 @@ void printBetaCoeffs(void) {
     extern double betaCoefs[];
     int i;
     //  char *tmp;
-    for (i=0; i < NUM_REL; ++i)
+    for (i=0; i < kNumberOfRelationships; ++i)
         printf("%s\t%lf\n",relationTypeStr[i], betaCoefs[i]);
 }
 

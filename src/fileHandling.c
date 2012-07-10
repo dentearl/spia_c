@@ -64,7 +64,7 @@ char *relationTypeStr[48] = {"activation", "compound", "binding_association", "e
                              "process_activation", "process_inhibition"};
 
 double *all_de_values = NULL; /* to make boot straps faster when grabbing random de values*/
-char *all_pathway_ids[MAX_PATHWAY]; /* to make boot straps faster when grabbing random pathway genes*/
+char *all_pathway_ids[MAX_PATHWAY_SIZE]; /* to make boot straps faster when grabbing random pathway genes*/
 double **beta2 = NULL;
 double probNDE = -1.0;
 pGlobal *pGlist = NULL; /* our hash to store all the global p values for all pathways tested*/ 
@@ -237,7 +237,7 @@ void readDETab(char *filename) {
        read out the good bits, and then stuff them in a hash.*/
     debug("readDETab\n");
     FILE *ifp = NULL;
-    size_t nbytes = 512;
+    size_t nbytes = kMaxLineLength;
     char *line = (char *) de_malloc(nbytes);
 
     extern double *all_de_values;
@@ -291,7 +291,7 @@ void readArrayTab(char *filename) {
        reads in the array file.
     */
     FILE *ifp = NULL;
-    size_t nbytes = 1024;
+    size_t nbytes = kMaxLineLength;
     char *line = (char *) de_malloc((nbytes));
     extern int debug_flag;
     extern int verbose_flag;
@@ -344,7 +344,7 @@ int readOldPathway(char *filename) {
     extern int nBoots;
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
-    size_t nbytes = 1024;
+    size_t nbytes = kMaxLineLength;
     char *line, *ups, *downs, *pathname, *relType, *relName, *relSymb, *descrip;
     upstreamGene *g;
     relationType enumRelType;
@@ -417,7 +417,7 @@ int readNewPathway(char *filename) {
     extern int nBoots;
     extern geneItem *geneOrder;
     FILE *ifp = NULL;
-    size_t nbytes = 200;
+    size_t nbytes = kMaxLineLength;
     char *itemA, *itemB, *interact;
     char *line = (char *) de_malloc((nbytes + 1));
     upstreamGene *g;
@@ -466,7 +466,7 @@ void readBetaCoeffFile(char *filename) {
     // extern char *relationTypeStr[];
     extern double betaCoefs[];
     FILE *ifp = NULL;
-    size_t nbytes = 200;
+    size_t nbytes = kMaxLineLength;
     char *line = (char *) de_malloc((nbytes + 1) * sizeof(char));
     char *relName;
     relationType enumRelType;
@@ -536,7 +536,7 @@ double processPathway(int *status) {
     beta = zeros(szMat);
     double **tmp = NULL;
     int i;
-    for (i = 0; i < NUM_REL; ++i) {
+    for (i = 0; i < kNumberOfRelationships; ++i) {
         tmp = buildBeta((relationType) i);
         colNorm(tmp, szMat);
         matScalMult(tmp, szMat, betaCoefs[i]);

@@ -8,20 +8,21 @@ export SHELLOPTS=pipefail
 binPath = ./bin
 srcPath = ./src
 
-CC = gcc 
-CFLAGS = -Wall -Werror -std=c99 -pedantic -g
+CC = gcc
+CFLAGS = -Wall -Werror -std=c99 -pedantic -g -O0 -funroll-loops
+objects = $(foreach f, fileHandling hashListFunctions linearAlg probFunctions, ${srcPath}/$f.o)
 
 .PHONY: all clean test
 
 all: ${binPath}/spia
 
-${binPath}/spia: ${srcPath}/spia.c ${srcPath}/spia.h ${srcPath}/fileHandling.o ${srcPath}/hashListFunctions.o ${srcPath}/linearAlg.o ${srcPath}/probFunctions.o
+${binPath}/spia: ${srcPath}/spia.c ${srcPath}/spia.h ${objects}
 	mkdir -p $(dir $@)
-	${CC} ${CFLAGS} -o $@.tmp $^ -I external/uthash-1.5/src/ -I77 -llapack -lblas
+	${CC} -o $@.tmp $< ${objects} -I external/uthash-1.5/src/ -I77 -llapack -lblas ${CFLAGS} 
 	mv $@.tmp $@
 
 ${srcPath}/%.o: ${srcPath}/%.c ${srcPath}/spia.h
-	${CC} ${CFLAGS} -c -o $@.tmp $< -I external/uthash-1.5/src/
+	${CC} -c -o $@.tmp $< -I external/uthash-1.5/src/ ${CFLAGS}
 	mv $@.tmp $@
 
 ##############################

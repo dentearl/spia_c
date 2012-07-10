@@ -4,13 +4,6 @@
 #include <uthash.h>    /* hashes! */
 #include <stdlib.h>
 
-#define MAX_PATH_LENGTH (1<<12)  /* file system path names  */
-#define MAX_ID_LENGTH (1<<14)   /* maximum gene name (id) length */
-#define MAX_PATHWAY (1<<14)  /* largest pathway in terms of unique genes*/
-#define NUM_REL 28 /* the number of relationships possible. length of 
-                      enum relationType.
-                   */
-#define TRUE 1
 /* 
    techincal note here, the actual binding/association relationships use `/'
    in their names, but c complains when we do this, so we have substituted
@@ -28,6 +21,13 @@ enum relationType {activation, compound, binding_association, expression,
                    process_activation, process_inhibition};
 typedef enum relationType relationType;
 
+#define MAX_ID_LENGTH (1<<14)    // longest permitted gene id 
+#define MAX_PATHWAY_SIZE (1<<14) // largest pathway in terms of number of unique genes
+
+const int kMaxLineLength;
+const int kMaxPathLength;         // file system path names
+const int kMaxPathway;            // largest pathway in terms of number of unique genes
+const int kNumberOfRelationships; // the number of relationships possible. length of enum "relationType"
 
 /* STEVE BENZ SAYS:
   Yea I can give you some coefficients:

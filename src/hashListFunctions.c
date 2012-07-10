@@ -63,7 +63,7 @@ void addGenePathAll(char *geneID){
     strcpy(g->id, geneID);
     HASH_ADD_STR(pathway_all, id, g);
     n = HASH_COUNT(pathway_all) - 1;
-    all_pathway_ids[n] = (char*) de_malloc(MAX_ID_LENGTH);
+    all_pathway_ids[n] = (char*) de_malloc(MAX_ID_LENGTH + 1);
     strcpy(all_pathway_ids[n], g->id);
 }
 
@@ -358,7 +358,7 @@ void populateBootGenes(int n){
     extern diffE *bootGenes;
     diffE *d = NULL;
     int i = 0;
-    char *randGene = (char*) de_malloc(MAX_ID_LENGTH);
+    char *randGene = (char*) de_malloc(MAX_ID_LENGTH + 1);
     while(i < n){
         d = NULL;
         randomPathwayGene(randGene); // pick a random pathway gene
